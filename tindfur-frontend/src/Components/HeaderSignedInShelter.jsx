@@ -14,7 +14,7 @@ function HeaderSignedInShelter() {
         <Link to="/dashboard">Home</Link>
         </h1>
         <Link to="/" onClick={handleLogout}>Log Out</Link>
-        <h2>Hello Name Shelter</h2>
+        <h2>Hello Name</h2>
 
       </header>
   );
