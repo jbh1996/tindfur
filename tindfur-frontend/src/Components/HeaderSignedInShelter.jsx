@@ -3,12 +3,18 @@ import {Link}   from 'react-router-dom';
 
 
 function HeaderSignedInShelter() {
+  
+  const handleLogout = () => {
+    localStorage.clear()
+  }
+
   return (
       <header>
         <h1>
-        <Link to="/shelter-dashboard">Home</Link>
+        <Link to="/dashboard">Home</Link>
         </h1>
-        <Link to="/">Log Out</Link>
+        <Link to="/" onClick={handleLogout}>Log Out</Link>
+        <h2>Hello Name Shelter</h2>
 
       </header>
   );

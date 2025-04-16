@@ -3,13 +3,17 @@ import {Link}   from 'react-router-dom';
 
 
 function HeaderSignedInUser() {
+  const handleLogout = () => {
+    localStorage.clear()
+  }
+
   return (
       <header>
         <h1>
-        <Link to="/user-dashboard">Home</Link>
+        <Link to="/dashboard">Home</Link>
         </h1>
-        <Link to="/">Log Out</Link>
-
+        <Link to="/" onClick={handleLogout}>Log Out</Link>
+        <h2>Hello Name User</h2>
       </header>
   );
 }
