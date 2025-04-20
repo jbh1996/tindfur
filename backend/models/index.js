@@ -1,9 +1,3 @@
-const { User } = require('./Users');
-const { Shelter } = require('./shelter');
-const { Pet } = require('./pets');
-
-module.exports = { User, Shelter, Pet };
-
 const mongoose = require('mongoose');
 require('dotenv').config()
 
