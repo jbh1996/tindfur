@@ -4,11 +4,12 @@ import { redirect, useNavigate } from 'react-router-dom';
 import UserDashboard from './UserDashboard';
 import Home from './Home';
 import ShelterDashboard from './ShelterDashboard';
+import userAuth from '../Hooks/UserAuth';
 
-function Dashboard(isLoggedIn, isShelter) {
 
-    const usertype = localStorage.getItem("user_type");
-    const isShelterProfile = (usertype === "shelter")
+function Dashboard() {
+
+  const {isLoggedIn, isShelter} = userAuth()
 
 
   return (
@@ -16,8 +17,8 @@ function Dashboard(isLoggedIn, isShelter) {
           <main>
     {
         isShelter ? (
-            <ShelterDashboard isLoggedIn={isLoggedIn} isShelter={isShelterProfile}/>
-        ) : (<UserDashboard isLoggedIn={isLoggedIn} isShelter={isShelterProfile}/>)
+            <ShelterDashboard isLoggedIn={isLoggedIn} isShelter={isShelter}/>
+        ) : (<UserDashboard isLoggedIn={isLoggedIn} isShelter={isShelter}/>)
     }
       </main>
 

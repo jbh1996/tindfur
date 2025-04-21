@@ -17,7 +17,6 @@ function NavbarSignedInUser() {
         <li><Link to="/view-messages">View Messages</Link></li>
         <li><Link to="/edit-profile">Edit Profile</Link></li>
         <li><NavLink to="/" className='login' onClick={handleLogout}>Log Out</NavLink></li>
-        <li className='greet'>Hello Name</li>
         
       </ul>
 
