@@ -1,0 +1,22 @@
+.WelcomeText {
+    
+    padding: 2rem;
+    max-width: 700px;
+    max-height: 250px;
+    margin: 2rem;
+    display: flex;
+
+    flex-direction: column;
+}
+
+.WelcomeText h1 {
+    margin: 0;
+    font-family: 'DM Serif Display', sans-serif;
+    letter-spacing: 1px;
+    font-size: 40px;
+}
+
+.WelcomeText p {
+    font-size: large;
+    font-weight: 400;
+}

@@ -1,17 +1,17 @@
-import HeaderSignedOut from './HeaderSignedOut';
-import HeaderSignedInShelter from './HeaderSignedInShelter';
-import HeaderSignedInUser from './HeaderSignedInUser';
-import './HeaderSignedOut.css';
+import NavbarSignedOut from './NavbarSignedOut';
+import NavbarSignedInShelter from './NavbarSignedInShelter';
+import NavbarSignedInUser from './NavbarSignedInUser';
+import './Navbar.css';
 
 
 function Header({isLoggedIn, isShelter}) {
   return (
         <>
         {isLoggedIn ? ( isShelter ? (
-            <HeaderSignedInShelter/>) :
-            (<HeaderSignedInUser/>)
+            <NavbarSignedInShelter/>) :
+            (<NavbarSignedInUser/>)
         ) : (
-            <HeaderSignedOut/>
+            <NavbarSignedOut/>
         )}
         </>
   );
