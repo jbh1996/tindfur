@@ -1,0 +1,9 @@
+.Welcome {
+    background: #F8C5EA;
+    background: linear-gradient(134deg, rgba(248, 197, 234, 0.85) 0%, rgba(247, 237, 146, 0.82) 100%);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

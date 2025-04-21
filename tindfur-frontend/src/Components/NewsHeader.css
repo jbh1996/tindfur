@@ -1,0 +1,20 @@
+.NewsHeader{
+    display: flex;
+    flex-direction: column;
+    justify-self: left;
+    padding-left: 3rem;
+    text-align: left;
+    
+}
+
+.NewsHeader h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--primary);
+}
+.NewsHeader p {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+

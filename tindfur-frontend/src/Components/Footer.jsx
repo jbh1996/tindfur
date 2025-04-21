@@ -2,8 +2,8 @@ import './Footer.css';
 
 function Footer() {
   return (
-      <footer>
-        Tindfur Copyright 2025
+      <footer className='Footer'>
+        &copy;Tindfur 2025
       </footer>
   );
 }

@@ -1,0 +1,38 @@
+.HomeButtons {
+    margin-bottom: 2rem;
+}
+
+.HomeButtons .logInButton {
+    color: var(--primary);
+    text-decoration: none;
+    padding: .3rem 1.5rem;
+    margin: 1rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+}
+
+
+.HomeButtons .signUpButton {
+    color: white;
+    background-color: var(--primary);
+    text-decoration: none;
+    padding: .3rem 1.5rem;
+    margin: 1rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+}
+
+.HomeButtons .signUpButton:hover {
+    background-color: var(--bright);
+    border: 2px solid var(--bright);
+}
+
+.HomeButtons .logInButton:hover {
+    color: var(--bright);
+    border: 2px solid var(--bright);
+}
+

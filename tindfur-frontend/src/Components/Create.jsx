@@ -1,9 +1,9 @@
-import './Login.css';
+import './Create.css';
 import Footer from './Footer';
 import Header from './Header';
 import { useState } from 'react';
 
-function Create({isLoggedIn, isShelter}) {
+function Create({ isLoggedIn, isShelter }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -49,44 +49,43 @@ function Create({isLoggedIn, isShelter}) {
 
 
   // (PG) Added value={role}, onChange to set role, option value - Choose Account Type
+  
   return (
-        <div className="App">
-          <Header isLoggedIn={isLoggedIn} isShelter={isShelter}/>
+    <div className="App">
+      <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
+
       <main>
-      <h2>Create Account</h2>
-        <form onSubmit={createAttempt}>
-        <label for="profile-type">Are you a shelter or an adopter:</label>
-        <select id="profile-type" 
-        name="profile-type"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-        >
-        <option value="">Choose Account Type</option>
-        <option value="user">Adopter</option>
-        <option value="shelter">Shelter</option></select>
-        <label>Email</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required></input>
-          <label>Password</label>
-          <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required></input>
-          <label>Confirm Password</label>
-          <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required></input>
-          <button type="submit">Submit</button>
-        </form>
+        <div className='accountCard'>
+          <h1>Create Account</h1>
+          <form onSubmit={createAttempt}>
+            <label for="profile-type">Are you a shelter or an adopter:</label>
+            <select id="profile-type" name="profile-type">
+              <option value="user">Adopter</option>
+              <option value="shelter">Shelter</option></select>
+            <label>Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required></input>
+            <label>Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required></input>
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required></input>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </main>
       <Footer></Footer>
 
