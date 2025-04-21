@@ -6,6 +6,9 @@
     gap: 2rem;
     padding: 8px 1rem;
     margin-bottom: 2.5rem;
+    position: sticky;
+    top: 0;
+    background: white;
 
 }
 
@@ -57,4 +60,6 @@
     color: var(--bright);
 }
 
-
+.Navbar .site-title:hover {
+    color: var(--primary);
+}

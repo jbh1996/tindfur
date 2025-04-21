@@ -1,10 +1,12 @@
 import './Welcome.css';
 import WelcomeText from './WelcomeText';
+import HomeButtons from './HomeButtons';
 
 export default function Welcome() {
     return (
         <section className='Welcome'>
             <WelcomeText />
+            <HomeButtons />
         </section>
     )
 }
