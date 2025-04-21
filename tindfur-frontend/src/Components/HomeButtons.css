@@ -25,3 +25,14 @@
     border: 2px solid var(--primary);
     border-radius: 20px;
 }
+
+.HomeButtons .signUpButton:hover {
+    background-color: var(--bright);
+    border: 2px solid var(--bright);
+}
+
+.HomeButtons .logInButton:hover {
+    color: var(--bright);
+    border: 2px solid var(--bright);
+}
+
