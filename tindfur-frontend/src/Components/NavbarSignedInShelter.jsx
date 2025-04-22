@@ -16,7 +16,6 @@ function NavbarSignedInShelter() {
         <li><Link to="/create-animal">Create Animal</Link></li>
         <li><Link to="/view-animals">View Animals</Link></li>
         <li><NavLink to="/" className='login' onClick={handleLogout}>Log Out</NavLink></li>
-        <li>Hello Name</li>
       </ul>
 
   </nav>

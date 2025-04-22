@@ -12,20 +12,16 @@ import ShelterDashboard from './Components/ShelterDashboard';
 
 function App() {
 
-  const [isLoggedIn, setLoggedIn] = useState(false)
-  const [isShelter, setShelter] = useState(true)
-
-
   return (
     <div>
     <Router>
     <main>
       <section>
         <Routes>
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn} isShelter={isShelter} />}></Route>
-          <Route path="/login" element={<Login tokens={tokens} accounts={accounts} />}></Route>
-          <Route path="/create" element={<Create isLoggedIn={isLoggedIn} isShelter={isShelter} />}></Route>
-          <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} isShelter={isShelter} />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/create" element={<Create />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
         </Routes>
       </section>
     </main>
