@@ -59,7 +59,9 @@ function Create({ isLoggedIn, isShelter }) {
           <h1>Create Account</h1>
           <form onSubmit={createAttempt}>
             <label for="profile-type">Are you a shelter or an adopter:</label>
-            <select id="profile-type" name="profile-type">
+            <select value={role} id="profile-type" name="profile-type"
+            onChange={(e) => setRole(e.target.value)}>
+              <option value="">Choose Account Type</option>
               <option value="user">Adopter</option>
               <option value="shelter">Shelter</option></select>
             <label>Email</label>
