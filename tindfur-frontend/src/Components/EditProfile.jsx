@@ -48,7 +48,7 @@ try {
         profilePicLink,
       })
     });
-*/
+*/}
 
 const uploadProfilePic = async(event) => {
     event.preventDefault();
