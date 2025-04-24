@@ -1,6 +1,8 @@
 import './EditProfile.css';
 import Footer from './Footer';
 import Header from './Header';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './Dashboard';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
@@ -14,47 +16,29 @@ const REGION = 'us-east-2'
 const ACCESS_KEY = 'AKIAQ67UMANZD45XFBJI';
 const SECRET_ACCESS_KEY = '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';
 
-const [profilePicLink, setProfilePicLink] = useState("");
+const {isLoggedIn, isShelter} = userAuth()
 const [username, setUsername] = useState("");
 const [description, setDescription] = useState("")
 const [dogsOwned, setDogsOwned] = useState(0);
 const [catsOwned, setCatsOwned] = useState(0);
 const [otherOwned, setOtherOwned] = useState(0);
 const [uploadPic, setUploadPic] = useState(null);
-const [newPic, setNewPic] = useState(false);
 
 const redirect = useNavigate("")
 
 const handlePicUpload = (event) => {
     setUploadPic(event.target.files[0]);
-    setNewPic(true);
 }
 
-const uploadForm =  async (event) => {
-    event.preventDefault();
-/*
-try {
-    const response = await fetch('/edit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username,
-        description,
-        dogsOwned,
-        catsOwned,
-        otherOwned,
-        profilePicLink,
-      })
-    });
-*/}
+const UploadForm= (event) => {
+    setUploadPic(event.target.files[0]);
+}
 
 const uploadProfilePic = async(event) => {
     event.preventDefault();
 
 
-    if (newPic) {
+    if (uploadPic) {
 
     const s3 = new AWS.S3({
         accessKeyId: ACCESS_KEY, 
@@ -71,13 +55,12 @@ const uploadProfilePic = async(event) => {
     }
     try {
         const response = await s3.upload(params).promise();
-        setProfilePicLink(response.Location);
+        console.log('Image uploaded successfully:', response.Location);
       } catch (error) {
         console.error('Error uploading image:', error);
       }
-    }
-    uploadForm()
     };
+}
 
 
 
