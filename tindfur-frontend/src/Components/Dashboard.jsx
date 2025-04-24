@@ -10,7 +10,7 @@ import userAuth from '../Hooks/UserAuth';
 function Dashboard() {
 
   const {isLoggedIn, isShelter} = userAuth()
-
+  const navigate = useNavigate();
 
   return (
         <div className="App">
