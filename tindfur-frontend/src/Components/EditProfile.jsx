@@ -1,8 +1,6 @@
 import './EditProfile.css';
 import Footer from './Footer';
 import Header from './Header';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './Dashboard';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
@@ -16,7 +14,6 @@ const REGION = 'us-east-2'
 const ACCESS_KEY = 'AKIAQ67UMANZD45XFBJI';
 const SECRET_ACCESS_KEY = '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';
 
-const {isLoggedIn, isShelter} = userAuth()
 const [profilePicLink, setProfilePicLink] = useState("");
 const [username, setUsername] = useState("");
 const [description, setDescription] = useState("")
