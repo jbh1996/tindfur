@@ -32,7 +32,7 @@ const handlePicUpload = (event) => {
 
 const uploadForm =  async (event) => {
     event.preventDefault();
-
+/*
 try {
     const response = await fetch('/edit', {
       method: 'POST',
@@ -48,20 +48,7 @@ try {
         profilePicLink,
       })
     });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert(`Registration failed: ${data.message}`);
-    } else {
-      alert('New Account Created!');
-      
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Something went wrong. Please try again later.');
-  }
-}
+*/
 
 const uploadProfilePic = async(event) => {
     event.preventDefault();
