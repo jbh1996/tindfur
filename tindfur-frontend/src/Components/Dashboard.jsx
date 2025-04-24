@@ -5,6 +5,8 @@ import UserDashboard from './UserDashboard';
 import Home from './Home';
 import ShelterDashboard from './ShelterDashboard';
 import userAuth from '../Hooks/UserAuth';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import EditProfile from './EditProfile';
 
 
 function Dashboard() {
@@ -21,7 +23,6 @@ function Dashboard() {
         ) : (<UserDashboard isLoggedIn={isLoggedIn} isShelter={isShelter}/>)
     }
       </main>
-
     </div>
   );
 }
