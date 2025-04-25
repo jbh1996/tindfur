@@ -1,13 +1,51 @@
-const mongoose = require('./index'); // or require('mongoose') if not using custom index
+const mongoose = require('mongoose');
 
+// Pet Schema
 const petSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    age: { type: Number, required: true },
-    species: { type: String, enum: ['dog', 'cat', 'rabbit', 'other'], required: true },
-    breed: { type: String },
-    shelterId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // assuming shelter is a User with role='shelter'
+
+  animalType: {
+    type: String,
+    enum: ['dog', 'cat', 'other'],
+    required: true,
+  },
+
+  breed: {type: String, required: true,},
+
+  disposition: {
+    type: [String],
+    enum: [
+      'Good with other animals',
+      'Good with children',
+      'Animal must be leashed at all times'
+    ],
+    default: []
+
+  },
+  availability: {
+    type: String,
+    enum: ['Not Available', 'Available', 'Pending', 'Adopted'],
+    required: true
+  },
+
+  picture: { type: String }, 
+  description: { type: String },
+  news: { type: String },
+  
+  // To track which user (Shelter) created the profile
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  
+  date: { type: Date, default: Date.now }
 });
 
-const Pet = mongoose.model('Pet', petSchema);
 
-module.exports = { Pet };
+//Filter and Retrieve pet profile 
+petSchema.statics.findPets = function(filter) {
+  return this.find(filter).exec();
+};
+
+
+module.exports = mongoose.model('Pet', petSchema);
