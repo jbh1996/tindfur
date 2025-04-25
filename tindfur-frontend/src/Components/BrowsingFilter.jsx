@@ -26,9 +26,10 @@ return(<div className='accountCard'>
 
     <input type="checkbox" id="curious" name="personality"  value="curious" />
     <label for="curious">Curious</label><br />
-
     <input type="checkbox" id="energetic" name="personality"  value="energetic" />
     <label for="energetic">Energetic</label>
+    <input type="checkbox" id="houseTrained" name="personality"  value="houseTrained" />
+    <label for="houseTrained">House Trained</label>
   </fieldset>
   <button type="submit">Submit</button>
 </form>
