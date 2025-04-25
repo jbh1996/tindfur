@@ -106,7 +106,7 @@ return (
             <option value={2}>2</option>
             <option value={3}>3</option>
             <option value={4}>4+</option></select>
-            <label>How Many Other Kins of Animals Do You Own?</label>
+            <label>How Many Other Kinds of Animals Do You Own?</label>
             <select id="othersowned" name="othersowned" value={otherOwned} onChange={(e) => setOtherOwned(e.target.value)}>
             <option value={0}>0</option>
             <option value={1}>1</option>
