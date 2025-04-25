@@ -7,12 +7,16 @@ function Create({ isLoggedIn, isShelter }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [role, setRole] = useState(""); //(PG) Add useState for role
+  const [role, setRole] = useState("user"); //(PG) Add useState for role
 
 
 
   const createAttempt = async (event) => {
     event.preventDefault();
+
+    console.log(email,
+      password,
+      role)
   
     if (password !== confirmPassword) {
       alert("Passwords don't match");
@@ -59,7 +63,7 @@ function Create({ isLoggedIn, isShelter }) {
           <h1>Create Account</h1>
           <form onSubmit={createAttempt}>
             <label for="profile-type">Are you a shelter or an adopter:</label>
-            <select id="profile-type" name="profile-type">
+            <select id="profile-type" name="profile-type" value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="user">Adopter</option>
               <option value="shelter">Shelter</option></select>
             <label>Email</label>

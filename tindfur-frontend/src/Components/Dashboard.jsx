@@ -5,12 +5,14 @@ import UserDashboard from './UserDashboard';
 import Home from './Home';
 import ShelterDashboard from './ShelterDashboard';
 import userAuth from '../Hooks/UserAuth';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import EditProfile from './EditProfile';
 
 
 function Dashboard() {
 
   const {isLoggedIn, isShelter} = userAuth()
-
+  const navigate = useNavigate();
 
   return (
         <div className="App">
@@ -21,7 +23,6 @@ function Dashboard() {
         ) : (<UserDashboard isLoggedIn={isLoggedIn} isShelter={isShelter}/>)
     }
       </main>
-
     </div>
   );
 }

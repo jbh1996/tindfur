@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login({ accounts, tokens }) {
+function Login() {
 
   const token = localStorage.getItem("auth_token");
   const usertype = localStorage.getItem("user_type");

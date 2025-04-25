@@ -1,5 +1,7 @@
 import './Navbar.css';
 import {Link, NavLink}   from 'react-router-dom';
+import EditProfile from './EditProfile';
+
 
 
 function NavbarSignedInUser() {
@@ -15,11 +17,10 @@ function NavbarSignedInUser() {
         <li><NavLink to="/dashboard">Home</NavLink></li>
         <li><Link to="/browse-animals">View Animals</Link></li>
         <li><Link to="/view-messages">View Messages</Link></li>
-        <li><Link to="/edit-profile">Edit Profile</Link></li>
+        <li><NavLink to="/edit-profile">Edit Profile</NavLink></li>
         <li><NavLink to="/" className='login' onClick={handleLogout}>Log Out</NavLink></li>
         
       </ul>
-
       </nav>
   );
 }

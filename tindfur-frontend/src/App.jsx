@@ -9,6 +9,7 @@ import Dashboard from './Components/Dashboard';
 import { useState } from 'react';
 import UserDashboard from './Components/UserDashboard';
 import ShelterDashboard from './Components/ShelterDashboard';
+import EditProfile from './Components/EditProfile';
 
 function App() {
 
@@ -22,6 +23,8 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/create" element={<Create />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/edit-profile" element={<EditProfile/>}></Route>
         </Routes>
       </section>
     </main>
