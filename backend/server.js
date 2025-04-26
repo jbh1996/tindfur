@@ -8,14 +8,30 @@ require('dotenv').config()
 app.use(cors());
 app.use(express.json()); 
 
-const { createAccount, loginAccount } = require('./controllers/Usercontrollers');
-
+const { createAccount, loginAccount } = require('./controllers/UserController');
+const { retrieveProfile } = require('./controllers/PetController');
+//const { upload } = require('./middleware/upload'); 
 
 // Create User Account
 app.post('/register', createAccount);
 
-//User Login
+// User Login
 app.post('/login', loginAccount);
+
+// Upload User Pic
+
+
+// Create Pet Profile
+
+
+// Retreive Pet Profile
+app.get('/petprofiles', retrieveProfile); 
+
+
+// Edit Pet profile
+
+
+// Delete Pet Profile
 
 
 
