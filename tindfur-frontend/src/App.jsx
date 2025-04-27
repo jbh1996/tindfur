@@ -11,6 +11,8 @@ import UserDashboard from './Components/UserDashboard';
 import ShelterDashboard from './Components/ShelterDashboard';
 import EditProfile from './Components/EditProfile';
 import BrowseAnimals from './Components/BrowseAnimals';
+import CreateAnimal from './Components/CreateAnimal';
+
 
 function App() {
 
@@ -26,6 +28,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/edit-profile" element={<EditProfile/>}></Route>
+        <Route path="/create-animal" element={<CreateAnimal />}></Route>
         <Route path="/browse-animals" element={<BrowseAnimals/>}></Route>
 
         </Routes>

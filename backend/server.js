@@ -1,39 +1,30 @@
 const express = require('express');
 const app = express();
-const port = 5600
+const port = 5600;
 const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config();
 
+const {
+    createProfile,
+    retrieveProfile,
+    updateProfile,
+    deleteProfile,
+} = require('./controllers/PetController');
 
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
-const { createAccount, loginAccount } = require('./controllers/UserController');
-const { retrieveProfile } = require('./controllers/PetController');
-//const { upload } = require('./middleware/upload'); 
+// Create
+app.post('/petprofile', createProfile);
 
-// Create User Account
-app.post('/register', createAccount);
+// Read
+app.get('/petprofiles', retrieveProfile);
 
-// User Login
-app.post('/login', loginAccount);
+// Update
+app.put('/petprofile/:id', updateProfile);
 
-// Upload User Pic
-
-
-// Create Pet Profile
-
-
-// Retreive Pet Profile
-app.get('/petprofiles', retrieveProfile); 
-
-
-// Edit Pet profile
-
-
-// Delete Pet Profile
-
-
+// Delete
+app.delete('/petprofile/:id', deleteProfile);
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}...`);
