@@ -65,6 +65,8 @@
     margin: 1rem;
     border-radius: 5px;
     padding: 7px;
+    font-family:  'Segoe UI', sans-serif;
+    font-size: 15px;
 }
 
 .CreateAnimal .about {
@@ -87,6 +89,7 @@
 
 .CreateAnimal h3 {
     margin-left: 1rem;
+    
 }
 
 textarea::placeholder {
