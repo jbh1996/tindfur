@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Header from './Header';
 import { Link } from 'react-router-dom';
 import News from './News';
+import DashPets from './DashPets';
 
 
 function ShelterDashboard({ isLoggedIn, isShelter }) {
@@ -11,6 +12,8 @@ function ShelterDashboard({ isLoggedIn, isShelter }) {
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
 
       <main>
+        
+        <DashPets />
         <News />
       </main>
       <Footer></Footer>

@@ -1,7 +1,8 @@
 .Footer {
-    background: var(--light-gray);
+    border-top: 1px solid var(--light-gray);
     padding: .75rem;
     font-size: smaller;
     text-align: center;
     margin-top: 2rem;
+    color: gray;
 }

@@ -26,3 +26,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  letter-spacing: 1px;
+  font-size: 40px;
+}
+
+h2 {
+  font-family: 'DM Serif Display', serif;
+  
+  font-size: 30px;
+}
+
