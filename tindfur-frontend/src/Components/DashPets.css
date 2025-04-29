@@ -1,0 +1,10 @@
+.DashPets {
+    background: linear-gradient(134deg, rgba(187, 211, 243, 0.85) 0%, rgba(247, 237, 146, 0.82) 100%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* .DashPets h1 {
+    align-self: baseline;
+} */

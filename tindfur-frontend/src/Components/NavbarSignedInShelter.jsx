@@ -13,8 +13,8 @@ function NavbarSignedInShelter() {
       <Link to="/dashboard" className='site-title'>Tindfur</Link>
       <ul>
         <li><NavLink to="/dashboard">Home</NavLink></li>
-        <li><Link to="/create-animal">Create Animal</Link></li>
-        <li><Link to="/view-animals">View Animals</Link></li>
+        <li><NavLink to="/create-animal">Create Animal</NavLink></li>
+        <li><NavLink to="/view-animals">View Animals</NavLink></li>
         <li><NavLink to="/" className='login' onClick={handleLogout}>Log Out</NavLink></li>
       </ul>
 

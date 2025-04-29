@@ -1,0 +1,120 @@
+.CreateAnimal {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    max-width: 900px;
+    color: rgb(78, 78, 78);
+    border: 1px solid rgb(160, 160, 160);
+    border-radius: 10px;
+    padding: 1rem;
+    padding-bottom: 2rem;
+    
+}
+
+.CreateAnimal form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.CreateAnimal .info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.CreateAnimal .checkboxes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.CreateAnimal select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("/public/downArrow.png");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 8px) center;
+    height: 2.7rem;
+    max-width: 300px;
+    margin: 1rem;
+    margin-top: .2rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(160, 160, 160);
+    font-size: 15px;
+    color: rgb(78, 78, 78);
+}
+
+.CreateAnimal .columnPair {
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateAnimal input {
+    height: 18px;
+    max-width: 300px;
+    margin: 1rem;
+    margin-top: .2rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(160, 160, 160);
+}
+.CreateAnimal textarea {
+    border: 1px solid rgb(160, 160, 160);
+    margin: 1rem;
+    border-radius: 5px;
+    padding: 7px;
+    font-family:  'Segoe UI', sans-serif;
+    font-size: 15px;
+}
+
+.CreateAnimal .about {
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateAnimal label {
+    margin: 0 1rem;
+    font-size: 15px;
+}
+
+.CreateAnimal h1 {
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    font-family: 'DM Serif Display', serif;
+    letter-spacing: 1px;
+}
+
+.CreateAnimal h3 {
+    margin-left: 1rem;
+    
+}
+
+textarea::placeholder {
+    font-family:  'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+.CreateAnimal button {
+    color: white;
+    background-color: var(--primary);
+    text-decoration: none;
+    padding: .5rem 1.5rem;
+    margin: 1rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    width: 200px;
+    align-self: center;
+}
+
+#petName {
+    min-width: 300px;
+}
+
+#age {
+    width: 80px;
+}
