@@ -22,7 +22,7 @@ const createAccount = async (req, res) => {
   const hashedPw = await bcrypt.hash(password, 10);
 
   // Create new user account
-  const newAccount = new User({ email, password: hashedPw, role });
+  const newAccount = new User({ email, password: hashedPw, role, username: email, description: "", dogsOwned: 0, catsOwned: 0, otherOwned:0, profilePic: "https://tindfurpics.s3.us-east-2.amazonaws.com/blankprofile.webp" });
   await newAccount.save();
 
   console.log(req.body)
