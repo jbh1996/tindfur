@@ -13,6 +13,7 @@ import EditProfile from './Components/EditProfile';
 import BrowseAnimals from './Components/BrowseAnimals';
 import ViewAnimals from './Components/ViewAnimals';
 import CreateAnimal from './Components/CreateAnimal';
+import ShelterPetProfile from './Components/ShelterPetProfile';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile/>}></Route>
         <Route path="/browse-animals" element={<BrowseAnimals/>}></Route>
         <Route path="/view-animals" element={<ViewAnimals/>}></Route>
+        <Route path="/view-animals/:id" element={<ShelterPetProfile/>}></Route>
         <Route path="/create-animal" element={<CreateAnimal/>}></Route>
 
         </Routes>

@@ -6,6 +6,26 @@ import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import AWS from 'aws-sdk';
 
+
+const dispositionOptions = [
+    {id: "1", value: "Good with Other Animals"},
+    {id: "2", value: "Good with Kids"},
+    {id: "3", value: "House Trained"},
+    {id: "4", value: "Needs Fenced Yard"},
+    {id: "5", value: "Apartment Ok"},
+    {id: "6", value: "Must Be on Leash"}
+]
+
+const personalityOptions = [
+    {id: "1", value: "Cuddly"},
+    {id: "2", value: "Active"},
+    {id: "3", value: "Calm"},
+    {id: "4", value: "Smart"},
+    {id: "5", value: "Friendly"},
+    {id: "6", value: "Obedient"},
+    {id: "7", value: "Gentle"}
+]
+
 export default function CreateAnimal() {
     const S3_BUCKET = 'tindfurpics'
     const REGION = 'us-east-2'
@@ -16,23 +36,17 @@ export default function CreateAnimal() {
     const [formData, setFormData] = useState({
         petName: "",
         age: "",
-        location: "",
         shelter: "",
         petType: "",
         breed: "",
-        petSize: "",
+        availability: "",
         gender: "",
         activityLevel: "",
         trainingLevel: "",
         housing: "",
     })
-
-    const [formCheckboxes, setFormCheckboxes] = useState({
-        isHouseTrained: false,
-        isGoodWithAnimals: false,
-        isGoodWithKids: false,
-        isCuddly: false
-    })
+    const [disposition, setDisposition] = useState([])
+    const [personality, setPersonality] = useState([])
 
 
     const redirect = useNavigate("")
@@ -88,15 +102,29 @@ export default function CreateAnimal() {
             return { ...currData };
         })
     };
-    const handleCheckbox = (e) => {
-        const { name, checked } = e.target;
-        setFormCheckboxes((currData) => {
-            currData[name] = checked;
-            return { ...currData };
-        }
-        )
+    const handleDisposition = (e) => {
+        const value = e.target.value;
+        const isChecked = e.target.checked;
 
-    }
+        if (isChecked) {
+            setDisposition([...disposition, value]);
+        } else {
+            const filteredList = disposition.filter((item) => item !== value);
+            setDisposition(filteredList);
+        };
+    };
+
+    const handlePersonality = (e) => {
+        const value = e.target.value;
+        const isChecked = e.target.checked;
+
+        if (isChecked) {
+            setPersonality([...personality, value]);
+        } else {
+            const filteredList = personality.filter((item) => item !== value);
+            setPersonality(filteredList);
+        };
+    };
 
 
     return (
@@ -130,26 +158,18 @@ export default function CreateAnimal() {
                                 </input>
                             </div>
                             <div className='columnPair'>
-                                <label htmlFor="location">Location</label>
-                                <input
-                                    id="location"
-                                    type='text'
-                                    name='location'
-                                    value={formData.location}
-                                    onChange={handleChange}
-                                    placeholder='City, State'>
-                                </input>
-                            </div>
-                            <div className='columnPair'>
-                                <label htmlFor="shelter">Shelter Name</label>
-                                <input
-                                    id="shelter"
-                                    type='text'
-                                    name='shelter'
-                                    value={formData.shelter}
+                                <label htmlFor="gender">Gender</label>
+                                <select
+                                    id="gender"
+                                    name='gender'
+                                    value={formData.gender}
                                     onChange={handleChange}>
-                                </input>
+                                    <option value=""></option>
+                                    <option value="M">M</option>
+                                    <option value="F">F</option>
+                                </select>
                             </div>
+                            
                             <div className='columnPair'>
                                 <label htmlFor="pet-type">Type</label>
                                 <select
@@ -160,10 +180,8 @@ export default function CreateAnimal() {
                                     <option value=""></option>
                                     <option value="Dog">Dog</option>
                                     <option value="Cat">Cat</option>
-                                    <option value="Rabbit">Rabbit</option>
-                                    <option value="Small Mammal">Small Mammal</option>
-                                    <option value="Bird">Bird</option>
-                                    <option value="Reptile">Reptile</option>
+                                    <option value="Other">Other</option>
+
                                 </select>
                             </div>
                             <div className='columnPair'>
@@ -177,28 +195,26 @@ export default function CreateAnimal() {
                                 </input>
                             </div>
                             <div className='columnPair'>
-                                <label htmlFor="pet-size">Size</label>
-                                <select
-                                    id="pet-size"
-                                    value={formData.petSize}
-                                    name='petSize'
+                                <label htmlFor="shelter">Shelter Name</label>
+                                <input
+                                    id="shelter"
+                                    type='text'
+                                    name='shelter'
+                                    value={formData.shelter}
                                     onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="Small">Small</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Large">Large</option>
-                                </select>
+                                </input>
                             </div>
                             <div className='columnPair'>
-                                <label htmlFor="gender">Gender</label>
+                                <label htmlFor="availability">Availability</label>
                                 <select
-                                    id="gender"
-                                    name='gender'
-                                    value={formData.gender}
+                                    id="availability"
+                                    name='availability'
+                                    value={formData.availability}
                                     onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="M">M</option>
-                                    <option value="F">F</option>
+                                    <option value="Available">Available</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Not Available">Not Available</option>
+                                    <option value="Adopted">Adopted</option>
                                 </select>
                             </div>
                         </section>
@@ -210,92 +226,42 @@ export default function CreateAnimal() {
                             <input type="file" id="profilepic" onChange={handlePicUpload} name="profilepic"></input>
                         </section>
 
-
-                        <h3>Behaviours & Needs</h3>
+                        <div className='disposition-container'>
                         <section className='behaviours'>
-                            <div className='checkboxes'>
-                                <div className='rowPair'>
-                                    <label htmlFor="house-trained">House Trained:</label>
-                                    <input
-                                        type='checkbox'
-                                        id="house-trained"
-                                        name='isHouseTrained'
-                                        checked={formCheckboxes.isHouseTrained}
-                                        onChange={handleCheckbox}>
-                                    </input>
-                                </div>
-                                <div className='rowPair'>
-                                    <label htmlFor="other-animals">Good with other animals:</label>
-                                    <input
-                                        type='checkbox'
-                                        id="other-animals"
-                                        name='isGoodWithAnimals'
-                                        checked={formCheckboxes.isGoodWithAnimals}
-                                        onChange={handleCheckbox}>
-                                    </input>
-                                </div>
-                                <div className='rowPair'>
-                                    <label htmlFor="kids">Good with kids:</label>
-                                    <input
-                                        type='checkbox'
-                                        id="kids"
-                                        name='isGoodWithKids'
-                                        checked={formCheckboxes.isGoodWithKids}
-                                        onChange={handleCheckbox}>
-                                    </input>
-                                </div>
-                            </div>
-                            <div className='columnPair'>
-                                <label htmlFor="activity">Activity Level</label>
-                                <select
-                                    id="activity"
-                                    value={formData.activityLevel}
-                                    name='activityLevel'
-                                    onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
-                            </div>
-                            <div className='columnPair'>
-                                <label htmlFor="training">Training Level</label>
-                                <select
-                                    id="training"
-                                    name='trainingLevel'
-                                    value={formData.trainingLevel}
-                                    onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
-                            </div>
-                            <div className='columnPair'>
-                                <label htmlFor="housing">Housing Requirements</label>
-                                <select
-                                    id="housing"
-                                    name='housing'
-                                    value={formData.housing}
-                                    onChange={handleChange}>
-                                    <option value=""></option>
-                                    <option value="Apartment Ok">Apartment Ok</option>
-                                    <option value="House">House</option>
-                                    <option value="House with Fenced Yard">House with Fenced Yard</option>
-                                </select>
-                            </div>
+                        <h3>Behaviours & Needs</h3>
+                            {dispositionOptions.map((item) => {
+                                return (
+                                    <div key={item.id} className='checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            name='behaviors'
+                                            id={item.id}
+                                            value={item.value}
+                                            onChange={handleDisposition}
+                                        />
+                                        <label htmlFor={item.id}>{item.value}</label>
+                                    </div>
+                                );
+                            })}
                         </section>
-
+                        
+                        <section className='personality'>
                         <h3>Personality</h3>
-                        <div className='rowPair'>
-                            <label htmlFor="Cuddly">Cuddly:</label>
-                            <input
-                                type='checkbox'
-                                id="cuddly"
-                                name='isCuddly'
-                                checked={formCheckboxes.isCuddly}
-                                onChange={handleCheckbox}>
-                            </input>
+                            {personalityOptions.map((item) => {
+                                return (
+                                    <div key={item.id} className='checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            name='traits'
+                                            id={item.id}
+                                            value={item.value}
+                                            onChange={handlePersonality}
+                                        />
+                                        <label htmlFor={item.id}>{item.value}</label>
+                                    </div>
+                                );
+                            })}
+                        </section>
                         </div>
 
                         <button type="submit">Submit</button>

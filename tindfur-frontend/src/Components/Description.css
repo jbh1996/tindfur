@@ -1,0 +1,34 @@
+.Description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.Description .traits {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    min-width: 300px;
+    
+}
+
+.Description ul{
+list-style: none;
+padding: 0;
+}
+
+.Description li {
+    padding: .3rem 0;
+}
+
+
+.Description .about {
+    width: 350px;
+    padding: 2rem;
+}
+
+.Description .disposition {
+    
+}

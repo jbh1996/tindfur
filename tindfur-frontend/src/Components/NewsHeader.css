@@ -8,7 +8,7 @@
 }
 
 .NewsHeader h2 {
-    font-family: 'DM Serif Display', serif;
+    /* font-family: 'DM Serif Display', serif; */
     font-size: 30px;
     margin-bottom: 10px;
     border-bottom: 2px solid var(--primary);

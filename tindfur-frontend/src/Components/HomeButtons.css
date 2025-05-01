@@ -11,6 +11,7 @@
     font-size: large;
     border: 2px solid var(--primary);
     border-radius: 20px;
+    transition: all 0.2s;
 }
 
 
@@ -24,6 +25,7 @@
     font-size: large;
     border: 2px solid var(--primary);
     border-radius: 20px;
+    transition: all 0.2s;
 }
 
 .HomeButtons .signUpButton:hover {
