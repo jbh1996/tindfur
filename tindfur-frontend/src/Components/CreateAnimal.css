@@ -8,6 +8,7 @@
     border-radius: 10px;
     padding: 1rem;
     padding-bottom: 2rem;
+    margin: 0 2rem;
     
 }
 
@@ -22,10 +23,30 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-.CreateAnimal .checkboxes {
+.CreateAnimal .behaviors {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    
+}
+.CreateAnimal .personality {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+}
+
+.CreateAnimal input[type="checkbox"] {
+    margin: .5rem;
+    width: 20px;
+}
+.CreateAnimal .checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.CreateAnimal .checkbox-container label {
+    margin-left: 5px;
 }
 
 .CreateAnimal select {
@@ -80,16 +101,25 @@
 }
 
 .CreateAnimal h1 {
-    text-align: center;
+    /* text-align: center; */
     color: black;
     font-size: 30px;
-    font-family: 'DM Serif Display', serif;
-    letter-spacing: 1px;
+    margin-left: 1rem;
 }
 
 .CreateAnimal h3 {
     margin-left: 1rem;
+    font-weight: 500;
+    font-size: 16px;
+    /* color: black; */
     
+}
+
+.CreateAnimal .disposition-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 textarea::placeholder {
@@ -118,3 +148,4 @@ textarea::placeholder {
 #age {
     width: 80px;
 }
+

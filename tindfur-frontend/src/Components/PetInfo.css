@@ -1,0 +1,31 @@
+.PetInfo {
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    /* max-width: 1200px;
+    align-self: center; */
+}
+
+.PetInfo .topOfProfile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-bottom: 2px solid var(--light-gray);
+    
+    padding-bottom: 40px;
+}
+
+.PetInfo img {
+    
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.PetInfo h3 {
+    font-weight: 600;
+    font-size: 17px;
+    
+}

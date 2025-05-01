@@ -5,13 +5,34 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import ShelterFilter from './ShelterFilter';
+import Animals from './Animals';
+
+
+const petInfo = {image: "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    species: "Dog",
+    breed: "Shiba Inu",
+    name: "Joey",
+    age: 7,
+    id: 123
+    }
 
 export default function ViewAnimals() {
+    const redirect = useNavigate("")
+        
+        useEffect(() => {
+            const { isLoggedIn, isShelter } = userAuth()
+            if (!isLoggedIn) {
+                redirect("/login")
+            }
+        }, [redirect]);
+        
     return (
+        
+
         <div className="App">
             <Header />
             <main>
-                <ShelterFilter />
+               <Animals petInfo={petInfo}/>
             </main>
             <Footer />
         </div>
