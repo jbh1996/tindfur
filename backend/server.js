@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json()); 
 
 const { createAccount, loginAccount } = require('./controllers/UserController');
-const { retrieveProfile } = require('./controllers/PetController');
+const { retrieveProfile, retrieveProfilebyID } = require('./controllers/PetController');
 //const { upload } = require('./middleware/upload'); 
 
 // Create User Account
@@ -26,6 +26,9 @@ app.post('/login', loginAccount);
 
 // Retreive Pet Profile
 app.get('/petprofiles', retrieveProfile); 
+
+app.get('/petprofiles/:id', retrieveProfilebyID); 
+
 
 
 // Edit Pet profile

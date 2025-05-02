@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 // Pet Schema
 const petSchema = new mongoose.Schema({
 
+  name: {type: String, required: true,},
+
+
   animalType: {
     type: String,
     enum: ['dog', 'cat', 'other'],
