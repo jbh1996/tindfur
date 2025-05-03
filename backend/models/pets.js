@@ -5,7 +5,6 @@ const petSchema = new mongoose.Schema({
 
   name: {type: String, required: true,},
 
-
   animalType: {
     type: String,
     enum: ['dog', 'cat', 'other'],
@@ -46,8 +45,19 @@ const petSchema = new mongoose.Schema({
 
 
 //Filter and Retrieve pet profile 
-petSchema.statics.findPets = function(filter) {
-  return this.find(filter).exec();
+petSchema.statics.findPets = function(filter, createdBy) {
+  let query = this.find(filter);
+
+  //If filtering by Shelter Name, find matching name
+  if (createdBy) {
+    query = query.populate({
+      path: 'createdBy',
+      match: { name: { $regex: createdBy, $options: 'i' } },
+      select: 'name'
+    });
+  }
+
+  return query.exec();
 };
 
 
