@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'shelter'], required: true },
-  username: { type: String },
+  username: { type: String },   
   description: { type: String },
   dogsOwned: { type: Number, default: 0 },
   catsOwned: { type: Number, default: 0 },
@@ -15,7 +15,4 @@ const userSchema = new mongoose.Schema({
 });
 
 
-// compile from the schema
-const User = mongoose.model('User', userSchema);
-
-module.exports = { User }
+module.exports = mongoose.model('User', userSchema);
