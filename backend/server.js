@@ -9,9 +9,9 @@ app.use(cors());
 app.use(express.json()); 
 
 const { createAccount, loginAccount } = require('./controllers/UserController');
-const { retrieveProfile, retrieveProfilebyID } = require('./controllers/PetController');
+const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
-//const { upload } = require('./middleware/upload'); 
+const { upload } = require('./middleware/upload'); 
 
 
 
@@ -20,7 +20,6 @@ app.post('/register', createAccount);
 
 // User Login
 app.post('/login', loginAccount);
-
 
 //Get Animal Breed List
 app.get('/breeds/:animalType', (req, res) => {
@@ -40,16 +39,20 @@ app.get('/breeds/:animalType', (req, res) => {
 });
 
 
-
-
+// Create Pet Profile
+app.post('/petprofiles', upload.single('petpic'), createProfile);
 
 // Retreive Pet Profile
 app.get('/petprofiles', retrieveProfile); 
 
-
 //Retrieve Pet Profile by ID
 app.get('/petprofiles/:id', retrieveProfilebyID); 
 
+// Edit Pet profile
+app.put('/petprofiles/:id', upload.single('petpic'), updateProfile);
+
+// Delete Pet Profile
+app.delete('/petprofiles/:id', deleteProfile);
 
 
 

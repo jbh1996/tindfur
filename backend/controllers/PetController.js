@@ -1,5 +1,6 @@
 const Profile = require('../models/pets');
 const User  = require('../models/Users');
+const jwt = require('jsonwebtoken');
 const { dogBreeds, catBreeds } = require('../utils/breeds');
 
 
@@ -18,6 +19,53 @@ const getBreedList = (animalType) => {
 };
 
 
+// Create Pet Profile
+const createProfile = async (req, res) => {
+  try {
+
+    // Get token 
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = authHeader.split(' ')[1]; 
+
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+
+
+
+    // Check if the user is a shelter
+    if (decoded.role !== 'shelter') {
+      return res.status(403).json({ message: 'Unathorized to create profiles' });
+    }
+
+    // Create a new profile
+    const profile = new Profile({
+      animalType: req.body.animalType,
+      breed: req.body.breed,
+      disposition: req.body.disposition,
+      availability: req.body.availability,
+      picture: req.file.location,  
+      description: req.body.description,
+      news: req.body.news,
+      createdBy: decoded.id 
+    });
+
+    // Save profile 
+    await profile.save();
+    res.status(201).json({ message: 'New Profile Created', profile });
+
+  } catch (error) {
+    console.error('Unable to create profile:', error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
+
+
 // Retrieve Pet Profile
 const retrieveProfile = async (req, res) => {
   try {
@@ -28,7 +76,6 @@ const retrieveProfile = async (req, res) => {
     if (createdBy) {
       //Trim to remove extra spaces
       const searchName = createdBy.trim();
-      console.log('Searching for user:', searchName);
       
       //Search for user name (case-insenstive)
       const user = await User.findOne({
@@ -63,8 +110,6 @@ const retrieveProfile = async (req, res) => {
 
 
 
-
-
 const retrieveProfilebyID = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,7 +127,48 @@ const retrieveProfilebyID = async (req, res) => {
   }
 };
 
+// Update Profile
+const updateProfile = async (req, res) => {
+  try {
+    // Get ID from params
+    const { id } = req.params; 
+
+    // If photo was uploaded, use file path or else null
+    let picture = req.file ? req.file.path : null; 
+
+    // Get the updated data
+    const updateInfo = { ...req.body, picture: picture || undefined };
+
+    // Call the static method-updateProfile to update the profile
+    const updatedProfile = await Profile.updateProfile(id, updateInfo);
+
+    res.status(200).json({ message: 'Profile Has Been Updated', profile: updatedProfile });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message || 'Unable to update profile' });
+  }
+};
+
+
+// Delete Profile
+const deleteProfile = async (req, res) => {
+  try {
+
+    // Get ID from params
+    const { id } = req.params; 
+
+    // Call static method-removeProfile to delete profile
+    await Profile.removeProfile(id);
+
+    res.status(200).json({ message: 'Profile Has Been Deleted' });
+  } catch (error) {
+    console.error('Unable to delete profile:', error);
+    res.status(500).json({ message: error.message || 'Something went wrong' });
+  }
+};
 
 
 
-module.exports = { retrieveProfile, retrieveProfilebyID };
+
+
+module.exports = { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile };
