@@ -8,7 +8,7 @@ require('dotenv').config()
 app.use(cors());
 app.use(express.json()); 
 
-const { createAccount, loginAccount } = require('./controllers/UserController');
+const { createAccount, loginAccount, updateAccount } = require('./controllers/UserController');
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
 const { upload } = require('./middleware/upload'); 
@@ -20,6 +20,9 @@ app.post('/register', createAccount);
 
 // User Login
 app.post('/login', loginAccount);
+
+// Update User Account
+app.put('/users/:id', updateAccount);
 
 //Get Animal Breed List
 app.get('/breeds/:animalType', (req, res) => {
