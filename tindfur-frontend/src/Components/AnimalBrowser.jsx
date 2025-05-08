@@ -1,14 +1,13 @@
-import './AnimalBrowser.css';
-import AnimalCard from './AnimalCard';
-import testpets from '../temporarydata/testpets';
+import AnimalCard from "./AnimalCard";
+
+export default function AnimalBrowser({ animalList }) {
 
 
-export default function AnimalBrowser() {
-    return (
-        <section className='AnimalBrowser'>
-        {testpets.map((pet) =>         
-        <AnimalCard pet={pet}/>
-        )}
-        </section>
-    )
+  return (
+    <div>
+      {animalList.map((animal) => (
+        <AnimalCard key={animal.id} pet={animal} />
+      ))}
+    </div>
+  );
 }

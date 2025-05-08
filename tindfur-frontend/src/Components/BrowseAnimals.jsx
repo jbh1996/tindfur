@@ -1,39 +1,73 @@
+import { useState, useEffect } from 'react';
 import Footer from './Footer';
 import Header from './Header';
-import Welcome from './Welcome';
-import News from './News';
 import './BrowseAnimals.css';
-import { useJwt } from "react-jwt";
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
-import testpets from '../temporarydata/testpets';
 import AnimalBrowser from './AnimalBrowser';
 import BrowsingFilter from './BrowsingFilter';
 
-
-
-
 function BrowseAnimals() {
-    
-
-  const {isLoggedIn, isShelter} = userAuth()
+  const { isLoggedIn, isShelter } = userAuth();
   const navigate = useNavigate();
 
-  
+  const [filters, setFilters] = useState({
+    animalType: '',
+    breed: '',
+    dispositions: [],
+    date: '',
+    availability: 'Available',
+  });
 
+  const [animalList, setAnimalList] = useState([]);
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const params = new URLSearchParams({
+          animalType: filters.animalType,
+          breed: filters.breed,
+          disposition: filters.dispositions.join(','),
+          date: filters.date,
+          availability: filters.availability,
+        });
+
+        const response = await fetch(`/petprofiles?${params.toString()}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch pets');
+
+        const pets = await response.json();
+        setAnimalList(pets.profiles); 
+        console.log(pets.profiles)
+
+      } catch (error) {
+        console.error('Error fetching pets:', error);
+      }
+    };
+
+    fetchPets();
+  }, [filters]);
+
+  // Update filters when BrowsingFilter submits the form
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
 
   return (
-        <div>
-      <Header isLoggedIn={isLoggedIn} isShelter={isShelter}/>
+    <div>
+      <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
-        <section className='browser'>
-    <BrowsingFilter/>
-      <AnimalBrowser/>
-      </section>
+        <section className="browser">
+          <BrowsingFilter onSubmit={handleFilterChange} />
+          <AnimalBrowser animalList={animalList} />
+        </section>
       </main>
-      <Footer></Footer>
-
+      <Footer />
     </div>
   );
 }
