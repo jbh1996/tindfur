@@ -39,6 +39,7 @@ export default function UserPetProfile() {
         const getProfile = async () => {
             const response = await fetch(`/petprofiles/${id}`);
             const profile = await response.json()
+            console.log(profile)
             setPet(profile)
         }
         getProfile()
