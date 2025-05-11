@@ -7,31 +7,35 @@ import userAuth from '../Hooks/UserAuth';
 import AWS from 'aws-sdk';
 
 
+// options for behavior checkboxes
 const dispositionOptions = [
-    {id: "1", value: "Good with Other Animals"},
-    {id: "2", value: "Good with Kids"},
-    {id: "3", value: "House Trained"},
-    {id: "4", value: "Needs Fenced Yard"},
-    {id: "5", value: "Apartment Ok"},
-    {id: "6", value: "Must Be on Leash"}
+    { id: "1", value: "Good with Other Animals" },
+    { id: "2", value: "Good with Kids" },
+    { id: "3", value: "House Trained" },
+    { id: "4", value: "Needs Fenced Yard" },
+    { id: "5", value: "Apartment Ok" },
+    { id: "6", value: "Must Be on Leash" }
 ]
 
+// options for personality checkboxes
 const personalityOptions = [
-    {id: "1", value: "Cuddly"},
-    {id: "2", value: "Active"},
-    {id: "3", value: "Calm"},
-    {id: "4", value: "Smart"},
-    {id: "5", value: "Friendly"},
-    {id: "6", value: "Obedient"},
-    {id: "7", value: "Gentle"}
+    { id: "1", value: "Cuddly" },
+    { id: "2", value: "Active" },
+    { id: "3", value: "Calm" },
+    { id: "4", value: "Smart" },
+    { id: "5", value: "Friendly" },
+    { id: "6", value: "Obedient" },
+    { id: "7", value: "Gentle" }
 ]
 
 export default function CreateAnimal() {
+    // constants for photo upload
     const S3_BUCKET = 'tindfurpics'
     const REGION = 'us-east-2'
     const ACCESS_KEY = 'AKIAQ67UMANZD45XFBJI';
     const SECRET_ACCESS_KEY = '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';
 
+    // state variables for form
     const [uploadPic, setUploadPic] = useState(null);
     const [formData, setFormData] = useState({
         petName: "",
@@ -44,14 +48,39 @@ export default function CreateAnimal() {
         activityLevel: "",
         trainingLevel: "",
         housing: "",
+        disposition: [],
+        personality: []
     })
-    const [disposition, setDisposition] = useState([])
-    const [personality, setPersonality] = useState([])
+
+    // handle change to form input
+    const handleChange = (e) => {
+        const changedField = e.target.name;
+        const newValue = e.target.value;
+
+        if (changedField === "disposition" || changedField === "personality") {
+            const isChecked = e.target.checked;
+            if (isChecked) {
+                setFormData((currData) => {
+                    currData[changedField] = [...currData[changedField], newValue];
+                    return { ...currData };
+                })
+            } else {
+                setFormData((currData) => {
+                    const filteredList = currData[changedField].filter((item) => item !== newValue);
+                    currData[changedField] = filteredList;
+                    return { ...currData };
+                })
+            };
+        }
+
+        setFormData((currData) => {
+            currData[changedField] = newValue;
+            return { ...currData };
+        })
+    };
 
 
-    const redirect = useNavigate("")
-
-
+    // handle photo upload
     const handlePicUpload = (event) => {
         setUploadPic(event.target.files[0]);
     }
@@ -85,6 +114,8 @@ export default function CreateAnimal() {
         };
     }
 
+    // redirect to login if user is logged out
+    const redirect = useNavigate("")
 
     useEffect(() => {
         const { isLoggedIn, isShelter } = userAuth()
@@ -93,38 +124,6 @@ export default function CreateAnimal() {
         }
     }, [redirect]);
 
-
-    const handleChange = (e) => {
-        const changedField = e.target.name;
-        const newValue = e.target.value;
-        setFormData((currData) => {
-            currData[changedField] = newValue;
-            return { ...currData };
-        })
-    };
-    const handleDisposition = (e) => {
-        const value = e.target.value;
-        const isChecked = e.target.checked;
-
-        if (isChecked) {
-            setDisposition([...disposition, value]);
-        } else {
-            const filteredList = disposition.filter((item) => item !== value);
-            setDisposition(filteredList);
-        };
-    };
-
-    const handlePersonality = (e) => {
-        const value = e.target.value;
-        const isChecked = e.target.checked;
-
-        if (isChecked) {
-            setPersonality([...personality, value]);
-        } else {
-            const filteredList = personality.filter((item) => item !== value);
-            setPersonality(filteredList);
-        };
-    };
 
 
     return (
@@ -136,6 +135,7 @@ export default function CreateAnimal() {
                 <div className='CreateAnimal'>
                     <h1>Create Animal Profile</h1>
                     <form onSubmit={uploadProfilePic}>
+                        {/* get basic info for animal */}
                         <h3>Animal's Information</h3>
                         <section className='info'>
                             <div className='columnPair'>
@@ -169,7 +169,7 @@ export default function CreateAnimal() {
                                     <option value="F">F</option>
                                 </select>
                             </div>
-                            
+
                             <div className='columnPair'>
                                 <label htmlFor="pet-type">Type</label>
                                 <select
@@ -219,6 +219,7 @@ export default function CreateAnimal() {
                             </div>
                         </section>
 
+                        {/* get description and photo for animal  */}
                         <h3>About</h3>
                         <section className='about'>
                             <textarea placeholder='Write a description for the animal.' rows="10" cols="60"></textarea>
@@ -226,42 +227,44 @@ export default function CreateAnimal() {
                             <input type="file" id="profilepic" onChange={handlePicUpload} name="profilepic"></input>
                         </section>
 
+                        {/* get disposition for animal  */}
                         <div className='disposition-container'>
-                        <section className='behaviours'>
-                        <h3>Behaviours & Needs</h3>
-                            {dispositionOptions.map((item) => {
-                                return (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='behaviors'
-                                            id={item.id}
-                                            value={item.value}
-                                            onChange={handleDisposition}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                );
-                            })}
-                        </section>
-                        
-                        <section className='personality'>
-                        <h3>Personality</h3>
-                            {personalityOptions.map((item) => {
-                                return (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='traits'
-                                            id={item.id}
-                                            value={item.value}
-                                            onChange={handlePersonality}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                );
-                            })}
-                        </section>
+                            <section className='behaviours'>
+                                <h3>Behaviours & Needs</h3>
+                                {dispositionOptions.map((item) => {
+                                    return (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='disposition'
+                                                id={item.id}
+                                                value={item.value}
+                                                onChange={handleChange}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    );
+                                })}
+                            </section>
+                            
+                            {/* get personality for animal  */}
+                            <section className='personality'>
+                                <h3>Personality</h3>
+                                {personalityOptions.map((item) => {
+                                    return (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='personality'
+                                                id={item.id}
+                                                value={item.value}
+                                                onChange={handleChange}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    );
+                                })}
+                            </section>
                         </div>
 
                         <button type="submit">Submit</button>

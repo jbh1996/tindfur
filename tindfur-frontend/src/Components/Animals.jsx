@@ -1,12 +1,15 @@
 import './Animals.css';
 import AnimalLink from './AnimalLink';
 
-export default function Animals({petInfo}){
+export default function Animals({ pets }) {
     return (
         <div className='Animals'>
-        <AnimalLink pet={petInfo}/>
-        <AnimalLink pet={petInfo}/>
-        <AnimalLink pet={petInfo}/>
+            {/* {pets.map((pet) => (
+                <AnimalLink key={pet.id} pet={pet} />
+            ))} */}
+            <AnimalLink pet={pets} />
+            <AnimalLink pet={pets} />
+            <AnimalLink pet={pets} />
 
         </div>
     )
