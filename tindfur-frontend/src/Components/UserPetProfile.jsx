@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import PetInfo from './PetInfo';
 import BasicInfoUser from './BasicInfoUser';
+import UserMessageSender from './UserMessageSender';
 
 
 export default function UserPetProfile() {
@@ -52,7 +53,7 @@ export default function UserPetProfile() {
             <Header />
             <main>
             <BasicInfoUser pet={pet}/>
-            
+            <UserMessageSender pet={pet} />
             </main>
             <Footer />
         </div>

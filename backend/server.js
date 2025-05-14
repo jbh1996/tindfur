@@ -10,6 +10,7 @@ app.use(express.json());
 
 const { createAccount, loginAccount } = require('./controllers/UserController');
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
+const {createMessage, retrieveMessages, createMessageinChat} = require('./controllers/MessageController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
 const { upload } = require('./middleware/upload'); 
 
@@ -42,6 +43,7 @@ app.get('/breeds/:animalType', (req, res) => {
 // Create Pet Profile
 app.post('/petprofiles', upload.single('petpic'), createProfile);
 
+
 // Retreive Pet Profile
 app.get('/petprofiles', retrieveProfile); 
 
@@ -54,9 +56,14 @@ app.put('/petprofiles/:id', upload.single('petpic'), updateProfile);
 // Delete Pet Profile
 app.delete('/petprofiles/:id', deleteProfile);
 
+// Create message
+app.post('/createmessage', createMessage);
 
+// Create message
+app.post('/createmessageinchat', createMessageinChat);
 
-
+// Create message
+app.get('/retrievemessages/:chatLogID', retrieveMessages);
 
 
 app.listen(port, () => {
