@@ -16,6 +16,8 @@ import CreateAnimal from './Components/CreateAnimal';
 import ShelterPetProfile from './Components/ShelterPetProfile';
 import UserPetProfile from './Components/UserPetProfile';
 import ShelterMessages from './Components/ShelterMessages';
+import ChatViewer from './Components/ChatViewer';
+
 
 function App() {
 
