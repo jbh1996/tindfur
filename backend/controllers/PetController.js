@@ -52,11 +52,13 @@ const createProfile = async (req, res) => {
       disposition: req.body.disposition,
       personality: req.body.personality,
       availability: req.body.availability,
-      picture: req.file.location,  
+      picture: req.file ? req.file.location : null,  
       description: req.body.description,
       news: req.body.news,
       createdBy: decoded.id 
     });
+
+    console.log(profile)
 
     // Save profile 
     await profile.save();
