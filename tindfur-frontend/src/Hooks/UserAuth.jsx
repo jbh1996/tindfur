@@ -29,10 +29,22 @@ const userAuth = () => {
                 }
             }
 
+    const getUserID = (token) => {
+        if (!token) return null;
+        try {
+            const decodedToken = jwtDecode(token);
+            return decodedToken.id || null;
+        } catch (error) {
+            return null;
+        }
+        };
+
+
+    const userID = getUserID(token);
     const isShelter = isShelterInCheck(token)
     const isLoggedIn = isLoggedInCheck(token)
 
-    return {isLoggedIn, isShelter}
+    return {isLoggedIn, isShelter, userID}
 
 }
 export default userAuth
