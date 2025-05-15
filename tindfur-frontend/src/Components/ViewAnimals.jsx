@@ -6,16 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import ShelterFilter from './ShelterFilter';
 import Animals from './Animals';
-
-
-const petInfo = {
-    image: "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    species: "Dog",
-    breed: "Shiba Inu",
-    name: "Joey",
-    age: 7,
-    id: 123
-}
+import { jwtDecode } from "jwt-decode"
 
 
 
@@ -29,21 +20,48 @@ export default function ViewAnimals() {
         }
     }, [redirect]);
 
-    const [pets, setPets] = useState([]);
+    const [petList, setPetList] = useState([]);
 
+    // get all pets for shelter
     const loadPets = async () => {
-        const response = await fetch('/petprofiles');
-        const data = await response.json();
-        setPets(data);
-    }
+        try {
+            const token = localStorage.getItem("auth_token");
+            const decodedToken = jwtDecode(token);
+            const userID = decodedToken.id;
+
+            const params = new URLSearchParams({
+                animalType: '',
+                breed: '',
+                disposition: '',
+                date: '',
+                availability: '',
+                createdBy: userID
+            })
+            const response = await fetch(`/petprofiles?${params.toString()}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            setPetList(data.profiles);
+            console.log(data.profiles)
+
+        } catch (error) {
+            console.error('Error fetching pets:', error);
+        };
+    };
+
+    useEffect(() => {
+        loadPets();
+    }, []);
 
     return (
-
 
         <div className="App">
             <Header />
             <main>
-                <Animals pets={petInfo} />
+                <Animals pets={petList} />
             </main>
             <Footer />
         </div>
