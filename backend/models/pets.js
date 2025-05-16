@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const NewsItem = require('./news');
 
 // Pet Schema
 const petSchema = new mongoose.Schema({
 
-  name: {type: String, required: true,},
+  name: {type: String},
 
   animalType: {
     type: String,
@@ -56,10 +57,8 @@ const petSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
-  
-  date: { type: Date, default: Date.now }
-});
+  }
+  },{ timestamps: true }); 
 
 
 //Filter and Retrieve pet profile 
@@ -101,6 +100,9 @@ petSchema.statics.removeProfile = async function(id) {
   if (!profile) {
     throw new Error('No Profile Found');
   }
+
+  // Delete news item associated with the profile
+  await NewsItem.deleteMany({ petId: id });
 
   //Delete Profile
   await this.deleteOne({ _id: id });
