@@ -63,3 +63,7 @@
 .Navbar .site-title:hover {
     color: var(--primary);
 }
+
+.Navbar .navIcon {
+    font-size: 22px;
+}

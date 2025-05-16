@@ -1,12 +1,15 @@
 import './Animals.css';
-import AnimalLink from './AnimalLink';
+import AnimalCard from './AnimalCard';
+import {Link}   from 'react-router-dom';
 
-export default function Animals({petInfo}){
+export default function Animals({ pets }) {
     return (
         <div className='Animals'>
-        <AnimalLink pet={petInfo}/>
-        <AnimalLink pet={petInfo}/>
-        <AnimalLink pet={petInfo}/>
+            {pets.map((pet) => (
+                <Link key={pet._id} className='animalLink' to={`/view-animals/${pet._id}`}>
+                    <AnimalCard pet={pet} /> 
+                </Link>
+            ))}
 
         </div>
     )

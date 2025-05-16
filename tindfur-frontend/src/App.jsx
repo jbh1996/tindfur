@@ -15,7 +15,9 @@ import ViewAnimals from './Components/ViewAnimals';
 import CreateAnimal from './Components/CreateAnimal';
 import ShelterPetProfile from './Components/ShelterPetProfile';
 import UserPetProfile from './Components/UserPetProfile';
+import ShelterMessages from './Components/ShelterMessages';
 import ChatViewer from './Components/ChatViewer';
+
 
 function App() {
 
@@ -37,6 +39,7 @@ function App() {
         <Route path="/view-messages/:chatLogID" element={<ChatViewer/>}></Route>
         <Route path="/browse-animals/:id" element={<UserPetProfile/>}></Route>
         <Route path="/create-animal" element={<CreateAnimal/>}></Route>
+        <Route path="/shelter-messages" element={<ShelterMessages/>}></Route>
 
         </Routes>
       </section>

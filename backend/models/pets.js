@@ -7,15 +7,13 @@ const petSchema = new mongoose.Schema({
 
   animalType: {
     type: String,
-    enum: ['dog', 'cat', 'other'],
+    enum: ['Dog', 'Cat', 'Other'],
     required: true,
   },
 
   breed: {type: String, required: true,},
 
   age: { type: Number },
-
-  shelterName: { type: String },
 
   gender: {
     type: String,
@@ -27,10 +25,12 @@ const petSchema = new mongoose.Schema({
   disposition: {
     type: [String],
     enum: [
-      'Good with other animals',
-      'Good with children',
+      'Good with Other Animals',
+      'Good with Kids',
       'Apartment OK',
-      'Animal must be leashed at all times'
+      'Must Be on Leash',
+      'House Trained',
+      'Needs Fenced Yard'
     ],
     default: []
 
@@ -43,7 +43,7 @@ const petSchema = new mongoose.Schema({
 
   personality: {
     type: [String],
-    enum: ['Calm', 'Cuddly', 'Playful', 'Energetic', 'Shy', 'Independent'], 
+    enum: ['Calm', 'Cuddly', 'Active', 'Smart', 'Friendly', 'Obedient','Gentle', 'Shy'], 
     default: []
   },
 
@@ -63,18 +63,8 @@ const petSchema = new mongoose.Schema({
 
 
 //Filter and Retrieve pet profile 
-petSchema.statics.findPets = function(filter, createdBy) {
+petSchema.statics.findPets = function(filter) {
   let query = this.find(filter);
-
-  //If filtering by Shelter Name, find matching name
-  if (createdBy) {
-    query = query.populate({
-      path: 'createdBy',
-      match: { name: { $regex: createdBy, $options: 'i' } },
-      select: 'name'
-    });
-  }
-
   return query.exec();
 };
 

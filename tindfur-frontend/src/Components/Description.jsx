@@ -11,13 +11,13 @@ export default function PetInfo({ pet }) {
                 <div className='disposition'>
                     <h3>Behaviors & Needs</h3>
                     <ul>
-                        {pet.disposition.map(trait => <li>{trait}</li>)}
+                        {pet.disposition && pet.disposition.map(trait => <li>{trait}</li>)}
                     </ul>
                 </div>
                 <div className='personality'>
                     <h3>Personality</h3>
                     <ul>
-                        {pet.personality.map(trait => <li>{trait}</li>)}
+                        {pet.personality && pet.personality.map(trait => <li>{trait}</li>)}
                     </ul>
                 </div>
 

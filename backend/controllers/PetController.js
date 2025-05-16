@@ -44,15 +44,21 @@ const createProfile = async (req, res) => {
 
     // Create a new profile
     const profile = new Profile({
+      name: req.body.name,
       animalType: req.body.animalType,
       breed: req.body.breed,
+      age: req.body.age,
+      gender: req.body.gender,
       disposition: req.body.disposition,
+      personality: req.body.personality,
       availability: req.body.availability,
-      picture: req.file.location,  
+      picture: req.file ? req.file.location : null,  
       description: req.body.description,
       news: req.body.news,
       createdBy: decoded.id 
     });
+
+    console.log(profile)
 
     // Save profile 
     await profile.save();
@@ -71,28 +77,12 @@ const retrieveProfile = async (req, res) => {
   try {
     const { animalType, breed, disposition, createdAt, createdBy } = req.query;
 
-    //Search for user name
-    let userId = null;
-    if (createdBy) {
-      //Trim to remove extra spaces
-      const searchName = createdBy.trim();
-      
-      //Search for user name (case-insenstive)
-      const user = await User.findOne({
-        name: new RegExp(`^${searchName}$`, 'i')
-      });
-      
-      //If user found, store in userId
-      userId = user?._id;
-    }
-
-
     const filter = {
       ...(animalType && { animalType }),
       ...(breed && { breed }),
       ...(disposition && { disposition: { $in: disposition.split(',') } }),
       ...(createdAt && { createdAt: { $gte: new Date(createdAt) } }),
-      ...(userId && { createdBy: userId }),
+      ...(createdBy && { createdBy }),
     };
 
 
@@ -166,9 +156,6 @@ const deleteProfile = async (req, res) => {
     res.status(500).json({ message: error.message || 'Something went wrong' });
   }
 };
-
-
-
 
 
 module.exports = { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile };

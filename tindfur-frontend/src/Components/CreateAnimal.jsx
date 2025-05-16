@@ -7,92 +7,45 @@ import userAuth from '../Hooks/UserAuth';
 import AWS from 'aws-sdk';
 
 
+// options for behavior checkboxes
 const dispositionOptions = [
-    {id: "1", value: "Good with Other Animals"},
-    {id: "2", value: "Good with Kids"},
-    {id: "3", value: "House Trained"},
-    {id: "4", value: "Needs Fenced Yard"},
-    {id: "5", value: "Apartment Ok"},
-    {id: "6", value: "Must Be on Leash"}
+    { id: "1", value: "Good with Other Animals" },
+    { id: "2", value: "Good with Kids" },
+    { id: "3", value: "House Trained" },
+    { id: "4", value: "Needs Fenced Yard" },
+    { id: "5", value: "Apartment OK" },
+    { id: "6", value: "Must Be on Leash" }
 ]
 
+// options for personality checkboxes
 const personalityOptions = [
-    {id: "1", value: "Cuddly"},
-    {id: "2", value: "Active"},
-    {id: "3", value: "Calm"},
-    {id: "4", value: "Smart"},
-    {id: "5", value: "Friendly"},
-    {id: "6", value: "Obedient"},
-    {id: "7", value: "Gentle"}
+    { id: "1", value: "Cuddly" },
+    { id: "2", value: "Active" },
+    { id: "3", value: "Calm" },
+    { id: "4", value: "Smart" },
+    { id: "5", value: "Friendly" },
+    { id: "6", value: "Obedient" },
+    { id: "7", value: "Gentle" },
+    { id: "8", value: "Shy" }
 ]
 
 export default function CreateAnimal() {
-    const S3_BUCKET = 'tindfurpics'
-    const REGION = 'us-east-2'
-    const ACCESS_KEY = 'AKIAQ67UMANZD45XFBJI';
-    const SECRET_ACCESS_KEY = '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';
 
+    // state variables for form
     const [uploadPic, setUploadPic] = useState(null);
     const [formData, setFormData] = useState({
-        petName: "",
+        name: "",
         age: "",
-        shelter: "",
-        petType: "",
+        animalType: "",
         breed: "",
-        availability: "",
+        availability: "Available",
         gender: "",
-        activityLevel: "",
-        trainingLevel: "",
-        housing: "",
+        description: "",
     })
     const [disposition, setDisposition] = useState([])
     const [personality, setPersonality] = useState([])
 
-
     const redirect = useNavigate("")
-
-
-    const handlePicUpload = (event) => {
-        setUploadPic(event.target.files[0]);
-    }
-    const UploadForm = (event) => {
-        setUploadPic(event.target.files[0]);
-    }
-    const uploadProfilePic = async (event) => {
-        event.preventDefault();
-
-        if (uploadPic) {
-
-            const s3 = new AWS.S3({
-                accessKeyId: ACCESS_KEY,
-                secretAccessKey: SECRET_ACCESS_KEY,
-                region: REGION,
-            });
-
-            const params = {
-                Bucket: S3_BUCKET, // Replace with your bucket name
-                Key: uploadPic.name,
-                Body: uploadPic,
-                ContentType: uploadPic.type,
-                ACL: 'public-read', // Makes the uploaded image publicly accessible
-            }
-            try {
-                const response = await s3.upload(params).promise();
-                console.log('Image uploaded successfully:', response.Location);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
-        };
-    }
-
-
-    useEffect(() => {
-        const { isLoggedIn, isShelter } = userAuth()
-        if (!isLoggedIn) {
-            redirect("/login")
-        }
-    }, [redirect]);
-
 
     const handleChange = (e) => {
         const changedField = e.target.name;
@@ -102,6 +55,8 @@ export default function CreateAnimal() {
             return { ...currData };
         })
     };
+
+    // add/remove items from disposition list
     const handleDisposition = (e) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
@@ -114,6 +69,7 @@ export default function CreateAnimal() {
         };
     };
 
+    // add/remove items from personality list
     const handlePersonality = (e) => {
         const value = e.target.value;
         const isChecked = e.target.checked;
@@ -126,6 +82,64 @@ export default function CreateAnimal() {
         };
     };
 
+    // handle photo upload
+    const handlePicUpload = (event) => {
+        setUploadPic(event.target.files[0]);
+    }
+   
+
+
+    //add animal to database
+    const addAnimal = async (event) => {
+        event.preventDefault();
+        console.log(formData)
+
+        const completeFormData = new FormData();
+        completeFormData.append("name", formData.name);
+        completeFormData.append("age", formData.age);
+        completeFormData.append("animalType", formData.animalType);
+        completeFormData.append("breed", formData.breed);
+        completeFormData.append("availability", formData.availability);
+        completeFormData.append("gender", formData.gender);
+        completeFormData.append("description", formData.description);
+        completeFormData.append("picture", uploadPic);
+
+        for (var i = 0; i < disposition.length; i++) {
+            completeFormData.append('disposition[]', disposition[i]);
+        }
+        for (var i = 0; i < personality.length; i++) {
+            completeFormData.append('personality[]', personality[i]);
+        }
+
+        const token = localStorage.getItem("auth_token")
+        const response = await fetch('/petprofiles', {
+            method: 'POST',
+            body: completeFormData,
+            headers: {
+                // 'Content-Type': 'applicaton/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        if (response.status === 201) {
+            alert('Animal profile created successfully')
+        } else {
+            alert(`Unable to create animal profile, status code = ${response.status}`)
+        }
+        redirect("/view-animals")
+
+    }
+
+
+
+    // redirect to login if user is logged out
+    useEffect(() => {
+        const { isLoggedIn, isShelter } = userAuth()
+        if (!isLoggedIn) {
+            redirect("/login")
+        }
+    }, [redirect]);
+
+
 
     return (
 
@@ -135,16 +149,17 @@ export default function CreateAnimal() {
             <main>
                 <div className='CreateAnimal'>
                     <h1>Create Animal Profile</h1>
-                    <form onSubmit={uploadProfilePic}>
+                    <form onSubmit={addAnimal}>
+                        {/* get basic info for animal */}
                         <h3>Animal's Information</h3>
                         <section className='info'>
                             <div className='columnPair'>
-                                <label htmlFor="petName">Name</label>
+                                <label htmlFor="name">Name</label>
                                 <input
-                                    id='petName'
+                                    id='name'
                                     type="text"
-                                    name='petName'
-                                    value={formData.petName}
+                                    name='name'
+                                    value={formData.name}
                                     onChange={handleChange}></input>
                             </div>
                             <div className='columnPair'>
@@ -169,13 +184,13 @@ export default function CreateAnimal() {
                                     <option value="F">F</option>
                                 </select>
                             </div>
-                            
+
                             <div className='columnPair'>
-                                <label htmlFor="pet-type">Type</label>
+                                <label htmlFor="animal-type">Type</label>
                                 <select
-                                    id="pet-type"
-                                    name='petType'
-                                    value={formData.petType}
+                                    id="animal-type"
+                                    name='animalType'
+                                    value={formData.animalType}
                                     onChange={handleChange}>
                                     <option value=""></option>
                                     <option value="Dog">Dog</option>
@@ -194,16 +209,7 @@ export default function CreateAnimal() {
                                     onChange={handleChange}>
                                 </input>
                             </div>
-                            <div className='columnPair'>
-                                <label htmlFor="shelter">Shelter Name</label>
-                                <input
-                                    id="shelter"
-                                    type='text'
-                                    name='shelter'
-                                    value={formData.shelter}
-                                    onChange={handleChange}>
-                                </input>
-                            </div>
+
                             <div className='columnPair'>
                                 <label htmlFor="availability">Availability</label>
                                 <select
@@ -219,49 +225,58 @@ export default function CreateAnimal() {
                             </div>
                         </section>
 
+                        {/* get description and photo for animal  */}
                         <h3>About</h3>
                         <section className='about'>
-                            <textarea placeholder='Write a description for the animal.' rows="10" cols="60"></textarea>
-                            <label>Upload New Profile Picture</label>
-                            <input type="file" id="profilepic" onChange={handlePicUpload} name="profilepic"></input>
+                            <textarea placeholder='Write a description for the animal.'
+                                rows="10"
+                                cols="60"
+                                name='description'
+                                id='description'
+                                onChange={handleChange}>
+                            </textarea>
+                            <label htmlFor='uploadPic'>Upload New Profile Picture</label>
+                            <input type="file" id="uploadPic" onChange={handlePicUpload} name="uploadPic"></input>
                         </section>
 
+                        {/* get disposition for animal  */}
                         <div className='disposition-container'>
-                        <section className='behaviours'>
-                        <h3>Behaviours & Needs</h3>
-                            {dispositionOptions.map((item) => {
-                                return (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='behaviors'
-                                            id={item.id}
-                                            value={item.value}
-                                            onChange={handleDisposition}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                );
-                            })}
-                        </section>
-                        
-                        <section className='personality'>
-                        <h3>Personality</h3>
-                            {personalityOptions.map((item) => {
-                                return (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='traits'
-                                            id={item.id}
-                                            value={item.value}
-                                            onChange={handlePersonality}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                );
-                            })}
-                        </section>
+                            <section className='behaviours'>
+                                <h3>Behaviours & Needs</h3>
+                                {dispositionOptions.map((item) => {
+                                    return (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='disposition'
+                                                id={item.id}
+                                                value={item.value}
+                                                onChange={handleDisposition}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    );
+                                })}
+                            </section>
+
+                            {/* get personality for animal  */}
+                            <section className='personality'>
+                                <h3>Personality</h3>
+                                {personalityOptions.map((item) => {
+                                    return (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='personality'
+                                                id={item.id}
+                                                value={item.value}
+                                                onChange={handlePersonality}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    );
+                                })}
+                            </section>
                         </div>
 
                         <button type="submit">Submit</button>

@@ -1,4 +1,5 @@
 import AnimalCard from "./AnimalCard";
+import {Link}   from 'react-router-dom';
 
 export default function AnimalBrowser({ animalList }) {
 
@@ -6,7 +7,9 @@ export default function AnimalBrowser({ animalList }) {
   return (
     <div>
       {animalList.map((animal) => (
-        <AnimalCard key={animal.id} pet={animal} />
+        <Link key={animal._id} className='animalLink' to={`/browse-animals/${animal._id}`}>
+          <AnimalCard pet={animal} />
+        </Link>
       ))}
     </div>
   );
