@@ -3,6 +3,7 @@ const app = express();
 const port = 5600
 const cors = require('cors');
 require('dotenv').config()
+require('./scripts/newsFeed');
 
 
 app.use(cors());
@@ -12,6 +13,7 @@ const { createAccount, loginAccount } = require('./controllers/UserController');
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const {createMessage, retrieveMessages, createMessageinChat} = require('./controllers/MessageController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
+const { retrieveNewsFeed } = require('./controllers/NewsController');
 const { upload } = require('./middleware/upload'); 
 
 
@@ -27,8 +29,8 @@ app.get('/breeds/:animalType', (req, res) => {
     const animalType = req.params.animalType;
   
     const breeds = {
-      cat: catBreeds,
-      dog: dogBreeds,
+      Cat: catBreeds,
+      Dog: dogBreeds,
       other: ['Other']
     };
   
@@ -64,6 +66,9 @@ app.post('/createmessageinchat', createMessageinChat);
 
 // Create message
 app.get('/retrievemessages/:chatLogID', retrieveMessages);
+
+// Retrieve News Feed
+app.get('/newsfeed', retrieveNewsFeed);
 
 
 app.listen(port, () => {

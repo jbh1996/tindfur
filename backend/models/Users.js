@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'shelter'], required: true },
   username: { type: String },   
+  name: { type: String },  // Shelter Name or User Name
   description: { type: String },
   dogsOwned: { type: Number, default: 0 },
   catsOwned: { type: Number, default: 0 },

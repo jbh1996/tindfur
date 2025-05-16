@@ -1,5 +1,6 @@
+const { createNewsItem } = require('../scripts/newsFeed');
 const Profile = require('../models/pets');
-const User  = require('../models/Users');
+const User  = require('../models/users');
 const jwt = require('jsonwebtoken');
 const { dogBreeds, catBreeds } = require('../utils/breeds');
 
@@ -7,10 +8,10 @@ const { dogBreeds, catBreeds } = require('../utils/breeds');
 // Get Breed List
 const getBreedList = (animalType) => {
   
-  if (animalType === 'dog') {
+  if (animalType === 'Dog') {
     return dogBreeds;
   
-  } else if (animalType === 'cat') {
+  } else if (animalType === 'Cat') {
     return catBreeds;
   
   } else {
@@ -62,6 +63,10 @@ const createProfile = async (req, res) => {
 
     // Save profile 
     await profile.save();
+
+    // Create daily news item as soon as new profile is created
+    await createNewsItem(); 
+
     res.status(201).json({ message: 'New Profile Created', profile });
 
   } catch (error) {

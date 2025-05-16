@@ -6,7 +6,6 @@ import News from './News';
 import DashPets from './DashPets';
 
 
-
 function ShelterDashboard({ isLoggedIn, isShelter }) {
   return (
     <div className="App">
@@ -24,3 +23,8 @@ function ShelterDashboard({ isLoggedIn, isShelter }) {
 }
 
 export default ShelterDashboard;
+
+
+
+
+

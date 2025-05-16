@@ -4,6 +4,7 @@ import Header from './Header';
 import { useState } from 'react';
 
 function Create({ isLoggedIn, isShelter }) {
+  const [name, setName] = useState(""); // (PG) Added name
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -14,9 +15,7 @@ function Create({ isLoggedIn, isShelter }) {
   const createAttempt = async (event) => {
     event.preventDefault();
 
-    console.log(email,
-      password,
-      role)
+    console.log(name,email,password,role)
   
     if (password !== confirmPassword) {
       alert("Passwords don't match");
@@ -31,6 +30,7 @@ function Create({ isLoggedIn, isShelter }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          name,
           email,
           password,
           role 
@@ -66,6 +66,16 @@ function Create({ isLoggedIn, isShelter }) {
             <select id="profile-type" name="profile-type" value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="user">Adopter</option>
               <option value="shelter">Shelter</option></select>
+
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+
             <label>Email</label>
             <input
               type="email"

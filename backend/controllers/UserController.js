@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const User = require('../models/Users');
+const User = require('../models/users');
 
 
 // Create User Account
 const createAccount = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { name, email, password, role } = req.body;
 
   // Return error if fields are incomplete
-  if (!email || !password || !role) {
+  if (!name, !email || !password || !role) {
     return res.status(400).json({ Error: 'Incomplete fields' });
   }
 
@@ -22,7 +22,7 @@ const createAccount = async (req, res) => {
   const hashedPw = await bcrypt.hash(password, 10);
 
   // Create new user account
-  const newAccount = new User({ email, password: hashedPw, role, username: email, description: "", dogsOwned: 0, catsOwned: 0, otherOwned:0, profilePic: "https://tindfurpics.s3.us-east-2.amazonaws.com/blankprofile.webp" });
+  const newAccount = new User({ name, email, password: hashedPw, role, username: email, description: "", dogsOwned: 0, catsOwned: 0, otherOwned:0, profilePic: "https://tindfurpics.s3.us-east-2.amazonaws.com/blankprofile.webp" });
   await newAccount.save();
 
   console.log(req.body)
