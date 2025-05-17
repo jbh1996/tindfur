@@ -4,8 +4,6 @@ import Header from './Header';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
-import AWS from 'aws-sdk';
-
 
 // options for behavior checkboxes
 const dispositionOptions = [
@@ -15,7 +13,7 @@ const dispositionOptions = [
     { id: "4", value: "Needs Fenced Yard" },
     { id: "5", value: "Apartment OK" },
     { id: "6", value: "Must Be on Leash" }
-]
+];
 
 // options for personality checkboxes
 const personalityOptions = [
@@ -27,125 +25,131 @@ const personalityOptions = [
     { id: "6", value: "Obedient" },
     { id: "7", value: "Gentle" },
     { id: "8", value: "Shy" }
-]
+];
 
 export default function CreateAnimal() {
 
     // state variables for form
-    const [uploadPic, setUploadPic] = useState(null);
+    const [picture, setPicture] = useState(null);
+    const [animalType, setAnimalType] = useState('');
+    const [breed, setBreed] = useState('');
+    const [breeds, setBreeds] = useState([]);
     const [formData, setFormData] = useState({
         name: "",
         age: "",
-        animalType: "",
-        breed: "",
         availability: "Available",
         gender: "",
         description: "",
-    })
-    const [disposition, setDisposition] = useState([])
-    const [personality, setPersonality] = useState([])
+    });
+    const [disposition, setDisposition] = useState([]);
+    const [personality, setPersonality] = useState([]);
 
-    const redirect = useNavigate("")
+    const redirect = useNavigate();
+
+    // Get breed list for dropdown
+    useEffect(() => {
+        const fetchBreeds = async (type) => {
+          if (!type) {
+            setBreeds([]);
+            setBreed('');
+            return;
+          }
+          const res = await fetch(`/breeds/${type}`);
+          const data = await res.json();
+          setBreeds(data);
+          setBreed('');
+        };
+      
+        fetchBreeds(animalType);
+      }, [animalType]);
 
     const handleChange = (e) => {
-        const changedField = e.target.name;
-        const newValue = e.target.value;
-        setFormData((currData) => {
-            currData[changedField] = newValue;
-            return { ...currData };
-        })
+        const { name, value } = e.target;
+        setFormData(currData => ({
+            ...currData,
+            [name]: value
+        }));
     };
 
-    // add/remove items from disposition list
+     // add/remove items from disposition list
     const handleDisposition = (e) => {
         const value = e.target.value;
-        const isChecked = e.target.checked;
-
-        if (isChecked) {
-            setDisposition([...disposition, value]);
+        if (e.target.checked) {
+            setDisposition(prev => [...prev, value]);
         } else {
-            const filteredList = disposition.filter((item) => item !== value);
-            setDisposition(filteredList);
-        };
+            setDisposition(prev => prev.filter(item => item !== value));
+        }
     };
 
     // add/remove items from personality list
     const handlePersonality = (e) => {
         const value = e.target.value;
-        const isChecked = e.target.checked;
-
-        if (isChecked) {
-            setPersonality([...personality, value]);
+        if (e.target.checked) {
+            setPersonality(prev => [...prev, value]);
         } else {
-            const filteredList = personality.filter((item) => item !== value);
-            setPersonality(filteredList);
-        };
+            setPersonality(prev => prev.filter(item => item !== value));
+        }
+    };
+    // handle photo upload
+    const handlePicUpload = (e) => {
+        setPicture(e.target.files[0]);
     };
 
-    // handle photo upload
-    const handlePicUpload = (event) => {
-        setUploadPic(event.target.files[0]);
-    }
-   
-
-
     //add animal to database
-    const addAnimal = async (event) => {
-        event.preventDefault();
-        console.log(formData)
+    const addAnimal = async (e) => {
+        e.preventDefault();
 
         const completeFormData = new FormData();
         completeFormData.append("name", formData.name);
         completeFormData.append("age", formData.age);
-        completeFormData.append("animalType", formData.animalType);
-        completeFormData.append("breed", formData.breed);
+        completeFormData.append("animalType", animalType);
+        completeFormData.append("breed", breed);
         completeFormData.append("availability", formData.availability);
         completeFormData.append("gender", formData.gender);
         completeFormData.append("description", formData.description);
-        completeFormData.append("picture", uploadPic);
 
-        for (var i = 0; i < disposition.length; i++) {
-            completeFormData.append('disposition[]', disposition[i]);
-        }
-        for (var i = 0; i < personality.length; i++) {
-            completeFormData.append('personality[]', personality[i]);
+        if (picture) {
+            completeFormData.append("petpic", picture);
         }
 
-        const token = localStorage.getItem("auth_token")
+        disposition.forEach(item => completeFormData.append('disposition[]', item));
+        personality.forEach(item => completeFormData.append('personality[]', item));
+
+        const token = localStorage.getItem("auth_token");
         const response = await fetch('/petprofiles', {
             method: 'POST',
             body: completeFormData,
             headers: {
-                // 'Content-Type': 'applicaton/json',
                 'Authorization': `Bearer ${token}`
             }
         });
+
         if (response.status === 201) {
-            alert('Animal profile created successfully')
+            alert('Animal profile created successfully');
+            redirect("/view-animals");
         } else {
-            alert(`Unable to create animal profile, status code = ${response.status}`)
+            alert(`Unable to create animal profile, status code = ${response.status}`);
         }
-        redirect("/view-animals")
+    };
 
-    }
-
-
-
-    // redirect to login if user is logged out
+    // Restrict access to create profile to Shelter users only
     useEffect(() => {
-        const { isLoggedIn, isShelter } = userAuth()
+        const auth = userAuth();
+        console.log('userAuth:', auth);
+
+        const { isLoggedIn, isShelter } = userAuth();
         if (!isLoggedIn) {
-            redirect("/login")
+            redirect("/login");
+        } else if (!isShelter) {
+            alert("Restricted Access: Not Allowed");
+            redirect("/");
         }
     }, [redirect]);
 
 
-
     return (
-
         <div className="App">
             <Header />
-
             <main>
                 <div className='CreateAnimal'>
                     <h1>Create Animal Profile</h1>
@@ -160,7 +164,8 @@ export default function CreateAnimal() {
                                     type="text"
                                     name='name'
                                     value={formData.name}
-                                    onChange={handleChange}></input>
+                                    onChange={handleChange}
+                                />
                             </div>
                             <div className='columnPair'>
                                 <label htmlFor="age">Age</label>
@@ -169,8 +174,8 @@ export default function CreateAnimal() {
                                     type='number'
                                     name='age'
                                     value={formData.age}
-                                    onChange={handleChange}>
-                                </input>
+                                    onChange={handleChange}
+                                />
                             </div>
                             <div className='columnPair'>
                                 <label htmlFor="gender">Gender</label>
@@ -178,45 +183,52 @@ export default function CreateAnimal() {
                                     id="gender"
                                     name='gender'
                                     value={formData.gender}
-                                    onChange={handleChange}>
+                                    onChange={handleChange}
+                                >
                                     <option value=""></option>
                                     <option value="M">M</option>
                                     <option value="F">F</option>
                                 </select>
                             </div>
-
                             <div className='columnPair'>
                                 <label htmlFor="animal-type">Type</label>
                                 <select
                                     id="animal-type"
-                                    name='animalType'
-                                    value={formData.animalType}
-                                    onChange={handleChange}>
+                                    name="animalType"
+                                    value={animalType}
+                                    onChange={(e) => setAnimalType(e.target.value)}
+>
                                     <option value=""></option>
                                     <option value="Dog">Dog</option>
                                     <option value="Cat">Cat</option>
                                     <option value="Other">Other</option>
-
                                 </select>
                             </div>
                             <div className='columnPair'>
                                 <label htmlFor="breed">Breed</label>
-                                <input
-                                    id="breed"
-                                    type='text'
-                                    name='breed'
-                                    value={formData.breed}
-                                    onChange={handleChange}>
-                                </input>
+                                <select
+                                    value={breed}
+                                    onChange={(e) => setBreed(e.target.value)}
+                                    required
+                                >
+                                <option value="">Select Breed</option>
+                                {breeds.length > 0 ? (
+                                    breeds.map((b) => (
+                                    <option key={b} value={b}>{b}</option>
+                                    ))
+                                ) : (
+                                    <option value="other">Other</option>
+                                )}
+                                </select>
                             </div>
-
                             <div className='columnPair'>
                                 <label htmlFor="availability">Availability</label>
                                 <select
                                     id="availability"
                                     name='availability'
                                     value={formData.availability}
-                                    onChange={handleChange}>
+                                    onChange={handleChange}
+                                >
                                     <option value="Available">Available</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Not Available">Not Available</option>
@@ -225,66 +237,71 @@ export default function CreateAnimal() {
                             </div>
                         </section>
 
-                        {/* get description and photo for animal  */}
+                         {/* get description and photo for animal  */}                
                         <h3>About</h3>
                         <section className='about'>
-                            <textarea placeholder='Write a description for the animal.'
+                            <textarea
+                                placeholder='Write a description for the animal.'
                                 rows="10"
                                 cols="60"
                                 name='description'
                                 id='description'
-                                onChange={handleChange}>
-                            </textarea>
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
                             <label htmlFor='uploadPic'>Upload New Profile Picture</label>
-                            <input type="file" id="uploadPic" onChange={handlePicUpload} name="uploadPic"></input>
+                            <input
+                                type="file"
+                                id="uploadPic"
+                                name="petpic"
+                                accept="image/*"
+                                onChange={handlePicUpload}
+                            />
                         </section>
 
-                        {/* get disposition for animal  */}
+                        {/* get disposition for animal  */}            
                         <div className='disposition-container'>
                             <section className='behaviours'>
                                 <h3>Behaviours & Needs</h3>
-                                {dispositionOptions.map((item) => {
-                                    return (
-                                        <div key={item.id} className='checkbox-container'>
-                                            <input
-                                                type="checkbox"
-                                                name='disposition'
-                                                id={item.id}
-                                                value={item.value}
-                                                onChange={handleDisposition}
-                                            />
-                                            <label htmlFor={item.id}>{item.value}</label>
-                                        </div>
-                                    );
-                                })}
+                                {dispositionOptions.map((item) => (
+                                    <div key={item.id} className='checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            name='disposition'
+                                            id={item.id}
+                                            value={item.value}
+                                            checked={disposition.includes(item.value)}
+                                            onChange={handleDisposition}
+                                        />
+                                        <label htmlFor={item.id}>{item.value}</label>
+                                    </div>
+                                ))}
                             </section>
 
-                            {/* get personality for animal  */}
+                            {/* get personality for animal  */}            
                             <section className='personality'>
                                 <h3>Personality</h3>
-                                {personalityOptions.map((item) => {
-                                    return (
-                                        <div key={item.id} className='checkbox-container'>
-                                            <input
-                                                type="checkbox"
-                                                name='personality'
-                                                id={item.id}
-                                                value={item.value}
-                                                onChange={handlePersonality}
-                                            />
-                                            <label htmlFor={item.id}>{item.value}</label>
-                                        </div>
-                                    );
-                                })}
+                                {personalityOptions.map((item) => (
+                                    <div key={item.id} className='checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            name='personality'
+                                            id={item.id}
+                                            value={item.value}
+                                            checked={personality.includes(item.value)}
+                                            onChange={handlePersonality}
+                                        />
+                                        <label htmlFor={item.id}>{item.value}</label>
+                                    </div>
+                                ))}
                             </section>
                         </div>
 
                         <button type="submit">Submit</button>
                     </form>
                 </div>
-            </main >
-
-            <Footer></Footer>
-        </div >
+            </main>
+            <Footer />
+        </div>
     );
 };

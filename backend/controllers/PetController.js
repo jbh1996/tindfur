@@ -2,6 +2,7 @@ const { createNewsItem } = require('../scripts/newsFeed');
 const Profile = require('../models/pets');
 const User  = require('../models/users');
 const jwt = require('jsonwebtoken');
+const mongoose = require('../models/index');
 const { dogBreeds, catBreeds } = require('../utils/breeds');
 
 
@@ -82,13 +83,34 @@ const retrieveProfile = async (req, res) => {
   try {
     const { animalType, breed, disposition, createdAt, createdBy } = req.query;
 
-    const filter = {
-      ...(animalType && { animalType }),
-      ...(breed && { breed }),
-      ...(disposition && { disposition: { $in: disposition.split(',') } }),
-      ...(createdAt && { createdAt: { $gte: new Date(createdAt) } }),
-      ...(createdBy && { createdBy }),
-    };
+      //Filter by user name or user id
+      let userFilter = null;
+
+      if (createdBy) {
+        const filterInput = createdBy.trim();
+
+        // Check if user exist
+        const userExists = mongoose.Types.ObjectId.isValid(filterInput) && (new mongoose.Types.ObjectId(filterInput)).toString() === filterInput;
+
+        // If input is user ID, find by ID
+        if (userExists) {
+          userFilter = filterInput; 
+        } else {
+          // If input is user name, find by name
+          const user = await User.findOne({
+          name: new RegExp(`^${filterInput}$`, 'i')
+        });
+        userFilter = user?._id;
+        }
+      }
+
+  const filter = {
+    ...(animalType && { animalType }),
+    ...(breed && { breed }),
+    ...(disposition && { disposition: { $in: disposition.split(',') } }),
+    ...(createdAt && { createdAt: { $gte: new Date(createdAt) } }),
+    ...(userFilter && { createdBy: userFilter }),
+  };
 
 
     const profiles = await Profile.findPets(filter);

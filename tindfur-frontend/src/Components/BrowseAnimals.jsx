@@ -17,6 +17,7 @@ function BrowseAnimals() {
     dispositions: [],
     date: '',
     availability: 'Available',
+    createdBy: '',
   });
 
   const [animalList, setAnimalList] = useState([]);
@@ -30,6 +31,7 @@ function BrowseAnimals() {
           disposition: filters.dispositions.join(','),
           date: filters.date,
           availability: filters.availability,
+          createdBy: filters.createdBy,
         });
 
         const response = await fetch(`/petprofiles?${params.toString()}`, {
