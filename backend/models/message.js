@@ -1,7 +1,7 @@
 const mongoose = require('./index');
 
 const messageSchema = new mongoose.Schema({
-  content: { type: String, required: true, unique: true },
+  content: { type: String, required: true },
   userType: { type: String, enum: ['user', 'shelter'], required: true },
   chatLogID: {
     type: mongoose.Schema.Types.ObjectId,

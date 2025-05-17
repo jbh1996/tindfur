@@ -1,4 +1,8 @@
 const ChatLog = require('../models/chatlog');
+const PetProfile = require('../models/pets');
+const User = require('../models/users');
+
+
 
 const createChatLog = async (userID, shelterID, petID) => {
     const newChatLog = new ChatLog({ userID, shelterID, petID });
@@ -16,7 +20,11 @@ const retrieveChatLogsUsers = async (req, res) => {
         ...(userID && { userID: userID })
       }
 
-      const chatLogs = await ChatLog.find(filter);
+      const chatLogs = await ChatLog.find(filter)
+      .populate('userID')     
+      .populate('shelterID')  
+      .populate('petID');    
+
 
       res.status(200).json(chatLogs);
 }
@@ -27,23 +35,26 @@ catch (error) {
 }
 
 const retrieveChatLogsShelters = async (req, res) => {
-    try {
-      const { shelterID } = req.params;
-  
+  try {
+    const { userID } = req.params;
 
-      const filter = {
-        ...(shelterID && { shelterID: shelterID })
-      }
+    const filter = {
+      ...(userID && { shelterID: userID })
+    }
 
-      const chatLogs = await ChatLog.find(filter);
+    const chatLogs = await ChatLog.find(filter)
+      .populate('userID')    
+      .populate('shelterID')  
+      .populate('petID');    
 
-      res.status(200).json(chatLogs);
-}
-catch (error) {
+    res.status(200).json(chatLogs);
+  }
+  catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error: Unable to retrieve chat logs' });
   }
 }
+
 
 const findChatLogByUserAndPet = async (userID, petID) => {
     return await ChatLog.findOne({ userID, petID });
