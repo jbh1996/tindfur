@@ -12,6 +12,8 @@ const { createAccount, loginAccount, updateAccount } = require('./controllers/Us
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
 const { upload } = require('./middleware/upload'); 
+const { uploadProfilePic } = require('./controllers/UserController');
+
 
 
 

@@ -39,33 +39,32 @@ const UploadForm= (event) => {
 
     let profilePicUrl = "";
 
+    // Upload image to backend if a new one was selected
     if (uploadPic) {
-      const s3 = new AWS.S3({
-        accessKeyId: ACCESS_KEY,
-        secretAccessKey: SECRET_ACCESS_KEY,
-        region: REGION,
-      });
-
-      const params = {
-        Bucket: S3_BUCKET,
-        Key: uploadPic.name,
-        Body: uploadPic,
-        ContentType: uploadPic.type,
-        ACL: 'public-read',
-      };
+      const formData = new FormData();
+      formData.append("userpic", uploadPic);
 
       try {
-        const response = await s3.upload(params).promise();
-        console.log('Image uploaded successfully:', response.Location);
-        profilePicUrl = response.Location; // store the uploaded S3 URL
+        const res = await fetch("http://localhost:5600/uploadpics", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || 'Image upload failed');
+        }
+
+        const data = await res.json();
+        profilePicUrl = data.imageUrl;
       } catch (error) {
-        console.error('Error uploading image:', error);
-        return; // stop if upload fails
+        console.error('Image upload failed:', error.message);
+        return;
       }
     }
 
+    // Update account details as before
     try {
-      // Grab userId and token from localStorage
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('token');
 
@@ -75,7 +74,7 @@ const UploadForm= (event) => {
         dogsOwned,
         catsOwned,
         otherOwned,
-        profilePic: profilePicUrl // attach uploaded image URL
+        profilePic: profilePicUrl
       };
 
       const res = await fetch(`http://localhost:5600/users/${userId}`, {
@@ -95,15 +94,11 @@ const UploadForm= (event) => {
       const result = await res.json();
       console.log('Profile updated successfully:', result);
 
-      // Redirect to dashboard or success page
       redirect('/dashboard');
-
     } catch (error) {
       console.error('Failed to update profile:', error.message);
     }
   };
-
-
 
 
 useEffect (() => {

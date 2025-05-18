@@ -77,6 +77,22 @@ const updateAccount = async (req, res) => {
   }
 };
 
+const uploadProfilePic = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Return the public URL of the uploaded image
+    const imageUrl = `https://${process.env.S3_BUCKET}.s3.${process.env.REGION}.amazonaws.com/${req.file.key}`;
+    res.status(200).json({ imageUrl });
+  } catch (error) {
+    console.error('Upload failed:', error);
+    res.status(500).json({ error: 'Failed to upload image' });
+  }
+};
+
+
 // Login User Account
 const loginAccount = async (req, res) => {
   const { email, password } = req.body;
@@ -109,4 +125,4 @@ const loginAccount = async (req, res) => {
   }
 };
 
-module.exports = { createAccount, loginAccount, updateAccount };
+module.exports = { createAccount, loginAccount, updateAccount, uploadProfilePic };
