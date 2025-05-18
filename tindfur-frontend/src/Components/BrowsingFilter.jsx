@@ -1,11 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function BrowsingFilter({ onSubmit }) {
   const [animalType, setAnimalType] = useState("");
   const [breed, setBreed] = useState("");
+  const [breedOptions, setBreedOptions] = useState([]);
   const [dispositions, setDispositions] = useState([]);
   const [date, setDate] = useState("");
   const [availability, setAvailability] = useState("Available");
+  const [shelterName, setShelterName] = useState("");
+
+  // Retrieve breed list
+  useEffect(() => {
+    if (animalType) {
+      fetch(`/breeds/${animalType}`)
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data)) {
+            setBreedOptions(data);
+          } else {
+            setBreedOptions([]);
+            
+          }
+        })
+        .catch(err => {
+          setBreedOptions([]);
+          console.error('Unable to retrieve breed list', err);
+        });
+      setBreed('');  
+    } else {
+      setBreedOptions([]);
+      setBreed('');
+    }
+  }, [animalType]);
+
+
 
   const handleCheckboxChange = (value) => {
     if (dispositions.includes(value)) {
@@ -25,6 +53,7 @@ function BrowsingFilter({ onSubmit }) {
       dispositions,
       date,
       availability,
+      createdBy: shelterName.trim(), // Search by Shelter Name
     };
 
     // Call onSubmit with the filters object
@@ -38,18 +67,29 @@ function BrowsingFilter({ onSubmit }) {
         <label>Species:</label>
         <select value={animalType} onChange={(e) => setAnimalType(e.target.value)}>
           <option value="">Any</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="other">Other</option>
+          <option value="Dog">Dog</option>
+          <option value="Cat">Cat</option>
+          <option value="Other">Other</option>
         </select>
 
         <label>Breed:</label>
-        <input
-          type="text"
+        <select
           value={breed}
           onChange={(e) => setBreed(e.target.value)}
-          placeholder="e.g., Labrador"
-        />
+          disabled={!animalType}
+        >
+          <option value="">Select Breed</option>
+          {breedOptions.length === 0 ? (
+            <option disabled>No breeds available</option>
+          ) : (
+            breedOptions.map((b, idx) => (
+              <option key={idx} value={b}>
+              {b}
+            </option>
+          ))
+        )}
+        </select>
+
 
         <fieldset>
           <legend>Disposition</legend>
@@ -92,6 +132,15 @@ function BrowsingFilter({ onSubmit }) {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+        />
+
+
+        <label>Shelter Name:</label>
+        <input
+          type="text"
+          value={shelterName}
+          onChange={(e) => setShelterName(e.target.value)}
+          placeholder="Shelter Name"
         />
 
         <button type="submit">Search</button>
