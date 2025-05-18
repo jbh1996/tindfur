@@ -34,33 +34,75 @@ const UploadForm= (event) => {
     setUploadPic(event.target.files[0]);
 }
 
-const uploadProfilePic = async(event) => {
+  const uploadProfilePic = async (event) => {
     event.preventDefault();
 
+    let profilePicUrl = "";
 
     if (uploadPic) {
-
-    const s3 = new AWS.S3({
-        accessKeyId: ACCESS_KEY, 
-        secretAccessKey: SECRET_ACCESS_KEY, 
-        region: REGION, 
+      const s3 = new AWS.S3({
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY,
+        region: REGION,
       });
 
-    const params = {
-      Bucket: S3_BUCKET, // Replace with your bucket name
-      Key: uploadPic.name,
-      Body: uploadPic,
-      ContentType: uploadPic.type,
-      ACL: 'public-read', // Makes the uploaded image publicly accessible
-    }
-    try {
+      const params = {
+        Bucket: S3_BUCKET,
+        Key: uploadPic.name,
+        Body: uploadPic,
+        ContentType: uploadPic.type,
+        ACL: 'public-read',
+      };
+
+      try {
         const response = await s3.upload(params).promise();
         console.log('Image uploaded successfully:', response.Location);
+        profilePicUrl = response.Location; // store the uploaded S3 URL
       } catch (error) {
         console.error('Error uploading image:', error);
+        return; // stop if upload fails
       }
-    };
-}
+    }
+
+    try {
+      // Grab userId and token from localStorage
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+
+      const updates = {
+        username,
+        description,
+        dogsOwned,
+        catsOwned,
+        otherOwned,
+        profilePic: profilePicUrl // attach uploaded image URL
+      };
+
+      const res = await fetch(`http://localhost:5600/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updates)
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to update profile');
+      }
+
+      const result = await res.json();
+      console.log('Profile updated successfully:', result);
+
+      // Redirect to dashboard or success page
+      redirect('/dashboard');
+
+    } catch (error) {
+      console.error('Failed to update profile:', error.message);
+    }
+  };
+
 
 
 
@@ -114,7 +156,7 @@ return (
             <option value={3}>3</option>
             <option value={4}>4+</option></select>
             <label>Upload New Profile Picture</label>
-<           input type="file" id="profilepic" onChange={handlePicUpload} name="profilepic"></input>
+            <input type="file" id="profilepic" onChange={handlePicUpload} name="profilepic"/>
             <button type="submit">Submit</button>
           </form>
         </div>
