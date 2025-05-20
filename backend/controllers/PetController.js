@@ -1,6 +1,6 @@
 const { createNewsItem } = require('../scripts/newsFeed');
 const Profile = require('../models/pets');
-const User  = require('../models/users');
+const User  = require('../models/Users');
 const jwt = require('jsonwebtoken');
 const mongoose = require('../models/index');
 const { dogBreeds, catBreeds } = require('../utils/breeds');

@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import AWS from 'aws-sdk';
+import { jwtDecode } from 'jwt-decode';
+
 
 
 function EditProfile() {
@@ -34,33 +36,83 @@ const UploadForm= (event) => {
     setUploadPic(event.target.files[0]);
 }
 
-const uploadProfilePic = async(event) => {
+  const uploadProfilePic = async (event) => {
     event.preventDefault();
 
+    let profilePicUrl = "";
 
     if (uploadPic) {
-
-    const s3 = new AWS.S3({
-        accessKeyId: ACCESS_KEY, 
-        secretAccessKey: SECRET_ACCESS_KEY, 
-        region: REGION, 
+      const s3 = new AWS.S3({
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY,
+        region: REGION,
       });
 
-    const params = {
-      Bucket: S3_BUCKET, // Replace with your bucket name
-      Key: uploadPic.name,
-      Body: uploadPic,
-      ContentType: uploadPic.type,
-      ACL: 'public-read', // Makes the uploaded image publicly accessible
-    }
-    try {
+      const params = {
+        Bucket: S3_BUCKET,
+        Key: uploadPic.name,
+        Body: uploadPic,
+        ContentType: uploadPic.type,
+        ACL: 'public-read',
+      };
+
+      try {
         const response = await s3.upload(params).promise();
-        console.log('Image uploaded successfully:', response.Location);
+        profilePicUrl = response.Location;
       } catch (error) {
         console.error('Error uploading image:', error);
       }
-    };
-}
+    }
+    const token = localStorage.getItem("auth_token");
+    let userID = null;
+
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        userID = decoded.id;
+        console.log("✅ DECODED JWT:", decoded);
+        console.log("✅ Extracted userID:", userID);
+      } catch (err) {
+        console.error("❌ Failed to decode token", err);
+      }
+    } else {
+      console.warn("❌ No token found in localStorage");
+    }
+
+    try {
+      if (!userID || userID === "null") {
+        alert("Invalid user ID — please log in again.");
+        return;
+      }
+      const res = await fetch(`http://localhost:5600/user/${userID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          description,
+          dogsOwned,
+          catsOwned,
+          otherOwned,
+          profilePic: profilePicUrl || undefined
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Profile updated!");
+      } else {
+        console.error(data);
+        alert("Update failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred");
+    }
+  };
+
 
 
 
