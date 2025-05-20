@@ -9,12 +9,12 @@ require('./scripts/newsFeed');
 app.use(cors());
 app.use(express.json()); 
 
-const { createAccount, loginAccount } = require('./controllers/UserController');
 const { createChatLog, retrieveChatLogsUsers, retrieveChatLogsShelters, findChatLogByUserAndPet} = require('./controllers/ChatLogController');
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const {createMessage, retrieveMessages, createMessageinChat} = require('./controllers/MessageController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
 const { retrieveNewsFeed } = require('./controllers/NewsController');
+const { createAccount, loginAccount, updateAccount } = require('./controllers/UserController');
 const { upload } = require('./middleware/upload'); 
 
 
@@ -55,6 +55,9 @@ app.get('/petprofiles/:id', retrieveProfilebyID);
 
 // Edit Pet profile
 app.put('/petprofiles/:id', upload.single('petpic'), updateProfile);
+
+// Edit User Account
+app.put('/user/:id', updateAccount);
 
 // Delete Pet Profile
 app.delete('/petprofiles/:id', deleteProfile);
