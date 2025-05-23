@@ -1,16 +1,17 @@
 .BasicInfo {
     border: 1px ;
-    min-width: 350px;
+    width: 350px;
     padding: 2rem;
-    padding-top: 0;
+    border-radius: 5px;
+    justify-self: center;
 }
 
 .BasicInfo h2{
     border-bottom: 3px solid var(--primary);
     margin-top: 0;
     padding: 0;
-    /* font-family:  'Segoe UI', sans-serif; */
-    letter-spacing: 1px;
+    font-family:  'Segoe UI', sans-serif;
+    letter-spacing: 0px;
 }
 
 .BasicInfo ul {
@@ -24,5 +25,4 @@
 
 .BasicInfo span {
     font-weight: 600;
-    
 }

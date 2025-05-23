@@ -3,24 +3,34 @@
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    background-color: #ececec8f;
+    border-bottom: 2px solid var(--light-gray);
 }
 
 .Description .traits {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 2rem 0;
-    min-width: 300px;
-    
+    width: 350px;
+    padding: 2rem;
 }
 
-.Description ul{
-list-style: none;
-padding: 0;
+.Description ul {
+    list-style: none;
+    padding: 0;
 }
 
 .Description li {
-    padding: .3rem 0;
+    padding: .3rem 1rem;
+    margin: .5rem;
+    margin-left: 0;
+    border: 2px solid var(--primary);
+    width: fit-content;
+    /* color: var(--primary); */
+    font-weight: 600;
+    border-radius: 20px;
+    background-color: var(--primary);
+    color: white;
 }
 
 
@@ -29,6 +39,3 @@ padding: 0;
     padding: 2rem;
 }
 
-.Description .disposition {
-    
-}

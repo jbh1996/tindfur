@@ -1,0 +1,6 @@
+.ShelterPetProfile main {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+}
+
