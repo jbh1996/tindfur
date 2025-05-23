@@ -1,27 +1,30 @@
-import './ShelterPetProfile.css';
+import './EditAnimal.css';
 import Footer from './Footer';
 import Header from './Header';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
-import PetInfo from './PetInfo';
+import EditAnimalForm from './EditAnimalForm';
 
 
-export default function ShelterPetProfile(props) {
 
+export default function EditAnimal() {
     const redirect = useNavigate("")
-
     const { id } = useParams();
+    const [petProfile, setPetProfile] = useState({});
 
+    // verify that user is logged in
     useEffect(() => {
         const { isLoggedIn, isShelter } = userAuth()
         if (!isLoggedIn) {
             redirect("/login")
+        }  else if (!isShelter) {
+            alert("Restricted Access: Not Allowed");
+            redirect("/");
         }
     }, [redirect]);
 
-    const [petProfile, setPetProfile] = useState({});
-
+    // load current pet info
     const loadPet = async () => {
         try {
         const response = await fetch(`/petprofiles/${id}`, {
@@ -32,8 +35,8 @@ export default function ShelterPetProfile(props) {
         });
         const data = await response.json();
         setPetProfile(data);
-        console.log(data)
-
+        console.log(data);
+        
         } catch (error){
             console.error('Error fetching pet:', error);
         };
@@ -43,13 +46,15 @@ export default function ShelterPetProfile(props) {
         loadPet();
     }, []);
 
-    return (
 
+    
+    
 
-        <div className="ShelterPetProfile" id='profile-page'>
+     return (
+        <div className="App">
             <Header />
             <main>
-                <PetInfo pet={petProfile}/>   
+                <EditAnimalForm pet={petProfile} />
             </main>
             <Footer />
         </div>

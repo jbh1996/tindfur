@@ -49,19 +49,19 @@ export default function CreateAnimal() {
     // Get breed list for dropdown
     useEffect(() => {
         const fetchBreeds = async (type) => {
-          if (!type) {
-            setBreeds([]);
+            if (!type) {
+                setBreeds([]);
+                setBreed('');
+                return;
+            }
+            const res = await fetch(`/breeds/${type}`);
+            const data = await res.json();
+            setBreeds(data);
             setBreed('');
-            return;
-          }
-          const res = await fetch(`/breeds/${type}`);
-          const data = await res.json();
-          setBreeds(data);
-          setBreed('');
         };
-      
+
         fetchBreeds(animalType);
-      }, [animalType]);
+    }, [animalType]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -71,7 +71,7 @@ export default function CreateAnimal() {
         }));
     };
 
-     // add/remove items from disposition list
+    // add/remove items from disposition list
     const handleDisposition = (e) => {
         const value = e.target.value;
         if (e.target.checked) {
@@ -197,7 +197,7 @@ export default function CreateAnimal() {
                                     name="animalType"
                                     value={animalType}
                                     onChange={(e) => setAnimalType(e.target.value)}
->
+                                >
                                     <option value=""></option>
                                     <option value="Dog">Dog</option>
                                     <option value="Cat">Cat</option>
@@ -211,14 +211,14 @@ export default function CreateAnimal() {
                                     onChange={(e) => setBreed(e.target.value)}
                                     required
                                 >
-                                <option value="">Select Breed</option>
-                                {breeds.length > 0 ? (
-                                    breeds.map((b) => (
-                                    <option key={b} value={b}>{b}</option>
-                                    ))
-                                ) : (
-                                    <option value="other">Other</option>
-                                )}
+                                    <option value="">Select Breed</option>
+                                    {breeds.length > 0 ? (
+                                        breeds.map((b) => (
+                                            <option key={b} value={b}>{b}</option>
+                                        ))
+                                    ) : (
+                                        <option value="other">Other</option>
+                                    )}
                                 </select>
                             </div>
                             <div className='columnPair'>
@@ -237,7 +237,7 @@ export default function CreateAnimal() {
                             </div>
                         </section>
 
-                         {/* get description and photo for animal  */}                
+                        {/* get description and photo for animal  */}
                         <h3>About</h3>
                         <section className='about'>
                             <textarea
@@ -259,10 +259,11 @@ export default function CreateAnimal() {
                             />
                         </section>
 
-                        {/* get disposition for animal  */}            
+                        {/* get disposition for animal  */}
                         <div className='disposition-container'>
                             <section className='behaviours'>
                                 <h3>Behaviours & Needs</h3>
+                                <div className='checkboxes'>
                                 {dispositionOptions.map((item) => (
                                     <div key={item.id} className='checkbox-container'>
                                         <input
@@ -276,24 +277,27 @@ export default function CreateAnimal() {
                                         <label htmlFor={item.id}>{item.value}</label>
                                     </div>
                                 ))}
+                                </div>
                             </section>
 
-                            {/* get personality for animal  */}            
-                            <section className='personality'>
+                            {/* get personality for animal  */}
+                            <section className='personality-container'>
                                 <h3>Personality</h3>
-                                {personalityOptions.map((item) => (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='personality'
-                                            id={item.id}
-                                            value={item.value}
-                                            checked={personality.includes(item.value)}
-                                            onChange={handlePersonality}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                ))}
+                                <div className='checkboxes'>
+                                    {personalityOptions.map((item) => (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='personality'
+                                                id={item.id}
+                                                value={item.value}
+                                                checked={personality.includes(item.value)}
+                                                onChange={handlePersonality}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    ))}
+                                </div>
                             </section>
                         </div>
 

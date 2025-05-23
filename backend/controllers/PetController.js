@@ -151,7 +151,7 @@ const updateProfile = async (req, res) => {
     const { id } = req.params; 
 
     // If photo was uploaded, use file path or else null
-    let picture = req.file ? req.file.path : null; 
+    let picture = req.file ? req.file.location : null; 
 
     // Get the updated data
     const updateInfo = { ...req.body, picture: picture || undefined };
@@ -177,7 +177,7 @@ const deleteProfile = async (req, res) => {
     // Call static method-removeProfile to delete profile
     await Profile.removeProfile(id);
 
-    res.status(200).json({ message: 'Profile Has Been Deleted' });
+    res.status(204).json({ message: 'Profile Has Been Deleted' });
   } catch (error) {
     console.error('Unable to delete profile:', error);
     res.status(500).json({ message: error.message || 'Something went wrong' });
