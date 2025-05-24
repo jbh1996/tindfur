@@ -4,14 +4,15 @@ import Header from './Header';
 import { useState } from 'react';
 
 function Create({ isLoggedIn, isShelter }) {
-  const [name, setName] = useState(""); // (PG) Added name
+  const [name, setName] = useState(""); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [role, setRole] = useState("user"); //(PG) Add useState for role
+  const [role, setRole] = useState("user"); 
+  const [emailPrefs, setEmailPrefs] = useState("no");
 
 
-
+  // Create User Account
   const createAttempt = async (event) => {
     event.preventDefault();
 
@@ -22,7 +23,7 @@ function Create({ isLoggedIn, isShelter }) {
       return;
     }
     
-    // (PG) Added call to backend 
+    
     try {
       const response = await fetch('/register', {
         method: 'POST',
@@ -33,7 +34,10 @@ function Create({ isLoggedIn, isShelter }) {
           name,
           email,
           password,
-          role 
+          role,
+          emailPrefs: {
+            newPetProfiles: role === 'user' ? emailPrefs === "yes" : false
+          }
         })
       });
   
@@ -52,7 +56,6 @@ function Create({ isLoggedIn, isShelter }) {
   }
 
 
-  // (PG) Added value={role}, onChange to set role, option value - Choose Account Type
   
   return (
     <div className="App">
@@ -62,7 +65,7 @@ function Create({ isLoggedIn, isShelter }) {
         <div className='accountCard'>
           <h1>Create Account</h1>
           <form onSubmit={createAttempt}>
-            <label for="profile-type">Are you a shelter or an adopter:</label>
+            <label htmlFor="profile-type">Are you a shelter or an adopter:</label>
             <select id="profile-type" name="profile-type" value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="user">Adopter</option>
               <option value="shelter">Shelter</option></select>
@@ -97,6 +100,23 @@ function Create({ isLoggedIn, isShelter }) {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required></input>
+
+                  
+            {role === "user" && (
+              <>
+                <label htmlFor="emailPrefs">Subscribe to email alerts for new pet profiles:</label>
+                <select
+                  id="emailPrefs"
+                  value={emailPrefs}
+                  onChange={(e) => setEmailPrefs(e.target.value)}
+                >
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                </select>
+            </>
+)}
+
+
             <button type="submit">Submit</button>
           </form>
         </div>
