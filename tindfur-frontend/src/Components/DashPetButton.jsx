@@ -9,7 +9,7 @@ export default function DashButton({ title, Icon }) {
     return (
         <NavLink to="/view-animals" className='DashPetButton'>
             <PiDog className='DashIcon'/>
-            <p>View All </p>
+            <p>View Pets </p>
         </NavLink>
 
 

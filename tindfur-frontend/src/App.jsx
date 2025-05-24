@@ -20,7 +20,7 @@ import ChatViewer from './Components/ChatViewer';
 import ChatViewerShelter from './Components/ChatViewerShelter';
 import BrowseMessagesUser from './Components/BrowseMessagesUser';
 import BrowseMessagesShelter from './Components/BrowseMessagesShelter';
-
+import ViewUsers from './Components/ViewUsers';
 
 function App() {
 
@@ -35,6 +35,7 @@ function App() {
           <Route path="/create" element={<Create />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route path="/view-users" element={<ViewUsers />} />
         <Route path="/edit-profile" element={<EditProfile/>}></Route>
         <Route path="/browse-animals" element={<BrowseAnimals/>}></Route>
         <Route path="/view-animals" element={<ViewAnimals/>}></Route>

@@ -13,5 +13,5 @@ const userSchema = new mongoose.Schema({
   profilePic: { type: String }
 });
 
-// ✅ Prevent OverwriteModelError
+
 module.exports = mongoose.models.User || mongoose.model('User', userSchema);
