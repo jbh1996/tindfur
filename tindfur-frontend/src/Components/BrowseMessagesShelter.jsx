@@ -40,7 +40,7 @@ export default function BrowseMessagesShelter() {
 
 
   return (
-    <div>
+    <div className='App'>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
         <section className="browser">

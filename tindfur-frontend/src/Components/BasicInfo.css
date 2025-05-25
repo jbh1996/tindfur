@@ -1,7 +1,8 @@
 .BasicInfo {
     border: 1px ;
-    width: 350px;
+    width: 400px;
     padding: 2rem;
+    padding-bottom: 1rem;
     border-radius: 5px;
     justify-self: center;
 }
@@ -10,8 +11,14 @@
     border-bottom: 3px solid var(--primary);
     margin-top: 0;
     padding: 0;
-    font-family:  'Segoe UI', sans-serif;
-    letter-spacing: 0px;
+    /* font-family:  'Segoe UI', sans-serif; */
+    letter-spacing: 1px;
+}
+
+@media (max-width: 550px) {
+    .BasicInfo  {
+        width: 300px;
+    }
 }
 
 .BasicInfo ul {
@@ -25,4 +32,11 @@
 
 .BasicInfo span {
     font-weight: 600;
+}
+
+.outline {
+    margin-left: 5px;
+    padding: .3rem 1rem;
+    border: 2px solid;
+    border-radius: 20px;
 }

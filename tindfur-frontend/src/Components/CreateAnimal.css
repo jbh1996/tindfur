@@ -1,45 +1,60 @@
-.CreateAnimal {
+.animal-form {
     display: flex;
     flex-direction: column;
     justify-self: center;
     max-width: 900px;
     color: rgb(78, 78, 78);
-    border: 1px solid rgb(231, 231, 231);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 10px;
+    /* border-right: 1px solid rgb(231, 231, 231);
+    border-left: 1px solid rgb(231, 231, 231); */
+    /* border: 1px solid rgb(231, 231, 231); */
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+    border-radius: 5px;
     padding: 1rem;
     padding-bottom: 2rem;
     margin: 0 2rem;
 
 }
 
-.CreateAnimal form {
+@media (max-width: 500px) {
+    .animal-form  {
+        padding-left: 1rem;
+        /* padding-right: 2rem; */
+    }
+    
+}
+.animal-form label {
+    margin: 0 1rem;
+    font-size: 15px;
+    color: black;
+}
+
+.animal-form form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
-.CreateAnimal .info {
+.animal-form .info {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.CreateAnimal .behaviors {
+.animal-form .behaviors {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 
 }
 
-.CreateAnimal .personality-container {
+.animal-form .personality-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 
 }
 
-.checkboxes {
+.behavior-checkboxes, .personality-checkboxes {
     display: flex;
     max-height: 150px;
     flex-direction: column;
@@ -47,93 +62,110 @@
     margin: 0 1rem;
 }
 
-.CreateAnimal input[type="checkbox"] {
+.animal-form input[type="checkbox"] {
     margin: .5rem;
     margin-right: .2rem;
     width: 20px;
 }
 
-.CreateAnimal .checkbox-container {
+.animal-form .checkbox-container {
     display: flex;
     align-items: center;
 
 }
 
-.CreateAnimal .checkbox-container label {
+.animal-form .checkbox-container label {
     margin-left: 5px;
+    color: rgb(78, 78, 78);
 }
 
-.CreateAnimal select {
+.animal-form select {
     -webkit-appearance: none;
     appearance: none;
     background-image: url("/public/downArrow.png");
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: calc(100% - 8px) center;
-    height: 2.7rem;
-    max-width: 300px;
+    height: 2.5rem;
+    
+    max-width: 322px;
     margin: 1rem;
     margin-top: .2rem;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid rgb(160, 160, 160);
+    border: 1px solid black;
     font-size: 15px;
-    color: rgb(78, 78, 78);
+    color: black;
 }
 
-.CreateAnimal .columnPair {
+.animal-form .columnPair {
     display: flex;
     flex-direction: column;
 }
 
-.CreateAnimal input {
+.animal-form input {
     height: 18px;
-    max-width: 300px;
+    width: 300px;
     margin: 1rem;
     margin-top: .2rem;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid rgb(160, 160, 160);
+    border: 1px solid black;
 }
 
-.CreateAnimal textarea {
-    border: 1px solid rgb(160, 160, 160);
-    margin: 1rem;
+.animal-form textarea {
+    border: 1px solid black;
+    margin: 0rem 1rem 2rem 1rem;
     border-radius: 5px;
-    padding: 7px;
+    padding: 10px;
     font-family: 'Segoe UI', sans-serif;
     font-size: 15px;
 }
 
-.CreateAnimal .about {
+.wide-select {
+    width: 322px;
+}
+
+@media (max-width: 500px) {
+    .animal-form textarea {
+        width: 300px;
+    }
+    .animal-form .about{
+        padding-left: 0;
+        padding-bottom: 0;
+    }
+    .behavior-checkboxes, .behaviors{
+        min-height: 210px;
+    }
+}
+
+.animal-form .about {
     display: flex;
     flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.CreateAnimal label {
-    margin: 0 1rem;
-    font-size: 15px;
-}
-
-.CreateAnimal h1 {
+#create-heading {
     /* text-align: center; */
     color: black;
-    font-size: 30px;
+    font-size: 28px;
     margin-left: 1rem;
-    /* font-family: 'Segoe UI', sans-serif;
-    letter-spacing: 0px; */
+    margin-top: 0;
+    /* font-family: 'Segoe UI', sans-serif; */
+    letter-spacing: 1px;
 
 }
 
-.CreateAnimal h3 {
+.animal-form h3 {
     margin-left: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     color: black;
 
 }
 
-.CreateAnimal .disposition-container {
+.animal-form .disposition-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -145,26 +177,41 @@ textarea::placeholder {
     font-size: 14px;
 }
 
-.CreateAnimal button {
+.animal-form button {
     color: white;
     background-color: var(--primary);
     text-decoration: none;
     padding: .5rem 1.5rem;
     margin-bottom: 1rem;
     margin-top: 3rem;
+    margin-left: 1rem;
     font-weight: 600;
     font-size: large;
     border: 2px solid var(--primary);
-    border-radius: 20px;
-    width: 200px;
-    align-self: center;
+    border-radius: 5px;
+    width: 120px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-#petName {
-    min-width: 300px;
 }
 
 #age {
     width: 80px;
+}
+
+#gender {
+    width: 100px;
+}
+
+.animal-form .file-selector {
+    height: 34px;
+}
+
+.animal-form input::file-selector-button {
+    height: 34px;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 10px;
 }

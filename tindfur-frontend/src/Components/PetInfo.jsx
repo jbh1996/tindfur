@@ -5,8 +5,8 @@ import Overlay from './Overlay';
 import { FiEdit3 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { Link } from 'react-router-dom';
-import { useState} from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function PetInfo({ pet }) {
@@ -39,24 +39,24 @@ export default function PetInfo({ pet }) {
     return (
         <div className='PetInfo'>
             <div className='topOfProfile'>
-                <Link className='editButton' key={pet._id} to={`/edit-animal/${pet._id}`}>
-                    <FiEdit3 />
-                </Link>
                 <div className='infoContainer'>
                     <div className='pet-image-container'>
-                    <img src={pet.picture} alt="" />
+                        <img src={pet.picture} alt="" />
                     </div>
                     <div className='infoColumn'>
                         <BasicInfo pet={pet} />
+                        <Link className='bright-rectangle' key={pet._id} to={`/edit-animal/${pet._id}`}>
+                            Edit Profile
+                        </Link>
                     </div>
                 </div>
             </div>
             <div className='bottomOfProfile'>
                 <Description pet={pet} />
-                <button className='gray-rectangle' onClick={handleShowDialogue}>Delete</button>
+                <button className='black-rectangle' onClick={handleShowDialogue}>Delete</button>
             </div>
-            
-            <Overlay isOpen={showDialogue} onDelete={deletePet} onClose={handleShowDialogue} petName={pet.name}/>
+
+            <Overlay isOpen={showDialogue} onDelete={deletePet} onClose={handleShowDialogue} petName={pet.name} />
         </div>
     )
 }

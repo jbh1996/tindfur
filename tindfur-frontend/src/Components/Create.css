@@ -4,11 +4,12 @@
     justify-self: center;
     max-width: 500px;
     color: rgb(78, 78, 78);
-    border: 1px solid rgb(160, 160, 160);
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
     padding: 1rem;
     padding-bottom: 2rem;
-    
+
 }
 
 .accountCard form {
@@ -52,7 +53,11 @@
 .accountCard h1 {
     text-align: center;
     color: black;
-    font-size: 30px;
+    font-size: 24px;
+
+    /* font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0;
+    font-weight: 400; */
 
 }
 
@@ -65,5 +70,5 @@
     font-weight: 600;
     font-size: large;
     border: 2px solid var(--primary);
-    border-radius: 20px;
+    border-radius: 5px;
 }
