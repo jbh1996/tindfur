@@ -14,9 +14,9 @@ function BrowseAnimals() {
   const [filters, setFilters] = useState({
     animalType: '',
     breed: '',
-    dispositions: [],
-    date: '',
-    availability: 'Available',
+    disposition: [],
+    createdAt: '',
+    availability: '',
     createdBy: '',
   });
 
@@ -28,8 +28,8 @@ function BrowseAnimals() {
         const params = new URLSearchParams({
           animalType: filters.animalType,
           breed: filters.breed,
-          disposition: filters.dispositions.join(','),
-          date: filters.date,
+          disposition: filters.disposition.join(','),
+          createdAt: filters.createdAt,
           availability: filters.availability,
           createdBy: filters.createdBy,
         });

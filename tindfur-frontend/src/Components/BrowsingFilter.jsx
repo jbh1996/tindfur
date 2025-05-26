@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import './BrowsingFilter.css';
 
 function BrowsingFilter({ onSubmit }) {
   const [animalType, setAnimalType] = useState("");
@@ -6,8 +7,10 @@ function BrowsingFilter({ onSubmit }) {
   const [breedOptions, setBreedOptions] = useState([]);
   const [dispositions, setDispositions] = useState([]);
   const [date, setDate] = useState("");
-  const [availability, setAvailability] = useState("Available");
+  const [availability, setAvailability] = useState("");
   const [shelterName, setShelterName] = useState("");
+
+
 
   // Retrieve breed list
   useEffect(() => {
@@ -35,13 +38,6 @@ function BrowsingFilter({ onSubmit }) {
 
 
 
-  const handleCheckboxChange = (value) => {
-    if (dispositions.includes(value)) {
-      setDispositions(dispositions.filter(item => item !== value));
-    } else {
-      setDispositions([...dispositions, value]);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,10 +46,10 @@ function BrowsingFilter({ onSubmit }) {
     const filters = {
       animalType,
       breed,
-      dispositions,
-      date,
+      disposition: dispositions,
+      createdAt: date,
       availability,
-      createdBy: shelterName.trim(), // Search by Shelter Name
+      createdBy: shelterName.trim(),
     };
 
     // Call onSubmit with the filters object
@@ -91,47 +87,45 @@ function BrowsingFilter({ onSubmit }) {
         </select>
 
 
-        <fieldset>
-          <legend>Disposition</legend>
-          <label>
-            <input type="checkbox" value="Good with other animals" onChange={() => handleCheckboxChange("Good with other animals")} />
-            Good with other animals
-          </label>
-          <label>
-            <input type="checkbox" value="Good with children" onChange={() => handleCheckboxChange("Good with children")} />
-            Good with children
-          </label>
-          <label>
-            <input type="checkbox" value="Animal must be leashed at all times" onChange={() => handleCheckboxChange("Animal must be leashed at all times")} />
-            Must be leashed at all times
-          </label>
-        </fieldset>
+        <label>Disposition:</label>
+        <select
+          value={dispositions[0] || ""}
+          onChange={(e) => {
+          const val = e.target.value;
+          setDispositions(val ? [val] : []);
+          }}
+        >
+        <option value="">None</option>
+        {[
+          "Good with Other Animals",
+          "Good with Kids",
+          "Must Be on Leash",
+          "Apartment OK",
+          "House Trained",
+          "Needs Fenced Yard"
+        ].map((disp) => (
+          <option key={disp} value={disp}>{disp}</option>
+        ))}
+      </select>
 
-        <fieldset>
-          <legend>Availability</legend>
-          <label>
-            <input type="radio" value="Available" checked={availability === "Available"} onChange={(e) => setAvailability(e.target.value)} />
-            Available
-          </label>
-          <label>
-            <input type="radio" value="Not Available" checked={availability === "Not Available"} onChange={(e) => setAvailability(e.target.value)} />
-            Not Available
-          </label>
-          <label>
-            <input type="radio" value="Pending" checked={availability === "Pending"} onChange={(e) => setAvailability(e.target.value)} />
-            Pending
-          </label>
-          <label>
-            <input type="radio" value="Adopted" checked={availability === "Adopted"} onChange={(e) => setAvailability(e.target.value)} />
-            Adopted
-          </label>
-        </fieldset>
+        <label>Availability:</label>
+        <select
+          value={availability}
+          onChange={(e) => setAvailability(e.target.value)}
+          >
+          <option value="">Any</option>
+          <option value="Available">Available</option>
+          <option value="Not Available">Not Available</option>
+          <option value="Pending">Pending</option>
+          <option value="Adopted">Adopted</option>
+      </select>
 
-        <label>Show pets created after:</label>
+        <label>Profile Created On:</label>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          placeholder="Any date"
         />
 
 
