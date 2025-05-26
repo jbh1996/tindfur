@@ -1,7 +1,12 @@
-.AnimalBrowser{
+.AnimalCard {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 4 columns */
-    gap: 5px;
-    padding-left: 5x;
-    padding-right: 5px;
-}
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 5px;
+  }
+
+  .animalLink {
+    display: block; /* Make links block-level so grid can layout them correctly */
+    text-decoration: none; /* Optional: remove underline */
+    color: inherit; /* Optional: inherit text color */
+  }

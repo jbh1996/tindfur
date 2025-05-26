@@ -57,7 +57,7 @@ export default function ChatViewer() {
     <div>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
-        <section className="message-viewer">
+        <section className="message-viewer user-viewer">
             <div className='message-box'>
             {messages.map((message) => (
         <Message message={message} />
