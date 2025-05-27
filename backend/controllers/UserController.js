@@ -71,7 +71,6 @@ const loginAccount= async (req, res) => {
 
 // Retrieve all users (for shelters/admins)
 
-
 const retrieveUsers = async (req, res) => {
   try {
     const users = await User.find({ role: 'user' }, '-password');
@@ -114,6 +113,8 @@ const updateAccount = async (req, res) => {
     res.status(500).json({ error: "Failed to update user" });
   }
 };
+
+
 
 // Delete User Account
 const deleteAccount = async (req, res) => {
