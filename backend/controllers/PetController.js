@@ -1,9 +1,10 @@
 const { createNewsItem } = require('../scripts/newsFeed');
 const Profile = require('../models/pets');
-const User  = require('../models/Users');
+const User  = require('../models/users');
 const jwt = require('jsonwebtoken');
 const mongoose = require('../models/index');
 const { dogBreeds, catBreeds } = require('../utils/breeds');
+const TempProfile = require('../models/petprofiles');
 
 
 // Get Breed List
@@ -65,6 +66,9 @@ const createProfile = async (req, res) => {
     // Save profile 
     await profile.save();
 
+    // Create temporary pet profile for email 
+    await TempProfile.create({ profileId: profile._id });
+
     // Create daily news item as soon as new profile is created
     await createNewsItem(); 
 
@@ -81,26 +85,28 @@ const createProfile = async (req, res) => {
 // Retrieve Pet Profile
 const retrieveProfile = async (req, res) => {
   try {
-    const { animalType, breed, disposition, createdAt, createdBy } = req.query;
+    const { animalType, breed, disposition, createdAt, createdBy, availability } = req.query;
 
       //Filter by user name or user id
       let userFilter = null;
 
       if (createdBy) {
         const filterInput = createdBy.trim();
-
-        // Check if user exist
-        const userExists = mongoose.Types.ObjectId.isValid(filterInput) && (new mongoose.Types.ObjectId(filterInput)).toString() === filterInput;
-
-        // If input is user ID, find by ID
-        if (userExists) {
-          userFilter = filterInput; 
+      
+        if (mongoose.Types.ObjectId.isValid(filterInput)) {
+          
+          userFilter = filterInput;
         } else {
-          // If input is user name, find by name
+          // Search by user name, case-insensitive
           const user = await User.findOne({
-          name: new RegExp(`^${filterInput}$`, 'i')
-        });
-        userFilter = user?._id;
+            name: { $regex: filterInput, $options: 'i' }
+          });
+          if (user) {
+            userFilter = user._id;
+          } else {
+            // User not found
+            userFilter = null;
+          }
         }
       }
 
@@ -108,9 +114,18 @@ const retrieveProfile = async (req, res) => {
     ...(animalType && { animalType }),
     ...(breed && { breed }),
     ...(disposition && { disposition: { $in: disposition.split(',') } }),
-    ...(createdAt && { createdAt: { $gte: new Date(createdAt) } }),
     ...(userFilter && { createdBy: userFilter }),
+    ...(availability && { availability }),
   };
+  
+  if (createdAt) {
+    const date = new Date(createdAt);
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1);
+  
+    filter.createdAt = { $gte: date, $lt: nextDay };
+  }
+
 
 
     const profiles = await Profile.findPets(filter);
@@ -151,7 +166,7 @@ const updateProfile = async (req, res) => {
     const { id } = req.params; 
 
     // If photo was uploaded, use file path or else null
-    let picture = req.file ? req.file.path : null; 
+    let picture = req.file ? req.file.location : null; 
 
     // Get the updated data
     const updateInfo = { ...req.body, picture: picture || undefined };
@@ -177,7 +192,7 @@ const deleteProfile = async (req, res) => {
     // Call static method-removeProfile to delete profile
     await Profile.removeProfile(id);
 
-    res.status(200).json({ message: 'Profile Has Been Deleted' });
+    res.status(204).json({ message: 'Profile Has Been Deleted' });
   } catch (error) {
     console.error('Unable to delete profile:', error);
     res.status(500).json({ message: error.message || 'Something went wrong' });

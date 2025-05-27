@@ -4,7 +4,7 @@ const port = 5600
 const cors = require('cors');
 require('dotenv').config()
 require('./scripts/newsFeed');
-
+require('./scripts/dailyEmail');
 
 app.use(cors());
 app.use(express.json()); 

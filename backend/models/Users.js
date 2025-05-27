@@ -10,8 +10,10 @@ const userSchema = new mongoose.Schema({
   dogsOwned: { type: Number, default: 0 },
   catsOwned: { type: Number, default: 0 },
   otherOwned: { type: Number, default: 0 },
-  profilePic: { type: String }
+  profilePic: { type: String },
+  emailPrefs: {
+    newPetProfiles: { type: Boolean, default: false }
+  }
 });
-
 
 module.exports = mongoose.models.User || mongoose.model('User', userSchema);

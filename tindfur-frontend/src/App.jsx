@@ -21,6 +21,8 @@ import ChatViewerShelter from './Components/ChatViewerShelter';
 import BrowseMessagesUser from './Components/BrowseMessagesUser';
 import BrowseMessagesShelter from './Components/BrowseMessagesShelter';
 import ViewUsers from './Components/ViewUsers';
+import EditAnimal from './Components/EditAnimal';
+
 
 function App() {
 
@@ -47,6 +49,8 @@ function App() {
         <Route path="/browse-animals/:id" element={<UserPetProfile/>}></Route>
         <Route path="/create-animal" element={<CreateAnimal/>}></Route>
         <Route path="/shelter-messages" element={<ShelterMessages/>}></Route>
+        <Route path="/edit-animal/:id" element={<EditAnimal/>}></Route>
+
 
         </Routes>
       </section>

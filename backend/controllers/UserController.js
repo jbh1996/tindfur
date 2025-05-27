@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const User = require('../models/Users');
+const User = require('../models/users');
 
 
 // Create User Account
 const createAccount = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, emailPrefs } = req.body;
 
   // Return error if fields are incomplete
-  if (!name, !email || !password || !role) {
-    return res.status(400).json({ Error: 'Incomplete fields' });
+  if (!name || !email || !password || !role || (role === 'user' && emailPrefs?.newPetProfiles === undefined)) {
+    return res.status(400).json({ message: 'Incomplete fields' });
   }
+
 
 
   // Check if email already exists
@@ -21,8 +22,24 @@ const createAccount = async (req, res) => {
   // Hash passwords
   const hashedPw = await bcrypt.hash(password, 10);
 
+  const profilePic = req.file ? req.file.location : null;
+
   // Create new user account
-  const newAccount = new User({ name, email, password: hashedPw, role, username: email, description: "", dogsOwned: 0, catsOwned: 0, otherOwned:0, profilePic: "https://tindfurpics.s3.us-east-2.amazonaws.com/blankprofile.webp" });
+  const newAccount = new User({ 
+    name, 
+    email, 
+    password: hashedPw, 
+    role, 
+    username: email, 
+    description: "", 
+    dogsOwned: 0, 
+    catsOwned: 0, 
+    otherOwned:0, 
+    profilePic,
+    emailPrefs: {
+      newPetProfiles: role === 'user' ? emailPrefs?.newPetProfiles || false : false
+    }
+   });
   await newAccount.save();
 
   console.log(req.body)

@@ -46,10 +46,10 @@ export default function ShelterPetProfile(props) {
     return (
 
 
-        <div className="App" id='profile-page'>
+        <div className="ShelterPetProfile" id='profile-page'>
             <Header />
             <main>
-                <PetInfo pet={petProfile}/>
+                <PetInfo pet={petProfile}/>   
             </main>
             <Footer />
         </div>
