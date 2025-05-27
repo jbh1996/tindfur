@@ -86,6 +86,20 @@ const loginAccount= async (req, res) => {
     }
   };
 
+// Retrieve all users (for shelters/admins)
+
+const retrieveUsers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'user' }, '-password');
+    res.status(200).json({ users });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to retrieve users" });
+  }
+};
+
+
+
 
 // Update User Account
 const updateAccount = async (req, res) => {
@@ -117,6 +131,24 @@ const updateAccount = async (req, res) => {
   }
 };
 
-module.exports = { createAccount, loginAccount, updateAccount };
 
+
+// Delete User Account
+const deleteAccount = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(204).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete user" });
+  }
+};
+
+module.exports = { createAccount, loginAccount, retrieveUsers, updateAccount, deleteAccount };
 
