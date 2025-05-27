@@ -70,6 +70,8 @@ const loginAccount= async (req, res) => {
   };
 
 // Retrieve all users (for shelters/admins)
+
+
 const retrieveUsers = async (req, res) => {
   try {
     const users = await User.find({ role: 'user' }, '-password');
