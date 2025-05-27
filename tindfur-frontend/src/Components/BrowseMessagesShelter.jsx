@@ -29,7 +29,7 @@ export default function BrowseMessagesShelter() {
 
         const logs = await response.json();
         
-        const filteredLogs = logs.filter(log => log.petID !== null && log.petID !== undefined);
+        const filteredLogs = logs.filter(log => log.petID !== null && log.petID !== undefined) && log.userID !== null && log.userID !== undefined;
 
         setChatLogs(filteredLogs)
 
