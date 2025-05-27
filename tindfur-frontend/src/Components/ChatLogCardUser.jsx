@@ -28,7 +28,7 @@ export default function ChatLogCardUser({ chatLog }) {
     <section onClick={handleClick} className='NewsCard'>
     
       <img src={image} />
-      <p><strong>From:</strong> {user.name}</p>
+      <p><strong>From:</strong> {user.username}</p>
       <p><strong>Concerning:</strong> {pet.name}</p>
     </section>
   );
