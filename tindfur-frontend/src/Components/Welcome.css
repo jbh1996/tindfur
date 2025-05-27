@@ -7,3 +7,91 @@
     align-items: center;
     justify-content: center;
 }
+
+.welcome-text {
+    max-width: 700px;
+    padding: 2rem;
+    /* max-height: 250px; */
+    margin: 0 2rem;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.welcome-text h1 {
+    margin: 0;
+}
+
+.welcome-text p {
+    font-size: large;
+    font-weight: 400;
+
+}
+
+.home-buttons {
+    margin-bottom: 2rem;
+}
+
+.home-buttons .logInButton {
+    color: var(--primary);
+    text-decoration: none;
+    padding: .3rem 1.5rem;
+    margin: 1rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+
+.home-buttons .signUpButton {
+    color: white;
+    background-color: var(--primary);
+    text-decoration: none;
+    padding: .3rem 1.5rem;
+    margin: 1rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.home-buttons .signUpButton:hover {
+    background-color: var(--bright);
+    border: 2px solid var(--bright);
+}
+
+.home-buttons .logInButton:hover {
+    color: var(--bright);
+    border: 2px solid var(--bright);
+}
+
+
+@media (max-width: 556px) {
+    .welcome-text {
+        max-height: 500px;
+        padding: 2rem 0;
+        padding-bottom: 2rem;
+    }
+}
+
+@media (max-width: 505px) {
+    .welcome-text h1 {
+        font-size: 28px;
+    }
+}
+
+
+@media (max-width: 355px) {
+    .home-buttons {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+    .welcome-text {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}

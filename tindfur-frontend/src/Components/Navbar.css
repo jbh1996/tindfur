@@ -9,6 +9,8 @@
     position: sticky;
     top: 0;
     background: white;
+    transition: all 0.3s ease-in;
+
 
 }
 
@@ -20,10 +22,8 @@
     gap: 1rem;
 }
 
-.Navbar .greet {
-    height: 100%;
+.Navbar ul.open {
     display: flex;
-    align-items: center;
 }
 
 
@@ -32,7 +32,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    padding: 0 .25rem;
+    padding: 0 .5rem;
     font-weight: 500;
     height: 95%;
 
@@ -53,8 +53,8 @@
 
 .Navbar .active {
     border-bottom: solid 2px;
-    
-} 
+
+}
 
 .Navbar a:hover {
     color: var(--bright);
@@ -64,6 +64,88 @@
     color: var(--primary);
 }
 
-.Navbar .navIcon {
-    font-size: 22px;
+
+
+.Navbar .menu {
+    display: none;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.8rem;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+
+.Navbar .menu span {
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    border-radius: 2px;
+}
+
+@media (max-width: 790px) {
+    .Navbar .menu {
+        display: flex;
+    }
+
+    .Navbar .small-nav {
+        border-bottom: solid 1px #ECECEC;
+    }
+
+    .Navbar {
+        flex-direction: column;
+        align-items: start;
+        transition: all 0.3s ease-in;
+        gap: 0;
+        padding: 0;
+        padding-top: 8px;
+        /* border: none; */
+
+    }
+
+    .Navbar ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+
+        gap: .3rem;
+        background-color: var(--light-gray);
+        padding: 10px;
+
+
+    }
+
+    .Navbar ul li {
+        display: flex;
+        justify-content: start;
+    }
+
+    .Navbar ul li a {
+        min-width: 300px;
+
+        padding-bottom: 5px;
+        display: unset;
+        padding: 10px;
+        padding-left: 20px;
+
+
+
+    }
+
+    .Navbar ul li a.active {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 20px;
+    }
+
+    .Navbar ul li a:hover {
+        background-color: #89c4a1;
+        color: black;
+        border: none;
+
+        border-radius: 20px;
+    }
 }
