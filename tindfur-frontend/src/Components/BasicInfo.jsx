@@ -11,7 +11,7 @@ export default function BasicInfo({ pet }) {
                 <li><span>Gender:</span> {pet.gender}</li>
                 <li><span>Shelter:</span> {pet.shelterName}</li>
                 <br />
-                <li><span>Status:</span> {pet.availability}</li>
+                <li><span>Status:</span> <span className='outline'>{pet.availability}</span></li>
             </ul>
         </div>
 

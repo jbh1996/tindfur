@@ -159,7 +159,7 @@ export default function EditAnimalForm({ pet }) {
     };
 
     return (
-        <div className='CreateAnimal'>
+        <div className='animal-form'>
             <h1>Edit Animal Profile</h1>
             <form onSubmit={updateAnimal}>
                 {/* get basic info for animal */}

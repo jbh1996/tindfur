@@ -12,8 +12,8 @@ export default function Overlay({ isOpen, onDelete, onClose, petName }) {
                         <h2>Confirm Delete</h2>
                         <p>Are you sure you want to delete {petName}?</p>
                         <div className="dialogue-actions">
-                            <button className='gray-rectangle' id='close-delete-pet' onClick={onClose}>Cancel</button>
-                            <button className='red-rectangle' id='delete-pet' onClick={onDelete}>Yes, Delete</button>
+                            <button className='black-outline-rectangle' id='close-delete-pet' onClick={onClose}>Cancel</button>
+                            <button className='black-rectangle' id='delete-pet' onClick={onDelete}>Yes, Delete</button>
                         </div>
                     </div>
                 </div>

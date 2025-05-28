@@ -148,11 +148,11 @@ export default function CreateAnimal() {
 
 
     return (
-        <div className="App">
+        <div className="App" >
             <Header />
             <main>
-                <div className='CreateAnimal'>
-                    <h1>Create Animal Profile</h1>
+                <div className='animal-form'>
+                    <h1 id='create-heading'>Create Animal Profile</h1>
                     <form onSubmit={addAnimal}>
                         {/* get basic info for animal */}
                         <h3>Animal's Information</h3>
@@ -196,6 +196,7 @@ export default function CreateAnimal() {
                                     id="animal-type"
                                     name="animalType"
                                     value={animalType}
+                                    className='wide-select'
                                     onChange={(e) => setAnimalType(e.target.value)}
                                 >
                                     <option value=""></option>
@@ -207,6 +208,8 @@ export default function CreateAnimal() {
                             <div className='columnPair'>
                                 <label htmlFor="breed">Breed</label>
                                 <select
+                                    id='breed'
+                                    className='wide-select'
                                     value={breed}
                                     onChange={(e) => setBreed(e.target.value)}
                                     required
@@ -226,6 +229,7 @@ export default function CreateAnimal() {
                                 <select
                                     id="availability"
                                     name='availability'
+                                    className='wide-select'
                                     value={formData.availability}
                                     onChange={handleChange}
                                 >
@@ -251,6 +255,7 @@ export default function CreateAnimal() {
                             />
                             <label htmlFor='uploadPic'>Upload New Profile Picture</label>
                             <input
+                            className='file-selector'
                                 type="file"
                                 id="uploadPic"
                                 name="petpic"
@@ -263,27 +268,27 @@ export default function CreateAnimal() {
                         <div className='disposition-container'>
                             <section className='behaviours'>
                                 <h3>Behaviours & Needs</h3>
-                                <div className='checkboxes'>
-                                {dispositionOptions.map((item) => (
-                                    <div key={item.id} className='checkbox-container'>
-                                        <input
-                                            type="checkbox"
-                                            name='disposition'
-                                            id={item.id}
-                                            value={item.value}
-                                            checked={disposition.includes(item.value)}
-                                            onChange={handleDisposition}
-                                        />
-                                        <label htmlFor={item.id}>{item.value}</label>
-                                    </div>
-                                ))}
+                                <div className='behavior-checkboxes'>
+                                    {dispositionOptions.map((item) => (
+                                        <div key={item.id} className='checkbox-container'>
+                                            <input
+                                                type="checkbox"
+                                                name='disposition'
+                                                id={item.id}
+                                                value={item.value}
+                                                checked={disposition.includes(item.value)}
+                                                onChange={handleDisposition}
+                                            />
+                                            <label htmlFor={item.id}>{item.value}</label>
+                                        </div>
+                                    ))}
                                 </div>
                             </section>
 
                             {/* get personality for animal  */}
                             <section className='personality-container'>
                                 <h3>Personality</h3>
-                                <div className='checkboxes'>
+                                <div className='personality-checkboxes'>
                                     {personalityOptions.map((item) => (
                                         <div key={item.id} className='checkbox-container'>
                                             <input
@@ -304,8 +309,8 @@ export default function CreateAnimal() {
                         <button type="submit">Submit</button>
                     </form>
                 </div>
-            </main>
+            </main >
             <Footer />
-        </div>
+        </div >
     );
 };

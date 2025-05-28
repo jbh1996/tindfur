@@ -1,13 +1,26 @@
 .Animals {
     display: flex;
+    justify-content: center;
+}
+
+.animal-container {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 2rem;
     margin: 0 2rem;
+    width: fit-content;
+    
 }
 
 .animalLink {
     
     text-decoration: none;
     color: black;
+}
+
+@media (max-width: 535px) {
+    .animal-container {
+        margin: 7px;
+    }
 }

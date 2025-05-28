@@ -22,6 +22,7 @@ import BrowseMessagesUser from './Components/BrowseMessagesUser';
 import BrowseMessagesShelter from './Components/BrowseMessagesShelter';
 import ViewUsers from './Components/ViewUsers';
 import EditAnimal from './Components/EditAnimal';
+import EditShelter from './Components/EditShelter';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/view-users" element={<ViewUsers />} />
         <Route path="/edit-profile" element={<EditProfile/>}></Route>
+        <Route path="/edit-shelter" element={<EditShelter/>}></Route>
         <Route path="/browse-animals" element={<BrowseAnimals/>}></Route>
         <Route path="/view-animals" element={<ViewAnimals/>}></Route>
         <Route path="/view-animals/:id" element={<ShelterPetProfile/>}></Route>

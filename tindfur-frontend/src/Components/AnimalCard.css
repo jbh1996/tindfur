@@ -42,4 +42,10 @@
     
 }
 
+@media (max-width: 535px) {
+    .AnimalCard, .AnimalCard img {
+        width: 180px;
+    }
+}
+
 
