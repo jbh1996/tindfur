@@ -78,3 +78,22 @@
     border: 2px solid var(--primary);
     border-radius: 20px;
 }
+
+.deleteAccountContainer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.delete-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}

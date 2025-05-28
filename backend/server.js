@@ -4,7 +4,7 @@ const port = 5600
 const cors = require('cors');
 require('dotenv').config()
 require('./scripts/newsFeed');
-
+require('./scripts/dailyEmail');
 
 app.use(cors());
 app.use(express.json()); 
@@ -14,7 +14,7 @@ const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, dele
 const {createMessage, retrieveMessages, createMessageinChat} = require('./controllers/MessageController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
 const { retrieveNewsFeed } = require('./controllers/NewsController');
-const { createAccount, loginAccount, updateAccount } = require('./controllers/UserController');
+const { createAccount, loginAccount, retrieveUsers, updateAccount, deleteAccount } = require('./controllers/UserController');
 const { upload } = require('./middleware/upload'); 
 
 
@@ -22,8 +22,16 @@ const { upload } = require('./middleware/upload');
 // Create User Account
 app.post('/register', createAccount);
 
+// Retreive Users
+
+app.get('/users', retrieveUsers);
+
 // User Login
 app.post('/login', loginAccount);
+
+
+//Delete User Account 
+app.delete('/user/:id', deleteAccount);
 
 //Get Animal Breed List
 app.get('/breeds/:animalType', (req, res) => {
