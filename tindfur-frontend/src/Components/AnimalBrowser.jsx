@@ -1,9 +1,10 @@
+import './Animals.css';
 import AnimalCard from "./AnimalCard";
 import { Link } from 'react-router-dom';
 
 export default function AnimalBrowser({ animalList }) {
   return (
-    <div>
+    <div className="Animals">
       {animalList.map((animal) => {
         const animalId = animal._id?.$oid || animal._id;
 

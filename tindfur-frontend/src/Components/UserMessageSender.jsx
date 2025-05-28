@@ -1,4 +1,4 @@
-import './CreateAnimal.css';
+import './EditProfile.css';
 import { useState } from 'react';
 import userAuth from '../Hooks/UserAuth';
 
@@ -56,7 +56,7 @@ export default function UserMessageSender({pet}) {
     return (
 
                     <form onSubmit={sendMessage}>
-                        <h3>About</h3>
+                        <h3>Send Them A Message!</h3>
                         <section className='message'>
                             <textarea placeholder='' value={content} rows="10" cols="60" onChange={(e) => setContent(e.target.value)}></textarea>
                         </section>

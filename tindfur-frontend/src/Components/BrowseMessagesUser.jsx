@@ -32,7 +32,12 @@ export default function BrowseMessagesUser() {
         if (!response.ok) throw new Error('Failed to fetch chat logs');
 
         const logs = await response.json();
-        setChatLogs(logs)
+
+        const filteredLogs = logs.filter(log => log.petID !== null && log.petID !== undefined);
+
+        console.log(logs)
+
+        setChatLogs(filteredLogs)
 
       } catch (error) {
         console.error('Error fetching chat logs:', error);
