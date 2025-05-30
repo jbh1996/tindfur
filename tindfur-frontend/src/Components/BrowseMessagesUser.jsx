@@ -22,7 +22,7 @@ export default function BrowseMessagesUser() {
 
 
 
-        const response = await fetch(`/retrievechatlogsuser/${userID}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievechatlogsuser/${userID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

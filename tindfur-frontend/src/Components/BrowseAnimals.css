@@ -1,6 +1,22 @@
-
-.browser{
+.browser {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-}
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  
+  .animal-grid {
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 760px) {
+    .browser {
+      flex-direction: column;
+    }
+  
+    .animal-grid {
+      width: 100%;
+    }}

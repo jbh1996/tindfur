@@ -25,7 +25,7 @@ export default function ShelterPetProfile(props) {
 
     const loadPet = async () => {
         try {
-        const response = await fetch(`/petprofiles/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/petprofiles/${id}`, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',

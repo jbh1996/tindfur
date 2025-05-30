@@ -118,7 +118,7 @@ export default function CreateAnimal() {
         personality.forEach(item => completeFormData.append('personality[]', item));
 
         const token = localStorage.getItem("auth_token");
-        const response = await fetch('/petprofiles', {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/petprofiles`, {
             method: 'POST',
             body: completeFormData,
             headers: {

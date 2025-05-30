@@ -31,7 +31,7 @@ export default function ChatViewer() {
     const fetchMessages = async () => {
       try {
 
-        const response = await fetch(`/retrievemessages/${chatLogID}`        , {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievemessages/${chatLogID}`        , {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

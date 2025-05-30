@@ -71,26 +71,24 @@ function EditShelter() {
       }
     }
 
-    try {
-      if (!userID) {
-        alert('Invalid user ID — please log in again.');
-        return;
-      }
+        try {
+            if (!userID || userID === "null") {
+                alert("Invalid user ID — please log in again.");
+                return;
+            }
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username,
+                    description,
+                    profilePic: profilePicUrl || undefined
+                }),
+            });
 
-      const res = await fetch(`http://localhost:5600/user/${userID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          description,
-          dogsOwned,
-          catsOwned,
-          otherOwned,
-          profilePic: profilePicUrl || undefined,
-        }),
-      });
+            const data = await res.json();
 
       if (res.ok) {
         alert('Profile updated!');

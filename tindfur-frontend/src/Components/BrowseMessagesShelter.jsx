@@ -34,7 +34,7 @@ export default function BrowseMessagesShelter() {
 
 
 
-        const response = await fetch(`/retrievechatlogsshelter/${userID}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievechatlogsshelter/${userID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default function BrowseMessagesShelter() {
         if (!response.ok) throw new Error('Failed to fetch chat logs');
 
         const logs = await response.json();
-
+        
         const filteredLogs = logs.filter(log => log.petID !== null && log.petID !== undefined && log.userID !== null && log.userID !== undefined);
 
         setChatLogs(filteredLogs)

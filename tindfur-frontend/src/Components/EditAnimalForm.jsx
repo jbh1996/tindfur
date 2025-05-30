@@ -76,7 +76,7 @@ export default function EditAnimalForm({ pet }) {
                 setBreed('');
                 return;
             }
-            const res = await fetch(`/breeds/${type}`);
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/breeds/${type}`);
             const data = await res.json();
             setBreeds(data);
         };
