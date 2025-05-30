@@ -1,6 +1,7 @@
 import './EditAnimal.css';
 import Footer from './Footer';
 import Header from './Header';
+import BackButton from './BackButton';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
@@ -18,7 +19,7 @@ export default function EditAnimal() {
         const { isLoggedIn, isShelter } = userAuth()
         if (!isLoggedIn) {
             redirect("/login")
-        }  else if (!isShelter) {
+        } else if (!isShelter) {
             alert("Restricted Access: Not Allowed");
             redirect("/");
         }
@@ -27,17 +28,17 @@ export default function EditAnimal() {
     // load current pet info
     const loadPet = async () => {
         try {
-        const response = await fetch(`/petprofiles/${id}`, {
-            method: 'GET',
-            headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        setPetProfile(data);
-        console.log(data);
-        
-        } catch (error){
+            const response = await fetch(`/petprofiles/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            setPetProfile(data);
+            console.log(data);
+
+        } catch (error) {
             console.error('Error fetching pet:', error);
         };
     };
@@ -47,13 +48,14 @@ export default function EditAnimal() {
     }, []);
 
 
-    
-    
 
-     return (
+
+
+    return (
         <div className="App">
             <Header />
             <main>
+                <BackButton url={`/view-animals/${petProfile._id}`} text={petProfile.name}></BackButton>
                 <EditAnimalForm pet={petProfile} />
             </main>
             <Footer />

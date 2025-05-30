@@ -1,0 +1,22 @@
+.view-header-container{
+    display: flex;
+}
+    
+.view-header  {
+    max-width: 400px;
+    margin-top: 0;
+    border-bottom: 2px solid var(--primary);
+    font-size: 34px;
+}
+
+.view-container {
+    width: 90%;
+    margin: auto;
+}
+
+@media (max-width: 546px) {
+    .view-header {
+        width: 300px;
+        
+    }
+}

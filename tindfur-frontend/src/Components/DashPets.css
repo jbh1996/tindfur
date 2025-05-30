@@ -140,3 +140,10 @@
         text-align: center;
     }
 }
+
+.dash-outline-button:hover {
+    /* background-color:  #bee2ceb9; */
+    background-color: var(--primary);
+    color: white;
+    
+}

@@ -21,10 +21,10 @@ export default function DashPets() {
                     </NavLink>
                     <NavLink to="/view-animals" className='dash-outline-button'>
                         <PiDog className='DashIcon' />
-                        <p>My Pets</p>
+                        <p>My Animals</p>
                     </NavLink>
 
-                    <NavLink to="/create-animal" className='dash-solid-button'>
+                    <NavLink to="/create-animal" className='dash-outline-button'>
                         <IoIosAddCircleOutline className='DashIcon' />
                         <p>New Animal</p>
                     </NavLink>

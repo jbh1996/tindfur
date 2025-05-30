@@ -1,6 +1,7 @@
 import './ShelterPetProfile.css';
 import Footer from './Footer';
 import Header from './Header';
+import BackButton from './BackButton';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
@@ -49,6 +50,7 @@ export default function ShelterPetProfile(props) {
         <div className="ShelterPetProfile" id='profile-page'>
             <Header />
             <main>
+                <BackButton url={'/view-animals'} text={'My Animals'}></BackButton>
                 <PetInfo pet={petProfile}/>   
             </main>
             <Footer />

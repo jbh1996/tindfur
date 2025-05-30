@@ -160,7 +160,7 @@ export default function EditAnimalForm({ pet }) {
 
     return (
         <div className='animal-form'>
-            <h1>Edit Animal Profile</h1>
+            <h1 className='animal-form-heading'>Edit Animal Profile</h1>
             <form onSubmit={updateAnimal}>
                 {/* get basic info for animal */}
                 <h3>Animal's Information</h3>
@@ -203,6 +203,7 @@ export default function EditAnimalForm({ pet }) {
                         <select
                             id="animal-type"
                             name="animalType"
+                            className='wide-select'
                             value={formData.animalType}
                             onChange={handleChange}
                         >
@@ -216,6 +217,7 @@ export default function EditAnimalForm({ pet }) {
                         <label htmlFor="breed">Breed</label>
                         <select
                             value={breed}
+                            className='wide-select'
                             onChange={(e) => setBreed(e.target.value)}
                             required
                         >
@@ -234,6 +236,7 @@ export default function EditAnimalForm({ pet }) {
                         <select
                             id="availability"
                             name='availability'
+                            className='wide-select'
                             value={formData.availability}
                             onChange={handleChange}
                         >
@@ -259,6 +262,7 @@ export default function EditAnimalForm({ pet }) {
                     />
                     <label htmlFor='uploadPic'>Upload New Profile Picture</label>
                     <input
+                        className='file-selector'
                         type="file"
                         id="uploadPic"
                         name="petpic"
@@ -271,7 +275,7 @@ export default function EditAnimalForm({ pet }) {
                 <div className='disposition-container'>
                     <section className='behaviours'>
                         <h3>Behaviours & Needs</h3>
-                        <div className='checkboxes'>
+                        <div className='behavior-checkboxes'>
                             {dispositionOptions.map((item) => (
                                 <div key={item.id} className='checkbox-container'>
                                     <input
@@ -291,20 +295,20 @@ export default function EditAnimalForm({ pet }) {
                     {/* get personality for animal  */}
                     <section className='personality'>
                         <h3>Personality</h3>
-                        <div className='checkboxes'>
-                        {personalityOptions.map((item) => (
-                            <div key={item.id} className='checkbox-container'>
-                                <input
-                                    type="checkbox"
-                                    name='personality'
-                                    id={item.id}
-                                    value={item.value}
-                                    checked={personality?.includes(item.value)}
-                                    onChange={handlePersonality}
-                                />
-                                <label htmlFor={item.id}>{item.value}</label>
-                            </div>
-                        ))}
+                        <div className='personality-checkboxes'>
+                            {personalityOptions.map((item) => (
+                                <div key={item.id} className='checkbox-container'>
+                                    <input
+                                        type="checkbox"
+                                        name='personality'
+                                        id={item.id}
+                                        value={item.value}
+                                        checked={personality?.includes(item.value)}
+                                        onChange={handlePersonality}
+                                    />
+                                    <label htmlFor={item.id}>{item.value}</label>
+                                </div>
+                            ))}
                         </div>
                     </section>
                 </div>

@@ -7,16 +7,24 @@ import userAuth from '../Hooks/UserAuth';
 import ShelterFilter from './ShelterFilter';
 import Animals from './Animals';
 import { jwtDecode } from "jwt-decode"
+import BackButton from './BackButton';
 
 
 
 export default function ViewAnimals() {
     const redirect = useNavigate("")
 
+    // Restrict access to Shelter users only
     useEffect(() => {
-        const { isLoggedIn, isShelter } = userAuth()
+        const auth = userAuth();
+        console.log('userAuth:', auth);
+
+        const { isLoggedIn, isShelter } = userAuth();
         if (!isLoggedIn) {
-            redirect("/login")
+            redirect("/login");
+        } else if (!isShelter) {
+            alert("Restricted Access: Not Allowed");
+            redirect("/");
         }
     }, [redirect]);
 
@@ -61,7 +69,12 @@ export default function ViewAnimals() {
         <div className="App">
             <Header />
             <main>
+                <div className='view-container'>
+                <div id='view-header-container'>
+                    <h1 className='view-header'>My Animals</h1>
+                </div>
                 <Animals pets={petList} />
+                </div>
             </main>
             <Footer />
         </div>
