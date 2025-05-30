@@ -10,7 +10,7 @@ export default function Newsfeed() {
     // Get news feed data from backend
     const getNewsFeed = async () => {
       try {
-        const response = await fetch('/newsfeed');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/newsfeed`);
 
         if (!response.ok) {
           throw new Error('Unable to get news feed');

@@ -73,7 +73,7 @@ function EditProfile() {
         return;
       }
 
-      const res = await fetch(`http://localhost:5600/user/${userID}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userID}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ function EditProfile() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5600/user/${userID}`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userID}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

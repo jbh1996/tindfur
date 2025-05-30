@@ -24,7 +24,7 @@ export default function UserPetProfile() {
             redirect("/login")
         }
         const getProfile = async () => {
-            const response = await fetch(`/petprofiles/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/petprofiles/${id}`);
             const profile = await response.json()
             console.log(profile)
             setPet(profile)
