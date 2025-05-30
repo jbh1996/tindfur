@@ -66,7 +66,9 @@ function BrowseAnimals() {
       <main>
         <section className="browser">
           <BrowsingFilter onSubmit={handleFilterChange} />
+          <div className='animal-grid'>
           <AnimalBrowser animalList={animalList} />
+          </div>
         </section>
       </main>
       <Footer />
