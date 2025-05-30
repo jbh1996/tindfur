@@ -34,7 +34,7 @@ function BrowseAnimals() {
           createdBy: filters.createdBy,
         });
 
-        const response = await fetch(`/petprofiles?${params.toString()}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/petprofiles?${params.toString()}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

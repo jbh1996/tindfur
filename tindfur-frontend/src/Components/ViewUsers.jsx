@@ -19,7 +19,7 @@ export default function ViewUsers() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('/users');
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users`);
                 if (!response.ok) throw new Error("Failed to fetch users");
                 const data = await response.json();
                 setUsers(data.users);

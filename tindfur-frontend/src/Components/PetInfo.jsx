@@ -21,7 +21,7 @@ export default function PetInfo({ pet }) {
     //delete pet from database
     const deletePet = async () => {
         const token = localStorage.getItem("auth_token");
-        const response = await fetch(`/petprofiles/${pet._id}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/petprofiles/${pet._id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`

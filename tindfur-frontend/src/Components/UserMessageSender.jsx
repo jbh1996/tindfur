@@ -25,7 +25,7 @@ export default function UserMessageSender({pet}) {
           });
 
         try {
-            const response = await fetch('/createmessage', {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/createmessage`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

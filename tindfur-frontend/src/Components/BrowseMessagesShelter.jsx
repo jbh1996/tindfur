@@ -18,7 +18,7 @@ export default function BrowseMessagesShelter() {
 
 
 
-        const response = await fetch(`/retrievechatlogsshelter/${userID}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievechatlogsshelter/${userID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

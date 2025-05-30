@@ -15,7 +15,7 @@ function BrowsingFilter({ onSubmit }) {
   // Retrieve breed list
   useEffect(() => {
     if (animalType) {
-      fetch(`/breeds/${animalType}`)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/breeds/${animalType}`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
