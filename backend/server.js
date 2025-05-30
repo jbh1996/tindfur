@@ -9,7 +9,7 @@ require('./scripts/dailyEmail');
 app.use(cors());
 app.use(express.json()); 
 
-const { createChatLog, retrieveChatLogsUsers, retrieveChatLogsShelters, findChatLogByUserAndPet} = require('./controllers/ChatLogController');
+const { createChatLog, retrieveChatLogsUsers, retrieveChatLogsShelters, findChatLogByUserAndPet, retrieveChatLogById} = require('./controllers/ChatLogController');
 const { createProfile, retrieveProfile, retrieveProfilebyID, updateProfile, deleteProfile } = require('./controllers/PetController');
 const {createMessage, retrieveMessages, createMessageinChat} = require('./controllers/MessageController');
 const { dogBreeds, catBreeds } = require('./utils/breeds');
@@ -84,6 +84,9 @@ app.get('/retrievechatlogsshelter/:userID', retrieveChatLogsShelters);
 
 // Retrieve message
 app.get('/retrievemessages/:chatLogID', retrieveMessages);
+
+app.get('/chatlog/:chatLogID', retrieveChatLogById);
+
 
 // Retrieve News Feed
 app.get('/newsfeed', retrieveNewsFeed);
