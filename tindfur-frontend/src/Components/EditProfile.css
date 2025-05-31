@@ -31,3 +31,16 @@
     border: none;
 }
 
+#profilepic {
+    height: 34px;
+}
+
+.accountCard input::file-selector-button {
+    height: 34px;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 10px;
+}

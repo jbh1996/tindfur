@@ -229,6 +229,7 @@ textarea::placeholder {
     border-radius: 3px;
     padding: 10px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .animal-form button:hover {

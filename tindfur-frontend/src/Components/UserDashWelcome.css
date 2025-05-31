@@ -1,0 +1,131 @@
+.UserDashContainer {
+    background: linear-gradient(134deg, rgba(187, 211, 243, 0.85) 0%, rgba(247, 237, 146, 0.82) 100%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-dash-container {
+    background: rgba(255, 255, 255, 0.685);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem;
+    padding: 1rem 4rem;
+    border-radius: 7px;
+    box-shadow: rgba(149, 157, 165, 0.432) 0px 8px 24px;
+    padding: 0;
+    padding-left: 4rem;
+    overflow: hidden;
+
+}
+
+.user-dash-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.user-dash-container img {
+    object-fit: contain;
+    width: 600px;
+    margin-left: 4rem;
+}
+
+
+.user-dash-text h1 {
+    margin-top: 0;
+    margin-bottom: 0px;
+    padding-top: 2rem;
+
+}
+
+.user-dash-text h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.user-dash-text p {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-size: 32px;
+}
+
+.solid-red-pill {
+    color: white;
+    background-color: var(--bright);
+    text-decoration: none;
+    padding: .3rem 1.5rem;
+    margin: 1rem 0;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid var(--bright);
+    border-radius: 30px;
+    transition: all 0.2s;
+    width: 120px;
+    height: 30px;
+    text-align: center;
+    align-self: center;
+}
+
+.solid-red-pill:hover {
+    background-color: #f36b6b;
+    border: 2px solid #f36b6b;
+}
+
+
+@media (max-width: 1130px) {
+    .user-dash-text h1 {
+        font-size: 28px;
+    }
+
+
+}
+
+@media (max-width: 1045px) {
+    .user-dash-text p {
+        display: none;
+    }
+    .user-dash-container img {
+        width: 475px;
+    }
+
+    .user-dash-text h1 {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 945px) {
+    .user-dash-container {
+        flex-direction: column-reverse;
+        padding: 0;
+    }
+
+    .user-dash-container img {
+        margin-left: 0;
+    }
+
+    /* .user-dash-text p {
+        display: unset;
+        margin: .5rem;
+        font-size: 24px;
+    } */
+    .user-dash-text h2 {
+        font-size: 16px;
+    }
+
+    .user-dash-container {
+        margin: 2rem;
+    }
+}
+
+@media (max-width: 527px) {
+    .user-dash-container img {
+            width: 380px;
+    }
+}
+

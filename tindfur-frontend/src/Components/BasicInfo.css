@@ -1,13 +1,12 @@
 .BasicInfo {
-    border: 1px ;
+    border: 1px;
     width: 400px;
-    padding: 2rem;
+    padding: 2rem 4rem;
     padding-bottom: 1rem;
     border-radius: 5px;
-    justify-self: center;
 }
 
-.BasicInfo h2{
+.BasicInfo h2 {
     border-bottom: 3px solid var(--primary);
     margin-top: 0;
     padding: 0;
@@ -16,7 +15,7 @@
 }
 
 @media (max-width: 550px) {
-    .BasicInfo  {
+    .BasicInfo {
         width: 300px;
     }
 }
@@ -39,4 +38,11 @@
     padding: .3rem 1rem;
     border: 2px solid;
     border-radius: 20px;
+}
+
+@media (max-width: 867px) {
+    .BasicInfo {
+        padding: 1rem 2rem;
+        width: 300px;
+    }
 }
