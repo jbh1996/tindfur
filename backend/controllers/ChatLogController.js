@@ -55,10 +55,29 @@ const retrieveChatLogsShelters = async (req, res) => {
   }
 }
 
+const retrieveChatLogById = async (req, res) => {
+  try {
+    const { chatLogID } = req.params;
+
+    const chatLog = await ChatLog.findById(chatLogID)
+      .populate('userID')
+      .populate('shelterID')
+      .populate('petID');
+
+    if (!chatLog) {
+      return res.status(404).json({ message: 'Chat log not found' });
+    }
+
+    res.status(200).json(chatLog);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving chat log by ID' });
+  }
+};
 
 const findChatLogByUserAndPet = async (userID, petID) => {
     return await ChatLog.findOne({ userID, petID });
   };
   
 
-module.exports = { createChatLog, retrieveChatLogsUsers, retrieveChatLogsShelters, findChatLogByUserAndPet };
+module.exports = { createChatLog, retrieveChatLogsUsers, retrieveChatLogsShelters, findChatLogByUserAndPet,   retrieveChatLogById};

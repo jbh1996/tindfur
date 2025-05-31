@@ -2,6 +2,7 @@ import './Create.css';
 import Footer from './Footer';
 import Header from './Header';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Create({ isLoggedIn, isShelter }) {
   const [name, setName] = useState(""); 
@@ -10,6 +11,7 @@ function Create({ isLoggedIn, isShelter }) {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [role, setRole] = useState("user"); 
   const [emailPrefs, setEmailPrefs] = useState("no");
+  const navigate = useNavigate()
 
 
   // Create User Account
@@ -47,6 +49,7 @@ function Create({ isLoggedIn, isShelter }) {
         alert(`Registration failed: ${data.message}`);
       } else {
         alert('New Account Created!');
+        navigate("/login");
         
       }
     } catch (error) {

@@ -10,39 +10,72 @@ import BackButton from './BackButton';
 
 
 export default function ChatViewerShelter() {
-
-  const { chatLogID } = useParams();
+  const {chatLogID} = useParams();
 
   const [messages, setMessages] = useState([])
 
-  const { isLoggedIn, isShelter } = userAuth();
+  const [pet, setPet]  = useState({})
+  const [user, setUser] =  useState({})
+
+const { isLoggedIn, isShelter } = userAuth();
+
+const [filters, setFilters] = useState({
+  animalType: '',
+  breed: '',
+  dispositions: [],
+  date: '',
+  availability: 'Available',
+});
+
+useEffect(() => {
+
+  const fetchChatLogInfo = async () => {
+    try {
+      const chatlog_response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/chatlog/${chatLogID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!chatlog_response.ok) throw new Error('Failed to fetch chat log info');
+
+      const info = await chatlog_response.json();
 
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
+      setUser(info.userID)
+      setPet(info.petID)
 
-        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievemessages/${chatLogID}`        , {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    } catch (error) {
+      console.error('Error fetching chat log info:', error);
+    }
+  };
 
-        if (!response.ok) throw new Error('Failed to fetch messages');
 
-        const messages = await response.json();
-        setMessages(messages);
-        console.log(messages);
+  const fetchMessages = async () => {
+    try {
 
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/retrievemessages/${chatLogID}`        , {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    fetchMessages();
-  }, []);
+      if (!response.ok) throw new Error('Failed to fetch messages');
 
+      const messages = await response.json();
+      setMessages(messages); 
+      console.log(messages);
+
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  };
+
+  fetchChatLogInfo();
+  fetchMessages();
+}, []);
 
   return (
     <div>
@@ -50,7 +83,8 @@ export default function ChatViewerShelter() {
       <main>
         <BackButton url={'/shelter-messages'} text={'Messages'}></BackButton>
         <div  className='accountCard' id='message-card'>
-          
+         <p><strong>From:</strong> {user.username}</p>
+        <p><strong>Concerning:</strong> {pet.name}</p>
           <section className="message-viewer">
             <div className='message-box'>
               {messages.map((message) => (

@@ -17,10 +17,12 @@ function Home() {
   const {isLoggedIn, isShelter} = userAuth()
   const navigate = useNavigate();
 
-  if (isLoggedIn) {
-      navigate("/dashboard");
+  useEffect(() => {
+
+    if (isLoggedIn) {
+      navigate('/dashboard');
     }
-  
+  }, [navigate, isLoggedIn]);
 
 
   return (
