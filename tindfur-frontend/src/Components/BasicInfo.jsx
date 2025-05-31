@@ -9,7 +9,6 @@ export default function BasicInfo({ pet }) {
                 <li><span>Breed:</span> {pet.breed}</li>
                 <li><span>Age:</span> {pet.age}</li>
                 <li><span>Gender:</span> {pet.gender}</li>
-                <li><span>Shelter:</span> {pet.shelterName}</li>
                 <br />
                 <li><span>Status:</span> <span className='outline'>{pet.availability}</span></li>
             </ul>

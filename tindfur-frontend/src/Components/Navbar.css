@@ -5,13 +5,11 @@
     border-bottom: solid 1px #ECECEC;
     gap: 2rem;
     padding: 8px 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     position: sticky;
     top: 0;
     background: white;
     transition: all 0.3s ease-in;
-
-
 }
 
 .Navbar ul {
@@ -35,7 +33,6 @@
     padding: 0 .5rem;
     font-weight: 500;
     height: 95%;
-
 }
 
 .Navbar .site-title {
@@ -53,7 +50,6 @@
 
 .Navbar .active {
     border-bottom: solid 2px;
-
 }
 
 .Navbar a:hover {
@@ -63,8 +59,6 @@
 .Navbar .site-title:hover {
     color: var(--primary);
 }
-
-
 
 .Navbar .menu {
     display: none;
@@ -85,7 +79,7 @@
     border-radius: 2px;
 }
 
-@media (max-width: 790px) {
+@media (max-width: 848px) {
     .Navbar .menu {
         display: flex;
     }
@@ -101,20 +95,15 @@
         gap: 0;
         padding: 0;
         padding-top: 8px;
-        /* border: none; */
-
     }
 
     .Navbar ul {
         display: none;
         flex-direction: column;
         width: 100%;
-
         gap: .3rem;
         background-color: var(--light-gray);
         padding: 10px;
-
-
     }
 
     .Navbar ul li {
@@ -129,9 +118,6 @@
         display: unset;
         padding: 10px;
         padding-left: 20px;
-
-
-
     }
 
     .Navbar ul li a.active {

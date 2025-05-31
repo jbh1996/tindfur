@@ -1,0 +1,39 @@
+.ChatLogCardUser {
+    width: 200px;
+    padding-left: 0;
+    border: 1px solid rgb(231, 231, 231);
+    margin: 1rem;
+    border-radius: 7px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    text-align: left;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+
+.ChatLogCardUser img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.ChatLogCardUser h4 {
+    margin-bottom: 0;
+    margin-top: 1rem;
+    margin-left: .7rem;
+    
+}
+
+.ChatLogCardUser p {
+    margin-top: .5rem;
+    margin-bottom: 1.5rem;
+    margin-left: .7rem;
+}
+
+.ChatLogCardUser:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 10px 0px rgba(160, 160, 160, 0.315);;
+    
+}

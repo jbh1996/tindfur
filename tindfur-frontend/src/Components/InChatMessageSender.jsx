@@ -52,11 +52,11 @@ export default function InChatMessageSender({chatLogID}) {
 
     return (
 
-                    <form onSubmit={sendMessage}>
+                    <form className='animal-form' onSubmit={sendMessage}>
                         <section className='message'>
-                            <textarea placeholder='' value={content} rows="10" cols="60" onChange={(e) => setContent(e.target.value)}></textarea>
+                            <textarea id='chat-textarea' placeholder='' value={content} rows="10" cols="60" onChange={(e) => setContent(e.target.value)}></textarea>
                         </section>
-                        <button type="submit">Submit</button>
+                        <button id='chat-button' type="submit">Submit</button>
                     </form>
 
 
