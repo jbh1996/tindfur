@@ -6,15 +6,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import PetInfoUser from './PetInfoUser';
-import UserMessageSender from './UserMessageSender';
+import BackButton from './BackButton';
 
 
 export default function UserPetProfile() {
 
-    const {id} = useParams()
+    const { id } = useParams()
     console.log("Pet ID from URL:", id);
     const [pet, setPet] = useState({})
-    
 
     const redirect = useNavigate("")
 
@@ -33,13 +32,11 @@ export default function UserPetProfile() {
     }, [redirect, id]);
 
     return (
-
-
         <div className="App" id='profile-page'>
             <Header />
             <main>
-            <PetInfoUser pet={pet}/>
-            <UserMessageSender pet={pet} />
+                <BackButton url={'/browse-animals'} text={'All Animals'}></BackButton>
+                <PetInfoUser pet={pet} />
             </main>
             <Footer />
         </div>

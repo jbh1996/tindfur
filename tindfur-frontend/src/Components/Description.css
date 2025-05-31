@@ -4,7 +4,8 @@
     justify-content: space-around;
     flex-wrap: wrap;
     background-color: #ececec8f;
-    border-bottom: 2px solid var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    border-top: 1px solid var(--light-gray);
 }
 
 .Description .traits {
@@ -20,28 +21,42 @@
     flex-grow: 2;
 }
 
+.Description ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 @media (min-width: 0px) {
-    .traits, .about {
+    .traits,
+    .about {
         padding: 2rem;
     }
+
     .about {
         padding-top: 0;
+        margin-left: 0;
     }
 }
 
-@media (min-width: 752px){
-    .about {
+@media (min-width: 752px) {
+    .Description .about {
         padding-top: 2rem;
     }
 }
 
+@media (min-width: 770px) {
+    .Description .about {
+        margin-left: 1rem;
+    }
+}
+
 @media (min-width: 830px) {
-     .about {
+    .about {
         padding: 2rem 6rem;
         padding-left: 0;
     }
 
-     .traits {
+    .traits {
         padding: 2rem 6rem;
         padding-right: 0;
     }
@@ -72,4 +87,3 @@
     background-color: var(--primary);
     color: white;
 }
-

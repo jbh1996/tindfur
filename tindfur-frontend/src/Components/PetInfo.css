@@ -6,22 +6,26 @@
 
 .PetInfo .topOfProfile {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
 
 .PetInfo .infoContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-items: center;
     border-bottom: 2px solid var(--light-gray);
-    padding-bottom: 4rem;
+    border-radius: 5px;
+        border: 1px solid rgb(231, 231, 231);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 400px;
+    margin-bottom: 4rem;
+    overflow: hidden;
 }
 
 .pet-image-container {
-    width: 350px;
+    width: fit-content;
     height: 400px;
-    padding: 0 2rem;
     display: flex;
     justify-content: center;
     align-self: center;
@@ -30,23 +34,15 @@
 .infoColumn {
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(231, 231, 231);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding-bottom: 2rem;
-    border-radius: 5px;
+    background-color: white;
 }
 
-@media (max-width: 880px) {
-    .infoColumn {
-        margin-top: 2rem;
-    }
-}
 
 .PetInfo img {
-    width: 300px;
+    max-width: 340px;
     height: 400px;
     object-fit: cover;
-    border-radius: 5px;
 }
 
 .PetInfo h3 {
@@ -76,6 +72,14 @@
     flex-direction: column
 }
 
+#user-bottom-profile   {
+    flex-direction: row;
+}
+
+#user-bottom-profile .Description {
+    flex-grow: 1;
+}
+
 .black-rectangle {
     align-self: flex-start;
     width: 120px;
@@ -101,4 +105,16 @@
 .bright-rectangle:hover {
     background-color: #f36b6b;
     border: 2px solid #f36b6b;
+}
+
+@media (max-width:706px) {
+    .PetInfo .infoContainer {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .PetInfo img {
+        padding-top: 2rem;
+        border-radius: 5px;
+    }
 }
