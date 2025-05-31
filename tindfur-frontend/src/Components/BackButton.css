@@ -1,0 +1,12 @@
+.BackButton {
+    margin-left: 2rem;
+    
+}
+
+.BackButton a {
+    color: rgb(97, 97, 97);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}

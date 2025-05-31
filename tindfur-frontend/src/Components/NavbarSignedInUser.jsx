@@ -26,8 +26,8 @@ function NavbarSignedInUser() {
       </div>
       <ul className={menuOpen ? 'open' : ''}>
         <li><NavLink to="/dashboard">Home</NavLink></li>
-        <li><Link to="/browse-animals">View Animals</Link></li>
-        <li><Link to="/view-messages">View Messages</Link></li>
+        <li><NavLink to="/browse-animals">View Animals</NavLink></li>
+        <li><NavLink to="/view-messages">View Messages</NavLink></li>
         <li><NavLink to="/edit-profile">Edit Profile</NavLink></li>
         <li><NavLink to="/" className='login' onClick={handleLogout}>Log Out</NavLink></li>
 

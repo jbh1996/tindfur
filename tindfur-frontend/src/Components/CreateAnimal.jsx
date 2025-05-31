@@ -1,9 +1,11 @@
 import './CreateAnimal.css';
 import Footer from './Footer';
 import Header from './Header';
+import BackButton from './BackButton';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
+import { Link } from 'react-router-dom';
 
 // options for behavior checkboxes
 const dispositionOptions = [
@@ -152,7 +154,7 @@ export default function CreateAnimal() {
             <Header />
             <main>
                 <div className='animal-form'>
-                    <h1 id='create-heading'>Create Animal Profile</h1>
+                    <h1 className='animal-form-heading'>Create Animal Profile</h1>
                     <form onSubmit={addAnimal}>
                         {/* get basic info for animal */}
                         <h3>Animal's Information</h3>
@@ -255,7 +257,7 @@ export default function CreateAnimal() {
                             />
                             <label htmlFor='uploadPic'>Upload New Profile Picture</label>
                             <input
-                            className='file-selector'
+                                className='file-selector'
                                 type="file"
                                 id="uploadPic"
                                 name="petpic"

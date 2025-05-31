@@ -1,4 +1,4 @@
-import './ViewAnimals.css'; // reuse styling
+import './Animals.css'; // reuse styling
 import Footer from './Footer';
 import Header from './Header';
 import { useState, useEffect } from 'react';
@@ -35,8 +35,10 @@ export default function ViewUsers() {
         <div className="App">
             <Header />
             <main>
-                <h2 style={{ textAlign: 'center' }}>Registered Users</h2>
-                <ul className="Animals"> {/* Reuse layout class */}
+                <div id='view-header-container'>
+                    <h1 className='view-header'>Registered Users</h1>
+                </div>
+                <ul id='user-container' className="animal-container"> {/* Reuse layout class */}
                     {users.map((user) => (
                         <li key={user._id} className="animalLink">
                             <div className="AnimalCard">

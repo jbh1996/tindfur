@@ -6,6 +6,8 @@ import userAuth from '../Hooks/UserAuth';
 import InChatMessageSender from './InChatMessageSender';
 import { useParams } from 'react-router-dom';
 import Message from './Message';
+import BackButton from './BackButton';
+
 
 export default function ChatViewerShelter() {
   const {chatLogID} = useParams();
@@ -39,6 +41,7 @@ useEffect(() => {
       if (!chatlog_response.ok) throw new Error('Failed to fetch chat log info');
 
       const info = await chatlog_response.json();
+
 
       setUser(info.userID)
       setPet(info.petID)
@@ -78,16 +81,19 @@ useEffect(() => {
     <div>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
-        <section className="message-viewer">
-        <p><strong>From:</strong> {user.username}</p>
+        <BackButton url={'/shelter-messages'} text={'Messages'}></BackButton>
+        <div  className='accountCard' id='message-card'>
+         <p><strong>From:</strong> {user.username}</p>
         <p><strong>Concerning:</strong> {pet.name}</p>
+          <section className="message-viewer">
             <div className='message-box'>
-            {messages.map((message) => (
-        <Message message={message} />
-      ))}
-          </div>
-          <InChatMessageSender chatLogID={chatLogID} />
-        </section>
+              {messages.map((message) => (
+                <Message message={message} />
+              ))}
+            </div>
+            <InChatMessageSender chatLogID={chatLogID} />
+          </section>
+        </div>
       </main>
       <Footer />
     </div>

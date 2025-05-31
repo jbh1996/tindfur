@@ -4,13 +4,29 @@ import Header from './Header';
 import './BrowseAnimals.css';
 import userAuth from '../Hooks/UserAuth';
 import ChatLogCardUser from './ChatLogCardUser';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function BrowseMessagesShelter() {
+   const redirect = useNavigate("")
+  // Restrict access to Shelter users only
+  useEffect(() => {
+    const auth = userAuth();
+    console.log('userAuth:', auth);
+
+    const { isLoggedIn, isShelter } = userAuth();
+    if (!isLoggedIn) {
+      redirect("/login");
+    } else if (!isShelter) {
+      alert("Restricted Access: Not Allowed");
+      redirect("/");
+    }
+  }, [redirect]);
 
   const { isLoggedIn, isShelter, userID } = userAuth();
-
   const [chatLogs, setChatLogs] = useState([]);
+
 
   useEffect(() => {
     const fetchChatLogs = async () => {
@@ -46,7 +62,11 @@ export default function BrowseMessagesShelter() {
     <div className='App'>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
+        <div id='view-header-container'>
+          <h1 className='view-header'>Messages</h1>
+        </div>
         <section className="browser">
+
         {chatLogs.length === 0 ? (
           
           <p>No Messages to Display</p>) : (

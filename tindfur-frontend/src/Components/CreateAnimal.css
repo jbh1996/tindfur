@@ -4,10 +4,6 @@
     justify-self: center;
     max-width: 900px;
     color: rgb(78, 78, 78);
-    /* border-right: 1px solid rgb(231, 231, 231);
-    border-left: 1px solid rgb(231, 231, 231); */
-    /* border: 1px solid rgb(231, 231, 231); */
-    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
     border-radius: 5px;
     padding: 1rem;
     padding-bottom: 2rem;
@@ -16,17 +12,17 @@
 }
 
 @media (max-width: 500px) {
-    .animal-form  {
+    .animal-form {
         padding-left: 1rem;
-        /* padding-right: 2rem; */
     }
-    
 }
+
 .animal-form label {
     margin: 0 1rem;
     font-size: 15px;
     color: black;
 }
+
 
 .animal-form form {
     display: flex;
@@ -44,17 +40,16 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-
 }
 
 .animal-form .personality-container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-
 }
 
-.behavior-checkboxes, .personality-checkboxes {
+.behavior-checkboxes,
+.personality-checkboxes {
     display: flex;
     max-height: 150px;
     flex-direction: column;
@@ -87,7 +82,6 @@
     background-repeat: no-repeat;
     background-position: calc(100% - 8px) center;
     height: 2.5rem;
-    
     max-width: 322px;
     margin: 1rem;
     margin-top: .2rem;
@@ -126,16 +120,35 @@
     width: 322px;
 }
 
+.animal-form-heading {
+    color: black;
+    font-size: 36px;
+    margin-left: 1rem;
+    max-width: 867px;
+    margin-top: 0;
+    padding-bottom: 5px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--primary);
+
+}
+
 @media (max-width: 500px) {
     .animal-form textarea {
         width: 300px;
     }
-    .animal-form .about{
+
+    .animal-form .about {
         padding-left: 0;
         padding-bottom: 0;
     }
-    .behavior-checkboxes, .behaviors{
+
+    .behavior-checkboxes,
+    .behaviors {
         min-height: 210px;
+    }
+
+    .animal-form-heading {
+        font-size: 28px;
     }
 }
 
@@ -146,16 +159,7 @@
     padding-right: 0;
 }
 
-#create-heading {
-    /* text-align: center; */
-    color: black;
-    font-size: 28px;
-    margin-left: 1rem;
-    margin-top: 0;
-    /* font-family: 'Segoe UI', sans-serif; */
-    letter-spacing: 1px;
 
-}
 
 .animal-form h3 {
     margin-left: 1rem;
@@ -202,6 +206,17 @@ textarea::placeholder {
     width: 100px;
 }
 
+#chat-button {
+    align-self: flex-end;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+#chat-textarea {
+    margin: 0;
+    align-self: flex-end;
+}
+
 .animal-form .file-selector {
     height: 34px;
 }
@@ -214,4 +229,15 @@ textarea::placeholder {
     border-radius: 3px;
     padding: 10px;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.animal-form button:hover {
+    background-color: #41855e;
+    border: 2px solid #41855e;
+}
+
+.accountCard button:hover {
+    background-color: #41855e;
+
 }

@@ -1,4 +1,4 @@
-import './NewsCard.css';
+import './ChatLogCardUser.css';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 
@@ -25,7 +25,7 @@ export default function ChatLogCardUser({ chatLog }) {
       };
 
   return (
-    <section onClick={handleClick} className='NewsCard'>
+    <section onClick={handleClick} className='ChatLogCardUser'>
     
       <img src={image} />
       <p><strong>From:</strong> {user.username}</p>
