@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 function Login() {
 
@@ -51,12 +52,6 @@ function Login() {
   };
 
 
-
-
-
-
-
-
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
@@ -81,6 +76,7 @@ function Login() {
             <button type="submit">Submit</button>
           </form>
         </div>
+        <p className='account-link'>New to Tindfur? <NavLink to="/create">Create Account</NavLink></p>
       </main>
       <Footer></Footer>
       <Routes>

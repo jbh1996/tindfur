@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import News from './News';
 import DashPets from './DashPets';
 import { useNavigate } from 'react-router-dom';
+import Newsfeed from './Newsfeed';
 
 
 function ShelterDashboard({ isLoggedIn, isShelter }) {
@@ -14,7 +15,6 @@ function ShelterDashboard({ isLoggedIn, isShelter }) {
     <div className="App">
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
-
         <DashPets />
         <News />
       </main>

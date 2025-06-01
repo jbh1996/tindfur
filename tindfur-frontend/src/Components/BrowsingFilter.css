@@ -3,12 +3,17 @@
     flex-direction: column;
     justify-self: center;
     max-width: 500px;
+    height: fit-content;
     color: rgb(78, 78, 78);
-    border: 1px solid rgb(160, 160, 160);
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 7px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
+    margin-right: 3rem;
+    margin-left: 10px;
     padding: 1rem;
     padding-bottom: 2rem;
-    
+
 }
 
 .filterCard form {
@@ -77,6 +82,5 @@
     font-size: large;
     border: 2px solid var(--primary);
     border-radius: 20px;
+    cursor: pointer;
 }
-
-

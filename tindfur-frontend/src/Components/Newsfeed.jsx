@@ -27,7 +27,14 @@ export default function Newsfeed() {
   }, []);
   
   return (
-    <div className='Newsfeed'>
+    <div className='view-container'>
+      <section id='news-header' className='view-header-container'>
+        <div>
+            <h2>News</h2>
+            <p>See our latest profiles and adoptions below:</p>
+            </div>
+        </section>
+    <div className='animal-container'>
       {newsFeed.length === 0 ? (
 
         <p>Stay Tuned!New Updates Coming Soon!</p>
@@ -44,6 +51,7 @@ export default function Newsfeed() {
           />
         ))
       )}
+    </div>
     </div>
   );
 }

@@ -35,7 +35,8 @@ export default function ViewUsers() {
         <div className="App">
             <Header />
             <main>
-                <div id='view-header-container'>
+                
+                <div id='user-header' className='view-header-container'>
                     <h1 className='view-header'>Registered Users</h1>
                 </div>
                 <ul id='user-container' className="animal-container"> {/* Reuse layout class */}
@@ -43,13 +44,16 @@ export default function ViewUsers() {
                         <li key={user._id} className="animalLink">
                             <div className="AnimalCard">
                                 <img src={user.profilePic} alt="" />
+                                <div className='animal-card-text'>
                                 <h4>{user.name || user.username}</h4>
                                 <p>{user.email}</p>
                                 <p>{user.description}</p>
+                                </div>
                             </div>
                         </li>
                     ))}
                 </ul>
+             
             </main>
             <Footer />
         </div>

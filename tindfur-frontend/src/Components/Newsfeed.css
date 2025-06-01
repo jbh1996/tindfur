@@ -4,3 +4,10 @@
   gap: 20px;
   padding-left: 2rem;
 }
+#news-header h2 {
+  margin-bottom: 0;
+}
+
+#news-header p {
+  margin-top: 0;
+}

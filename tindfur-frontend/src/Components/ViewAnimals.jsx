@@ -4,10 +4,12 @@ import Header from './Header';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
-import ShelterFilter from './ShelterFilter';
 import Animals from './Animals';
 import { jwtDecode } from "jwt-decode"
-import BackButton from './BackButton';
+import { NavLink } from 'react-router-dom';
+import { IoIosAddCircleOutline } from "react-icons/io";
+
+
 
 
 
@@ -70,10 +72,11 @@ export default function ViewAnimals() {
             <Header />
             <main>
                 <div className='view-container'>
-                <div id='view-header-container'>
-                    <h1 className='view-header'>My Animals</h1>
-                </div>
-                <Animals pets={petList} />
+                    <div className='view-header-container'>
+                        <h1 className='view-header'>My Animals</h1>
+                        <NavLink id='add' to="/create-animal"><IoIosAddCircleOutline /> </NavLink>
+                    </div>
+                    <Animals pets={petList} />
                 </div>
             </main>
             <Footer />
