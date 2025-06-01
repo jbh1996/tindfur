@@ -16,6 +16,9 @@ export default function ChatViewer() {
 
     const [messages, setMessages] = useState([])
 
+    const [pet, setPet]  = useState({})
+    const [user, setUser] =  useState({})
+
   const { isLoggedIn, isShelter } = userAuth();
   const navigate = useNavigate();
 
@@ -28,6 +31,29 @@ export default function ChatViewer() {
   });
 
   useEffect(() => {
+
+    const fetchChatLogInfo = async () => {
+      try {
+        const chatlog_response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/chatlog/${chatLogID}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!chatlog_response.ok) throw new Error('Failed to fetch chat log info');
+  
+        const info = await chatlog_response.json();
+
+        setUser(info.userID)
+        setPet(info.petID)
+
+      } catch (error) {
+        console.error('Error fetching chat log info:', error);
+      }
+    };
+
+
     const fetchMessages = async () => {
       try {
 
@@ -49,6 +75,7 @@ export default function ChatViewer() {
       }
     };
 
+    fetchChatLogInfo();
     fetchMessages();
   }, []);
 
@@ -58,6 +85,8 @@ export default function ChatViewer() {
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
         <section className="message-viewer user-viewer">
+        <p><strong>From:</strong> {user.username}</p>
+        <p><strong>Concerning:</strong> {pet.name}</p>
             <div className='message-box'>
             {messages.map((message) => (
         <Message message={message} />
