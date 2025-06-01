@@ -2,28 +2,31 @@ import './Create.css';
 import Footer from './Footer';
 import Header from './Header';
 import { useState } from 'react';
+import { NavLink} from 'react-router-dom';
+
 
 function Create({ isLoggedIn, isShelter }) {
-  const [name, setName] = useState(""); 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [role, setRole] = useState("user"); 
+  const [role, setRole] = useState("user");
   const [emailPrefs, setEmailPrefs] = useState("no");
+  
 
 
   // Create User Account
   const createAttempt = async (event) => {
     event.preventDefault();
 
-    console.log(name,email,password,role)
-  
+    console.log(name, email, password, role)
+
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
     }
-    
-    
+
+
     try {
       const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`, {
         method: 'POST',
@@ -40,14 +43,14 @@ function Create({ isLoggedIn, isShelter }) {
           }
         })
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         alert(`Registration failed: ${data.message}`);
       } else {
         alert('New Account Created!');
-        
+
       }
     } catch (error) {
       console.error('Error:', error);
@@ -56,7 +59,7 @@ function Create({ isLoggedIn, isShelter }) {
   }
 
 
-  
+
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
@@ -101,7 +104,7 @@ function Create({ isLoggedIn, isShelter }) {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required></input>
 
-                  
+
             {role === "user" && (
               <>
                 <label htmlFor="emailPrefs">Subscribe to email alerts for new pet profiles:</label>
@@ -110,16 +113,18 @@ function Create({ isLoggedIn, isShelter }) {
                   value={emailPrefs}
                   onChange={(e) => setEmailPrefs(e.target.value)}
                 >
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </select>
-            </>
-)}
+              </>
+            )}
 
 
             <button type="submit">Submit</button>
           </form>
         </div>
+        <p className='account-link'>Already a user? <NavLink to="/login">Sign In</NavLink></p>
+
       </main>
       <Footer></Footer>
 

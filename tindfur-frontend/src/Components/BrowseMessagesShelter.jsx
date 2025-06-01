@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 import './BrowseAnimals.css';
+import './BrowseMessagesShelter.css';
 import userAuth from '../Hooks/UserAuth';
 import ChatLogCardUser from './ChatLogCardUser';
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +63,8 @@ export default function BrowseMessagesShelter() {
     <div className='App'>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
-        <div id='view-header-container'>
+        <div className='browse-page'>
+        <div id='message-header'className='view-header-container'>
           <h1 className='view-header'>Messages</h1>
         </div>
         <section className="browser">
@@ -70,6 +72,7 @@ export default function BrowseMessagesShelter() {
             <ChatLogCardUser chatLog={log} />
           ))}
         </section>
+        </div>
       </main>
       <Footer />
     </div>

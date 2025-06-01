@@ -3,13 +3,22 @@
     height: 320px;
     padding-left: 0;
     border: 1px solid rgb(231, 231, 231);
-    
     border-radius: 7px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     text-align: left;
     transition: all 0.3s;
+
 }
 
+
+
+.animal-card-text {
+    height: 109px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
 
 .AnimalCard img {
     width: 220px;
@@ -19,18 +28,30 @@
     border-top-right-radius: 7px;
 }
 
+#availability-tag {
+    text-align: center;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.466);
+    color: black;
+    padding: 0 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 60px;
+    margin-top: 0;
+    align-self: flex-end;
+}
+
 .AnimalCard h4 {
     margin-bottom: 0;
-    margin-top: 1.2rem;
+    margin-top: .5rem;
     margin-left: .7rem;
     margin-right: .7rem;
-    
-    
+    font-size: 18px;
 }
 
 .AnimalCard p {
     margin-top: .5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0rem;
     margin-left: .7rem;
     margin-right: .7rem;
     color: gray;
@@ -38,14 +59,61 @@
 
 .AnimalCard:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 4px 10px 0px rgba(160, 160, 160, 0.315);;
-    
+    box-shadow: 0px 4px 10px 0px rgba(160, 160, 160, 0.315);
+    ;
+
 }
 
-@media (max-width: 535px) {
-    .AnimalCard, .AnimalCard img {
-        width: 180px;
+@media (max-width: 789px) {
+
+    .AnimalCard,
+    .AnimalCard img {
+        width: 260px;
+    }
+}
+
+@media (max-width: 609px) {
+
+    .AnimalCard {
+        height: 220px;
+        width: 450px;
+        display: flex;
+    }
+
+    .animal-card-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-self: center;
+        margin-left: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .AnimalCard img {
+        height: 220px;
+        width: 200px;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+        border-top-right-radius: 0;
+    }
+
+    .AnimalCard h4 {
+        font-size: 24px;
+    }
+
+    #availability-tag {
+        align-self: flex-start;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 489px) {
+
+    .AnimalCard {
+        width: 380px;
     }
 }
 
 
+@media (max-width: 789px) {}

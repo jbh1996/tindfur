@@ -1,29 +1,126 @@
 .Animals {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 3rem;
     justify-content: center;
-    padding: 2rem;
-  }
+}
 
 .animal-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin: 0 2rem;
-    width: fit-content;
-    
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 3rem;
+    grid-auto-rows: minmax(100px, auto);
 }
 
 .animalLink {
-    
+    width: fit-content;
     text-decoration: none;
     color: black;
+    list-style: none;
 }
 
-@media (max-width: 535px) {
+#user-header {
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+ #animal-browser {
+    margin-left: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    flex: 1;
+ }
+
+
+@media (max-width: 1340px) {
     .animal-container {
-        margin: 7px;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
+
+@media (max-width: 1068px) {
+    .animal-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 789px) {
+    .animal-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 609px) {
+    .animal-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 1800px) {
+    #animal-browser {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1525px) {
+    #animal-browser {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1256px) {
+    #animal-browser {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 986px) {
+    #animal-browser {
+        grid-template-columns: repeat(3, 1fr);
+    }
+} 
+
+@media (max-width: 815px) {
+    #animal-browser {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 620px) {
+        #animal-browser {
+        grid-template-columns: repeat(1, 1fr);
+        
+    }
+    #animal-browser .AnimalCard {
+        height: 220px;
+        width: 400px;
+        display: flex;
+    }
+
+    #animal-browser .animal-card-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #animal-browser .AnimalCard img {
+        height: 220px;
+        width: 200px;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+        border-top-right-radius: 0;
+    }
+
+    #animal-browser .AnimalCard h4 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 440px) {
+    #animal-browser.animal-container {
+        margin-left: 3px;
+    }
+}
+
+

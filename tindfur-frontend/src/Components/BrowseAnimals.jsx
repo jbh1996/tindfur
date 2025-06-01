@@ -6,10 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import userAuth from '../Hooks/UserAuth';
 import AnimalBrowser from './AnimalBrowser';
 import BrowsingFilter from './BrowsingFilter';
+import FilterOverlay from './FilterOverlay';
 
 function BrowseAnimals() {
   const { isLoggedIn, isShelter } = userAuth();
   const navigate = useNavigate();
+  const [showDialogue, setShowDialogue] = useState(false)
+
+  //show dialogue for filter
+  const handleShowDialogue = () => {
+    setShowDialogue(!showDialogue);
+  };
 
   const [filters, setFilters] = useState({
     animalType: '',
@@ -44,7 +51,7 @@ function BrowseAnimals() {
         if (!response.ok) throw new Error('Failed to fetch pets');
 
         const pets = await response.json();
-        setAnimalList(pets.profiles); 
+        setAnimalList(pets.profiles);
         console.log(pets.profiles)
 
       } catch (error) {
@@ -58,18 +65,25 @@ function BrowseAnimals() {
   // Update filters when BrowsingFilter submits the form
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
+    setShowDialogue(false)
   };
 
   return (
-    <div>
+    <div className='App'>
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
+        <div className='BrowseAnimals'>
+        <button id='filter-button' onClick={handleShowDialogue}>Filter</button>
         <section className="browser">
-          <BrowsingFilter onSubmit={handleFilterChange} />
+          <div id='filter'>
+            <BrowsingFilter onSubmit={handleFilterChange} />
+          </div>
           <div className='animal-grid'>
-          <AnimalBrowser animalList={animalList} />
+            <AnimalBrowser animalList={animalList} />
           </div>
         </section>
+        <FilterOverlay isOpen={showDialogue} onClose={handleShowDialogue} submit={handleFilterChange}/>
+      </div>
       </main>
       <Footer />
     </div>

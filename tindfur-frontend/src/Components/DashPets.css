@@ -27,9 +27,13 @@
     margin-top: 0;
 }
 
+.dash-solid-button p {
+    margin: 0;
+}
+
 .dash-outline-button {
-    width: 150px;
-    height: 200px;
+    width: 130px;
+    height: 175px;
     border: 3px solid var(--primary);
     margin: 2rem 1rem;
     border-radius: 7px;
@@ -49,8 +53,8 @@
 }
 
 .dash-solid-button {
-    width: 150px;
-    height: 200px;
+    width: 130px;
+    height: 160px;
     background-color: var(--primary);
     margin: 2rem 1rem;
     margin-right: 0;
@@ -64,12 +68,15 @@
     font-size: 18px;
     border: 3px solid var(--primary);
     gap: 15px;
+    font-weight: 600;
+    
 
 }
 
 .dash-buttons {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 
@@ -113,6 +120,7 @@
     .dash-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 0;
         align-items: center;
     }
 
@@ -142,8 +150,28 @@
 }
 
 .dash-outline-button:hover {
-    /* background-color:  #bee2ceb9; */
-    background-color: var(--primary);
-    color: white;
+    background-color:  #bee2ceb9;
+    color: var(--primary);
+    border: 3px solid #bee2ceb9;
+    /* background-color: var(--primary); */
+    /* color: white; */
+    
+}
+
+.dash-solid-button:hover {
+    background-color:  #9ed6b7cc;
+    color: var(--primary);
+    border: 3px solid #bee2cecc;
+    /* background-color: var(--primary); */
+    /* color: white; */
+    
+}
+
+.dash-solid-button:hover {
+    background: none;
+    color: var(--primary);
+    border: 3px solid var(--primary);
+    /* background-color: var(--primary); */
+    /* color: white; */
     
 }

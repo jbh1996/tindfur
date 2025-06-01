@@ -1,22 +1,52 @@
 .browser {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 2rem;
-  }
-  
-  
-  .animal-grid {
-    flex-grow: 1;
-    overflow-x: auto;
-  }
+    flex-wrap: wrap;
+}
 
-  @media (max-width: 760px) {
-    .browser {
-      flex-direction: column;
+.BrowseAnimals {
+    display: flex;
+    flex-direction: column;
+}
+
+#filter-button {
+    padding: 7px 10px;
+    width: 90px;
+    align-self: flex-end;
+    margin-bottom: 1rem;
+    margin-right: 2rem;
+    border: 2px solid black;
+    background: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#filter-button:hover {
+    color: rgb(78, 78, 78);
+    border: 2px solid rgb(78, 78, 78);
+}
+
+
+
+
+@media (max-width: 986px) {
+    #filter {
+        display: none;
     }
-  
-    .animal-grid {
-      width: 100%;
-    }}
+}
+
+@media (min-width: 986px) {
+    #filter-button {
+        display: none;
+    }
+}
+
+@media (max-width: 846px) {
+    .broswer {
+        flex-direction: column;
+    }
+}
+
+

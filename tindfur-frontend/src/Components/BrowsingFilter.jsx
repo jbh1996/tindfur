@@ -22,14 +22,14 @@ function BrowsingFilter({ onSubmit }) {
             setBreedOptions(data);
           } else {
             setBreedOptions([]);
-            
+
           }
         })
         .catch(err => {
           setBreedOptions([]);
           console.error('Unable to retrieve breed list', err);
         });
-      setBreed('');  
+      setBreed('');
     } else {
       setBreedOptions([]);
       setBreed('');
@@ -57,89 +57,89 @@ function BrowsingFilter({ onSubmit }) {
   };
 
   return (
-    <div className="filterCard">
-      <h1>Filter</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Species:</label>
-        <select value={animalType} onChange={(e) => setAnimalType(e.target.value)}>
-          <option value="">Any</option>
-          <option value="Dog">Dog</option>
-          <option value="Cat">Cat</option>
-          <option value="Other">Other</option>
-        </select>
+      <div className="filterCard">
+        <h1>Filter</h1>
+        <form onSubmit={handleSubmit}>
+          <label>Species:</label>
+          <select value={animalType} onChange={(e) => setAnimalType(e.target.value)}>
+            <option value="">Any</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Other">Other</option>
+          </select>
 
-        <label>Breed:</label>
-        <select
-          value={breed}
-          onChange={(e) => setBreed(e.target.value)}
-          disabled={!animalType}
-        >
-          <option value="">Select Breed</option>
-          {breedOptions.length === 0 ? (
-            <option disabled>No breeds available</option>
-          ) : (
-            breedOptions.map((b, idx) => (
-              <option key={idx} value={b}>
-              {b}
-            </option>
-          ))
-        )}
-        </select>
-
-
-        <label>Disposition:</label>
-        <select
-          value={dispositions[0] || ""}
-          onChange={(e) => {
-          const val = e.target.value;
-          setDispositions(val ? [val] : []);
-          }}
-        >
-        <option value="">None</option>
-        {[
-          "Good with Other Animals",
-          "Good with Kids",
-          "Must Be on Leash",
-          "Apartment OK",
-          "House Trained",
-          "Needs Fenced Yard"
-        ].map((disp) => (
-          <option key={disp} value={disp}>{disp}</option>
-        ))}
-      </select>
-
-        <label>Availability:</label>
-        <select
-          value={availability}
-          onChange={(e) => setAvailability(e.target.value)}
+          <label>Breed:</label>
+          <select
+            value={breed}
+            onChange={(e) => setBreed(e.target.value)}
+            disabled={!animalType}
           >
-          <option value="">Any</option>
-          <option value="Available">Available</option>
-          <option value="Not Available">Not Available</option>
-          <option value="Pending">Pending</option>
-          <option value="Adopted">Adopted</option>
-      </select>
-
-        <label>Profile Created On:</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          placeholder="Any date"
-        />
+            <option value="">Select Breed</option>
+            {breedOptions.length === 0 ? (
+              <option disabled>No breeds available</option>
+            ) : (
+              breedOptions.map((b, idx) => (
+                <option key={idx} value={b}>
+                  {b}
+                </option>
+              ))
+            )}
+          </select>
 
 
-        <label>Shelter Name:</label>
-        <input
-          type="text"
-          value={shelterName}
-          onChange={(e) => setShelterName(e.target.value)}
-          placeholder="Shelter Name"
-        />
+          <label>Disposition:</label>
+          <select
+            value={dispositions[0] || ""}
+            onChange={(e) => {
+              const val = e.target.value;
+              setDispositions(val ? [val] : []);
+            }}
+          >
+            <option value="">None</option>
+            {[
+              "Good with Other Animals",
+              "Good with Kids",
+              "Must Be on Leash",
+              "Apartment OK",
+              "House Trained",
+              "Needs Fenced Yard"
+            ].map((disp) => (
+              <option key={disp} value={disp}>{disp}</option>
+            ))}
+          </select>
 
-        <button type="submit">Search</button>
-      </form>
-    </div>
+          <label>Availability:</label>
+          <select
+            value={availability}
+            onChange={(e) => setAvailability(e.target.value)}
+          >
+            <option value="">Any</option>
+            <option value="Available">Available</option>
+            <option value="Not Available">Not Available</option>
+            <option value="Pending">Pending</option>
+            <option value="Adopted">Adopted</option>
+          </select>
+
+          <label>Profile Created On:</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            placeholder="Any date"
+          />
+
+
+          <label>Shelter Name:</label>
+          <input
+            type="text"
+            value={shelterName}
+            onChange={(e) => setShelterName(e.target.value)}
+            placeholder="Shelter Name"
+          />
+
+          <button type="submit">Search</button>
+        </form>
+      </div>
   );
 }
 

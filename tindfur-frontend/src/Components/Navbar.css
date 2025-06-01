@@ -17,7 +17,7 @@
     margin: 0;
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .Navbar ul.open {
@@ -45,7 +45,10 @@
 }
 
 .Navbar .login {
-    color: var(--primary);
+    background-color: var(--primary);
+    color: white;
+    padding: 0 25px;
+    border-radius: 5px;
 }
 
 .Navbar .active {
@@ -55,6 +58,13 @@
 .Navbar a:hover {
     color: var(--bright);
 }
+
+.Navbar .login:hover {
+    color: white;
+    background-color: #41855e;
+}
+
+
 
 .Navbar .site-title:hover {
     color: var(--primary);
@@ -79,7 +89,7 @@
     border-radius: 2px;
 }
 
-@media (max-width: 848px) {
+@media (max-width: 920px) {
     .Navbar .menu {
         display: flex;
     }

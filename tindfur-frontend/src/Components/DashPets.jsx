@@ -15,16 +15,16 @@ export default function DashPets() {
                     <p>Manage the animal profiles for your shelter or view potential adoptees</p>
                 </div>
                 <div className='dash-buttons'>
-                    <NavLink to="/view-users" className='dash-outline-button'>
+                    <NavLink to="/view-users" className='dash-solid-button'>
                         <FaUserFriends className='DashIcon' />
                         <p>View Users</p>
                     </NavLink>
-                    <NavLink to="/view-animals" className='dash-outline-button'>
+                    <NavLink to="/view-animals" className='dash-solid-button'>
                         <PiDog className='DashIcon' />
                         <p>My Animals</p>
                     </NavLink>
 
-                    <NavLink to="/create-animal" className='dash-outline-button'>
+                    <NavLink to="/create-animal" className='dash-solid-button'>
                         <IoIosAddCircleOutline className='DashIcon' />
                         <p>New Animal</p>
                     </NavLink>
