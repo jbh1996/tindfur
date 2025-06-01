@@ -17,26 +17,6 @@ function Login() {
   const [isShelter, setShelter] = useState(false)
   const navigate = useNavigate();
 
-  /*
-  if (token !== null) {
-    for (let i = 0; i < tokens.length; i++) {
-      if (token === tokens[i].token) {
-          setLoggedIn(true)
-
-      }
-}}
-  if (usertype !== null) {
-    if (usertype === "shelter") {
-        setShelter(true)
-    }
-}
-    */
-
-
-
-
-  // (PG) To test login with backend, please delete
-
   
   const loginAttempt = async (event) => {
     event.preventDefault();

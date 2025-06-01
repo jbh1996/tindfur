@@ -68,9 +68,14 @@ export default function BrowseMessagesShelter() {
           <h1 className='view-header'>Messages</h1>
         </div>
         <section className="browser">
-          {chatLogs.map((log) => (
+
+        {chatLogs.length === 0 ? (
+          
+          <p>No Messages to Display</p>) : (
+
+        chatLogs.map((log) => (
             <ChatLogCardUser chatLog={log} />
-          ))}
+          )))}        
         </section>
         </div>
       </main>
