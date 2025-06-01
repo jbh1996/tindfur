@@ -53,9 +53,13 @@ export default function BrowseMessagesUser() {
       <Header isLoggedIn={isLoggedIn} isShelter={isShelter} />
       <main>
         <section className="browser">
-        {chatLogs.map((log) => (
+        {chatLogs.length === 0 ? (
+          
+          <p>No Messages to Display</p>) : (
+
+        chatLogs.map((log) => (
             <ChatLogCardUser chatLog={log} />
-          ))}        
+          )))}        
         </section>
       </main>
       <Footer />
