@@ -71,6 +71,7 @@
     font-size: large;
     border: 2px solid var(--primary);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .accountCard button:hover {
